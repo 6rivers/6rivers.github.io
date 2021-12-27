@@ -5,11 +5,11 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:image" content="https://6rivers.github.io/images/home.jpg" />
+  <meta property="og:image" content="https://6rivers.github.io/images/home1.jpg" />
 
-  <title>  Review Articles | Ranganath S
+  <title>  What is the use of Virtual Environments in Python projects? | Ranganath S
 </title>
-  <link rel="canonical" href="https://6rivers.github.io/category/review.html">
+  <link rel="canonical" href="https://6rivers.github.io/what-is-the-use-of-virtual-environments-in-python-projects.html">
 
     <link rel="apple-touch-icon" href="https://6rivers.github.io/apple-touch-icon.png" sizes="180x180">
     <link rel="icon" type="image/png" href="https://6rivers.github.io/favicon-32x32.png" sizes="32x32">
@@ -26,7 +26,8 @@
   <link rel="alternate" type="application/atom+xml" title="Full Atom Feed"
         href="https://6rivers.github.io/feeds/all.atom.xml">
   <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
-        href="https://6rivers.github.io/feeds/review.atom.xml">
+        href="https://6rivers.github.io/feeds/python.atom.xml">  
+  <meta name="description" content="Virtual Environment is used to seperate out the versions of packages.">
 
 
 </head>
@@ -56,55 +57,44 @@
 
   <div class="main">
     <div class="container">
-      <i>  Review Articles
-</i>
-      <h3></h3>
+      <i></i>
+      <h3>  What is the use of Virtual Environments in Python projects?
+</h3>
       <hr>
-<article class="row teaser">
-  <header class="col-sm-4 text-muted">
-    <ul>
-      <li title="2021-10-13T01:20:00+05:30">
-        <i class="fas fa-clock"></i>
-        13 October 2021
-      </li>
-      <li>
-        <i class="fas fa-folder-open"></i>
-        <a href="https://6rivers.github.io/category/review.html">Review</a>
-      </li>
-    </ul>
-  </header>
-  <div class="col-sm-8">
-    <h4 class="title">
-      <a href="https://6rivers.github.io/a-trading-algo-is-as-good-as-the-person-that-wrote-it.html">A trading algo is as good as the person that wrote it</a>
-    </h4>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2021-10-13T01:20:00+05:30">
+          <i class="fas fa-clock"></i>
+          Wed 13 October 2021
+        </li>
+        <li class="list-inline-item">
+          <i class="fas fa-folder-open"></i>
+          <a href="https://6rivers.github.io/category/python.html">Python</a>
+        </li>
+      </ul>
+    </header>
     <div class="content">
-      Short version for index and feeds
+      <p><strong>Use of Virtual Environments in Python Projects:</strong></p>
+<ul>
+<li>Virtual Environment is used to seperate out the versions of packages for eg., Django or Flask. </li>
+<li>
+<p>In general, if we install Packages directly without Virtual Environment then they will be installed on global levels and if you have multiple Django projects where some old projects need older versions of Django and when you need a new project with newer version of Django package and if you install it without virtual env then your older projects would be affected since the older version of Django package will be replaced with newer version. Hence it is best practice to use Virtual Env for each project and have whatever packages needed for that particular project. </p>
+</li>
+<li>
+<p>venv is recommended for creating Virtual Environments from Python 3.5</p>
+</li>
+<li>Create a folder for the new project then cd to the folder and execute below to create new virtual env</li>
+<li><code>python -m venv env_name</code>  </li>
+<li>Now, 'env_name' will be created inside the project folder</li>
+<li><code>env_name\scripts\activate.bat</code>  to activate the virtual env</li>
+<li>to verify: Eg : <code>(venv) C:\Users\ranganath\Desktop\Coding\Blogsite&gt;</code></li>
+<li>Do not store any project scripts inside 'env_name' folder</li>
+<li><code>pip list</code> -- to get list of packages installed in the current venv</li>
+<li><code>pip freeze</code> -- to get list of packages in a format usable to copy for requirements.txt</li>
+</ul>
     </div>
-  </div>
-</article>
-<hr>
-<article class="row teaser">
-  <header class="col-sm-4 text-muted">
-    <ul>
-      <li title="2021-10-13T01:20:00+05:30">
-        <i class="fas fa-clock"></i>
-        13 October 2021
-      </li>
-      <li>
-        <i class="fas fa-folder-open"></i>
-        <a href="https://6rivers.github.io/category/review.html">Review</a>
-      </li>
-    </ul>
-  </header>
-  <div class="col-sm-8">
-    <h4 class="title">
-      <a href="https://6rivers.github.io/who-can-disrupt-new-age-online-brokers-or-even-exchanges.html">Who can disrupt new-age online brokers or even exchanges?</a>
-    </h4>
-    <div class="content">
-      Following is a review of my favorite mechanical keyboard.
-    </div>
-  </div>
-</article>
+  </article>
     </div>
   </div>
 
