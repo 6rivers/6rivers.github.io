@@ -75,24 +75,35 @@
       </ul>
     </header>
     <div class="content">
-      <p><strong>Use of Virtual Environments in Python Projects:</strong></p>
+      <h3>Use of Virtual Environments in Python Projects:</h3>
 <ul>
 <li>Virtual Environment is used to seperate out the versions of packages for eg., Django or Flask. </li>
-<li>
-<p>In general, if we install Packages directly without Virtual Environment then they will be installed on global levels and if you have multiple Django projects where some old projects need older versions of Django and when you need a new project with newer version of Django package and if you install it without virtual env then your older projects would be affected since the older version of Django package will be replaced with newer version. Hence it is best practice to use Virtual Env for each project and have whatever packages needed for that particular project. </p>
-</li>
-<li>
-<p>venv is recommended for creating Virtual Environments from Python 3.5</p>
-</li>
+<li>In general, if we install Packages directly without Virtual Environment then they will be installed on global levels</li>
+<li>If you have multiple Django projects where some older projects need previous versions of Django and when you need a new project with latest version of Django package and if you install it without virtual env then your older projects would be affected since the older version of Django package will be replaced with newer version after the upgrade. </li>
+<li>Hence it is best practice to use Virtual Env for each project and have whatever packages needed for that particular project inside the virtual environment. </li>
+<li>venv is recommended for creating Virtual Environments from Python 3.5</li>
 <li>Create a folder for the new project then cd to the folder and execute below to create new virtual env</li>
-<li><code>python -m venv env_name</code>  </li>
-<li>Now, 'env_name' will be created inside the project folder</li>
-<li><code>env_name\scripts\activate.bat</code>  to activate the virtual env</li>
-<li>to verify: Eg : <code>(venv) C:\Users\ranganath\Desktop\Coding\Blogsite&gt;</code></li>
-<li>Do not store any project scripts inside 'env_name' folder</li>
-<li><code>pip list</code> -- to get list of packages installed in the current venv</li>
-<li><code>pip freeze</code> -- to get list of packages in a format usable to copy for requirements.txt</li>
 </ul>
+<h4>Creating Virtual Env:</h4>
+<p>In Windows:
+  <code>python -m venv env_name</code>  </p>
+<p>In Linux:
+  <code>python3 -m venv env_name</code> (assuming you have python3 version in your machine)</p>
+<p>Now, 'env_name' will be created inside the project folder</p>
+<h4>To acitvate the Virtual Env:</h4>
+<p>In Windows:
+    <code>env_name\scripts\activate.bat</code></p>
+<p>In Linux:
+      <code>source env_name\bin\activate.bat</code></p>
+<p>After activation: 
+     <code>(venv) C:\Users\Name\Folder&gt;</code> </p>
+<p>Do not store any project scripts inside 'env_name' folder</p>
+<p><code>pip list</code> -- to get list of packages installed in the current venv</p>
+<p><code>pip freeze</code> -- to get list of packages in a format usable to copy for requirements.txt</p>
+<p>Below commands a requirements.txt file with all packages installed in the project
+    <code>pip freeze &gt; requirements.txt</code> </p>
+<p>To directly install all packages from requirements.txt use
+    <code>pip install -r requirements.txt</code></p>
     </div>
   </article>
     </div>
