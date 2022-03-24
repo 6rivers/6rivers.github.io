@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ranganath S - Ranganath S</title><link href="https://6rivers.github.io/" rel="alternate"></link><link href="https://6rivers.github.io/feeds/ranganath-s.atom.xml" rel="self"></link><id>https://6rivers.github.io/</id><updated>2021-10-13T01:20:00+05:30</updated><subtitle>Jottings on tech and life</subtitle><entry><title>What is the use of Virtual Environments in Python projects?</title><link href="https://6rivers.github.io/what-is-the-use-of-virtual-environments-in-python-projects.html" rel="alternate"></link><published>2021-10-13T01:20:00+05:30</published><updated>2021-10-13T01:20:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:6rivers.github.io,2021-10-13:/what-is-the-use-of-virtual-environments-in-python-projects.html</id><summary type="html">&lt;p&gt;Virtual Environment is used to seperate out the versions of packages.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Use of Virtual Environments in Python Projects:&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ranganath S - Ranganath S</title><link href="https://6rivers.github.io/" rel="alternate"></link><link href="https://6rivers.github.io/feeds/ranganath-s.atom.xml" rel="self"></link><id>https://6rivers.github.io/</id><updated>2021-10-13T01:20:00+05:30</updated><subtitle>Jottings on tech and life</subtitle><entry><title>Test Article</title><link href="https://6rivers.github.io/test-article.html" rel="alternate"></link><published>2021-10-13T01:20:00+05:30</published><updated>2021-10-13T01:20:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:6rivers.github.io,2021-10-13:/test-article.html</id><summary type="html">&lt;p&gt;Testing&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Use of Virtual Environments in Python Projects:&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;Virtual Environment is used to seperate out the versions of packages for eg., Django or Flask. &lt;/li&gt;
 &lt;li&gt;In general, if we install Packages directly without Virtual Environment then they will be installed on global levels&lt;/li&gt;
@@ -25,6 +25,34 @@
 &lt;p&gt;&lt;code&gt;pip list&lt;/code&gt; -- to get list of packages installed in the current venv&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;pip freeze&lt;/code&gt; -- to get list of packages in a format usable to copy for requirements.txt&lt;/p&gt;
 &lt;p&gt;Below commands a requirements.txt file with all packages installed in the project
+    &lt;code&gt;pip freeze &amp;gt; requirements.txt&lt;/code&gt; &lt;/p&gt;
+&lt;p&gt;To directly install all packages from requirements.txt use
+    &lt;code&gt;pip install -r requirements.txt&lt;/code&gt;&lt;/p&gt;</content><category term="Python"></category></entry><entry><title>What is the use of Virtual Environments in Python projects?</title><link href="https://6rivers.github.io/what-is-the-use-of-virtual-environments-in-python-projects.html" rel="alternate"></link><published>2021-10-13T01:20:00+05:30</published><updated>2021-10-13T01:20:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:6rivers.github.io,2021-10-13:/what-is-the-use-of-virtual-environments-in-python-projects.html</id><summary type="html">&lt;p&gt;Virtual Environment is used to seperate out the versions of packages.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Use of Virtual Environments in Python Projects:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Virtual Environment is used to seperate out the versions of packages for eg., Django or Flask. &lt;/li&gt;
+&lt;li&gt;In general, if we install Packages directly without Virtual Environment then they will be installed on global levels&lt;/li&gt;
+&lt;li&gt;If you have multiple Django projects where some older projects need previous versions of Django and when you need a new project with latest version of Django package and if you install it without virtual env then your older projects would be affected since the older version of Django package will be replaced with newer version after the upgrade. &lt;/li&gt;
+&lt;li&gt;Hence it is best practice to use Virtual Env for each project and have whatever packages needed for that particular project inside the virtual environment. &lt;/li&gt;
+&lt;li&gt;venv is recommended for creating Virtual Environments from Python 3.5&lt;/li&gt;
+&lt;li&gt;Create a folder for the new project then cd to the folder and execute below to create new virtual env&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Creating Virtual Env:&lt;/h4&gt;
+&lt;p&gt;In Windows:
+  &lt;code&gt;python -m venv env_name&lt;/code&gt;  &lt;/p&gt;
+&lt;p&gt;In Linux:
+  &lt;code&gt;python3 -m venv env_name&lt;/code&gt; (assuming you have python3 version in your machine)&lt;/p&gt;
+&lt;p&gt;Now, 'env_name' will be created inside the project folder&lt;/p&gt;
+&lt;h4&gt;To acitvate the Virtual Env:&lt;/h4&gt;
+&lt;p&gt;In Windows:
+    &lt;code&gt;env_name\scripts\activate.bat&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;In Linux:
+      &lt;code&gt;source env_name\bin\activate.bat&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;After activation: 
+     &lt;code&gt;(venv) C:\Users\Name\Folder&amp;gt;&lt;/code&gt; &lt;/p&gt;
+&lt;p&gt;Do not store any project scripts inside 'env_name' folder&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pip list&lt;/code&gt; -- to get list of packages installed in the current venv&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pip freeze&lt;/code&gt; -- to get list of packages in a format usable to copy for requirements.txt&lt;/p&gt;
+&lt;p&gt;Below commands creates a requirements.txt file with all packages installed in the project
     &lt;code&gt;pip freeze &amp;gt; requirements.txt&lt;/code&gt; &lt;/p&gt;
 &lt;p&gt;To directly install all packages from requirements.txt use
     &lt;code&gt;pip install -r requirements.txt&lt;/code&gt;&lt;/p&gt;</content><category term="Python"></category></entry></feed>
