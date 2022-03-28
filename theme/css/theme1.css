@@ -132,7 +132,7 @@ hr {
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .header,
   .footer {
     text-align: center;
