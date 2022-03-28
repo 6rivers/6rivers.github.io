@@ -135,6 +135,14 @@ hr {
     font-size: 8px;
     line-height: 10px;
   }
+  .mobile-avatar{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    grid-gap: 10px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -143,6 +151,15 @@ hr {
     text-align: center;
   }
 
+  .mobile-avatar{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    grid-gap: 10px;
+  }
+  
   .icons{
     margin: auto;
     text-align: center;
