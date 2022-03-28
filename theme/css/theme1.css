@@ -123,11 +123,12 @@ hr {
   background-color: palegreen;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 376px) {
   .header .title {
     font-size: 3rem;
   }
   .icons{
+    margin: auto;
     text-align: center;
   }
 }
@@ -139,6 +140,7 @@ hr {
   }
 
   .icons{
+    margin: auto;
     text-align: center;
   }
   .teaser header li {
