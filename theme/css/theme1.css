@@ -131,6 +131,10 @@ hr {
     margin: auto;
     text-align: center;
   }
+  .icon{
+    font-size: 18px;
+    line-height: 20px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -139,13 +143,8 @@ hr {
     text-align: center;
   }
 
-  .icons{
-    margin: auto;
-    text-align: center;
-  }
   .teaser header li {
     display: inline-block;
-    margin-left: 30px;
   }
 
   .teaser header li:not(:last-child) {
