@@ -127,6 +127,9 @@ hr {
   .header .title {
     font-size: 3rem;
   }
+  .icons{
+    text-align: center;
+  }
 }
 
 @media (max-width: 576px) {
@@ -140,6 +143,7 @@ hr {
   }
   .teaser header li {
     display: inline-block;
+    margin-left: 30px;
   }
 
   .teaser header li:not(:last-child) {
