@@ -135,6 +135,9 @@ hr {
     text-align: center;
   }
 
+  .icons{
+    text-align: center;
+  }
   .teaser header li {
     display: inline-block;
   }
