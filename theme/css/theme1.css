@@ -129,16 +129,16 @@ hr {
   }
   .icons{
     margin: auto;
+    padding: auto;
     text-align: center;
   }
   .icon{
+    margin: auto;
+    padding: auto;
     font-size: 8px;
     line-height: 10px;
   }
 
-  .logo {
-    mar
-  }
 }
 
 @media (max-width: 768px) {
@@ -149,10 +149,13 @@ hr {
 
   .icons{
     margin: auto;
+    padding: auto;
     text-align: center;
   }
 
   .icon{
+    margin: auto;
+    padding: auto;
     font-size: 8px;
     line-height: 10px;
   }
