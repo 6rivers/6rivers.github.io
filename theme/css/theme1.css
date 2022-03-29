@@ -135,9 +135,6 @@ hr {
     font-size: 8px;
     line-height: 10px;
   }
-  .logo {
-    margin-left: 8px;
-  }
 }
 
 @media (max-width: 768px) {
@@ -154,10 +151,6 @@ hr {
   .icon{
     font-size: 8px;
     line-height: 10px;
-  }
-
-  .logo {
-    margin-left: 8px;
   }
 
   .teaser header li {
