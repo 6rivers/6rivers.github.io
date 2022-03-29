@@ -135,6 +135,7 @@ hr {
   .icon{
     margin: auto;
     padding: auto;
+    color: blue;
     font-size: 8px;
     line-height: 10px;
   }
@@ -155,8 +156,8 @@ hr {
 
   .icon{
     margin: auto;
-    color: blue;
     padding: auto;
+    color: blue;
     font-size: 8px;
     line-height: 10px;
   }
