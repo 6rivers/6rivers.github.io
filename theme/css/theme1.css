@@ -129,7 +129,6 @@ hr {
   }
   .icons{
     margin: auto;
-    padding: auto;
     text-align: center;
   }
   
@@ -144,11 +143,10 @@ hr {
 
   .icons{
     margin: auto;
-    padding: auto;
     text-align: center;
   }
 
-  
+
 
   .teaser header li {
     display: inline-block;
