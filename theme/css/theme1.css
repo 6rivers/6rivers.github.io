@@ -132,13 +132,7 @@ hr {
     padding: auto;
     text-align: center;
   }
-  .icon{
-    margin: auto;
-    padding: auto;
-    color: blue;
-    font-size: 8px;
-    line-height: 10px;
-  }
+  
 
 }
 
@@ -154,13 +148,7 @@ hr {
     text-align: center;
   }
 
-  .icon{
-    margin: auto;
-    padding: auto;
-    color: blue;
-    font-size: 8px;
-    line-height: 10px;
-  }
+  
 
   .teaser header li {
     display: inline-block;
