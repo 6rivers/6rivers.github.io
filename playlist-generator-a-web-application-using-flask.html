@@ -6,33 +6,33 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://6rivers.github.io/playlist-generator-a-web-application-using-flask.html" />
+<meta property="og:url" content="https://ranganaths.com/playlist-generator-a-web-application-using-flask.html" />
 <meta property="og:title" content="Playlist Generator - a web application using Flask" />
 <meta property="og:description" content="This article is about my recent side project, building a web application using Flask(a micro web framework written in Python), PostgreSQL for database, HTML/CSS for frontend, Heroku for..." />
-<meta property="og:image" content="https://6rivers.github.io/images/opengraph-default.jpg" />
+<meta property="og:image" content="https://ranganaths.com/images/python.jpeg" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:image" content="https://6rivers.github.io/images/opengraph-default.jpg" />
+<meta name="twitter:image" content="https://ranganaths.com/images/python.jpeg" />
 
   <title>  Playlist Generator - a web application using Flask | Ranganath S
 </title>
-  <link rel="canonical" href="https://6rivers.github.io/playlist-generator-a-web-application-using-flask.html">
+  <link rel="canonical" href="https://ranganaths.com/playlist-generator-a-web-application-using-flask.html">
 
-    <link rel="apple-touch-icon" href="https://6rivers.github.io/apple-touch-icon.png" sizes="180x180">
-    <link rel="icon" type="image/png" href="https://6rivers.github.io/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="https://6rivers.github.io/favicon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="https://6rivers.github.io/manifest.json">
+    <link rel="apple-touch-icon" href="https://ranganaths.com/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="https://ranganaths.com/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://ranganaths.com/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://ranganaths.com/manifest.json">
     <meta name="theme-color" content="#333333">
 
-  <link rel="stylesheet" href="https://6rivers.github.io/theme/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://6rivers.github.io/theme/css/fontawesome.min.css">
-  <link rel="stylesheet" href="https://6rivers.github.io/theme/css/pygments/default.min.css">
-  <link rel="stylesheet" href="https://6rivers.github.io/theme/css/theme.css">
-  <link rel="stylesheet" href="https://6rivers.github.io/theme/css/theme1.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/fontawesome.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/theme.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/theme1.css">
 
   <link rel="alternate" type="application/atom+xml" title="Full Atom Feed"
-        href="https://6rivers.github.io/feeds/all.atom.xml">
+        href="https://ranganaths.com/feeds/all.atom.xml">
   <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
-        href="https://6rivers.github.io/feeds/python.atom.xml">  
+        href="https://ranganaths.com/feeds/python.atom.xml">  
   <meta name="description" content="Building a web application using Flask.">
 
 
@@ -43,13 +43,13 @@
     <div class="container">
 <div class="row gx-5">
     <div class="col-xs-2">
-      <a href="https://6rivers.github.io/">
-        <img class="img-fluid rounded-circle" src=https://6rivers.github.io/images/avatar.png width=80 height=50 alt="Ranganath S">
+      <a href="https://ranganaths.com/">
+        <img class="img-fluid rounded-circle" src=https://ranganaths.com/images/avatar.png width=80 height=50 alt="Ranganath S">
       </a>
     </div>
     <div class="col-xs-6 ml-3 p-1">
-      <a href="https://6rivers.github.io/">
-        <img class="img-fluid" src=https://6rivers.github.io/images/logo.svg width=200 height=160 alt="Ranganath S">
+      <a href="https://ranganaths.com/">
+        <img class="img-fluid" src=https://ranganaths.com/images/logo.svg width=200 height=160 alt="Ranganath S">
       </a>
       <p class="text-muted">Jottings on tech and life</p>
     </div>
@@ -76,7 +76,7 @@
         </li>
         <li class="list-inline-item">
           <i class="fas fa-folder-open"></i>
-          <a href="https://6rivers.github.io/category/python.html">Python</a>
+          <a href="https://ranganaths.com/category/python.html">Python</a>
         </li>
       </ul>
     </header>
@@ -96,7 +96,7 @@
 <li>We usually like different playlists from different providers, e.g., I like "Weekly Top 20: English" from Wynk and also LastFM's "Top Tracks" playlist. But having these playlists in a single place(Spotify) is very convenient</li>
 <li>Using this application, users can select any listed playlist from available providers like LastFM, BillBoard, etc., and can directly create those playlists in their Spotify account with few clicks.</li>
 </ul>
-<p><img alt="playlists" src="https://6rivers.github.io/images/playlists.png"></p>
+<p><img alt="playlists" src="https://ranganaths.com/images/playlists.png"></p>
 <h5>This article documents how I went about building this feature in Flask:</h5>
 <ul>
 <li>I have used <a href="https://developer.spotify.com/">Spotify's Web API</a> to handle authorization. Spotify provides good documentation on authorization, different endpoints to access the User's data, and how to send requests to Spotify API on the user's behalf to create playlists and add items to playlists.</li>
@@ -249,8 +249,8 @@
     <div class="container">
 <div class="row">
   <ul class="col-sm-6 list-inline">
-    <li class="list-inline-item"><a href="https://6rivers.github.io/archives.html">Archives</a></li>
-    <li class="list-inline-item"><a href="https://6rivers.github.io/categories.html">Categories</a></li>
+    <li class="list-inline-item"><a href="https://ranganaths.com/archives.html">Archives</a></li>
+    <li class="list-inline-item"><a href="https://ranganaths.com/categories.html">Categories</a></li>
   </ul>
   <p class="col-sm-6 text-xs-right text-muted small">
     Powered by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
