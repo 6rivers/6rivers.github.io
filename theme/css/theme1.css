@@ -22,6 +22,10 @@ hr {
   max-width: 960px;
 }
 
+img {
+  width:100%;
+}
+
 .header,
 .footer {
   padding: 1.5rem 0 0.25rem;
