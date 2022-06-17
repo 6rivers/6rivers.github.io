@@ -6,16 +6,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://6rivers.github.io/playlist-generator-web-application-using-flask.html" />
-<meta property="og:title" content="Playlist Generator Web Application using Flask?" />
+<meta property="og:url" content="https://6rivers.github.io/playlist-generator-a-web-application-using-flask.html" />
+<meta property="og:title" content="Playlist Generator - a web application using Flask" />
 <meta property="og:description" content="This article is about my recent side project, building a web application using Flask(a micro web framework written in Python), PostgreSQL for database, HTML/CSS for frontend, Heroku for..." />
 <meta property="og:image" content="https://6rivers.github.io/images/opengraph-default.jpg" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:image" content="https://6rivers.github.io/images/opengraph-default.jpg" />
 
-  <title>  Playlist Generator Web Application using Flask? | Ranganath S
+  <title>  Playlist Generator - a web application using Flask | Ranganath S
 </title>
-  <link rel="canonical" href="https://6rivers.github.io/playlist-generator-web-application-using-flask.html">
+  <link rel="canonical" href="https://6rivers.github.io/playlist-generator-a-web-application-using-flask.html">
 
     <link rel="apple-touch-icon" href="https://6rivers.github.io/apple-touch-icon.png" sizes="180x180">
     <link rel="icon" type="image/png" href="https://6rivers.github.io/favicon-32x32.png" sizes="32x32">
@@ -64,7 +64,7 @@
   <div class="main">
     <div class="container">
       <i></i>
-      <h3>  Playlist Generator Web Application using Flask?
+      <h3>  Playlist Generator - a web application using Flask
 </h3>
       <hr>
   <article class="article">
@@ -90,55 +90,56 @@
 </ul>
 </li>
 </ul>
+<p><strong>Note: This project is just to demonstrate coding patterns and NOT for commercial purposes.</strong></p>
 <h4>What/Why this application?</h4>
 <ul>
 <li>We usually like different playlists from different providers, e.g., I like "Weekly Top 20: English" from Wynk and also LastFM's "Top Tracks" playlist. But having these playlists in a single place(Spotify) is very convenient</li>
 <li>Using this application, users can select any listed playlist from available providers like LastFM, BillBoard, etc., and can directly create those playlists in their Spotify account with few clicks.</li>
 </ul>
 <p><img alt="playlists" src="https://6rivers.github.io/images/playlists.png"></p>
-<p><strong>This project is just to demonstrate coding patterns and NOT for commercial purposes.</strong></p>
 <h5>This article documents how I went about building this feature in Flask:</h5>
 <ul>
 <li>I have used <a href="https://developer.spotify.com/">Spotify's Web API</a> to handle authorization. Spotify provides good documentation on authorization, different endpoints to access the User's data, and how to send requests to Spotify API on the user's behalf to create playlists and add items to playlists.</li>
 </ul>
-<p>###### Authorization: 
- ```python </p>
-<p>base_url = 'https://accounts.spotify.com'</p>
-<p>@app.route('/authorize')
-def authorize():
-    auth_url = f'{base_url}/authorize?client_id={client_id}&amp;response_type=code&amp;redirect_uri={redirect_uri}&amp;scope={scope}'</p>
-<div class="highlight"><pre><span></span><code><span class="k">return</span> <span class="nv">redirect</span><span class="ss">(</span><span class="nv">auth_url</span><span class="ss">)</span>
+<h6>Authorization:</h6>
+<div class="highlight"><pre><span></span><code><span class="n">base_url</span> <span class="o">=</span> <span class="s1">&#39;https://accounts.spotify.com&#39;</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/authorize&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">authorize</span><span class="p">():</span>
+    <span class="n">auth_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s1">/authorize?client_id=</span><span class="si">{</span><span class="n">client_id</span><span class="si">}</span><span class="s1">&amp;response_type=code&amp;redirect_uri=</span><span class="si">{</span><span class="n">redirect_uri</span><span class="si">}</span><span class="s1">&amp;scope=</span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s1">&#39;</span>
+
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">auth_url</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="o">-</span><span class="w"> </span><span class="n">Here</span><span class="w"> </span><span class="n">Scopes</span><span class="w"> </span><span class="n">provide</span><span class="w"> </span><span class="n">Spotify</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">third</span><span class="o">-</span><span class="n">party</span><span class="w"> </span><span class="n">apps</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">confidence</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">information</span><span class="w"> </span><span class="n">they</span><span class="w"> </span><span class="nf">choose</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">share</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">shared</span><span class="p">,</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">nothing</span><span class="w"> </span><span class="n">more</span><span class="p">.</span><span class="w"> </span><span class="k">When</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">attempts</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">playlist</span><span class="p">,</span><span class="w"> </span><span class="n">they</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">redirected</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nf">log</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">Spotify</span><span class="p">.</span><span class="w"> </span><span class="n">Once</span><span class="w"> </span><span class="n">they</span><span class="w"> </span><span class="nf">log</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">provide</span><span class="w"> </span><span class="k">authorization</span><span class="p">,</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">Spotify</span><span class="w"> </span><span class="n">redirects</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">callback</span><span class="w"> </span><span class="n">URL</span><span class="p">,</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">redirect</span><span class="w"> </span><span class="n">URL</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">our</span><span class="w"> </span><span class="n">Spotify</span><span class="w"> </span><span class="n">developer</span><span class="w"> </span><span class="n">account</span><span class="p">.</span><span class="w"> </span>
+<ul>
+<li>Here Scopes provide Spotify users using third-party apps the confidence that only the information they choose to share will be shared, and nothing more. When a user attempts to create a playlist, they will be redirected to log in to Spotify. Once they log in and provide authorization, then Spotify redirects to the callback URL, which should match the redirect URL in our Spotify developer account. </li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/callback&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">callback</span><span class="p">():</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)</span>
 
-<span class="err">```</span><span class="n">python</span><span class="w"></span>
-<span class="nv">@app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/callback&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="n">def</span><span class="w"> </span><span class="n">callback</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
-<span class="w">    </span><span class="n">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="n">args</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)</span><span class="w"></span>
+    <span class="n">token_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/api/token&quot;</span>
 
-<span class="w">    </span><span class="n">token_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;{base_url}/api/token&quot;</span><span class="w"></span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Basic </span><span class="si">{</span><span class="n">client_creds_b64</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/x-www-form-urlencoded&#39;</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="n">headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">        </span><span class="s1">&#39;Authorization&#39;</span><span class="err">:</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;Basic {client_creds_b64.decode()}&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s1">&#39;Content-Type&#39;</span><span class="err">:</span><span class="w"> </span><span class="s1">&#39;application/x-www-form-urlencoded&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="err">}</span><span class="w"></span>
+    <span class="n">body</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;grant_type&#39;</span><span class="p">:</span> <span class="s1">&#39;authorization_code&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">code</span><span class="p">),</span>
+        <span class="s1">&#39;redirect_uri&#39;</span><span class="p">:</span> <span class="n">redirect_uri</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="n">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">        </span><span class="s1">&#39;grant_type&#39;</span><span class="err">:</span><span class="w"> </span><span class="s1">&#39;authorization_code&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s1">&#39;code&#39;</span><span class="err">:</span><span class="w"> </span><span class="nf">str</span><span class="p">(</span><span class="n">code</span><span class="p">),</span><span class="w"></span>
-<span class="w">        </span><span class="s1">&#39;redirect_uri&#39;</span><span class="err">:</span><span class="w"> </span><span class="n">redirect_uri</span><span class="w"></span>
-<span class="w">    </span><span class="err">}</span><span class="w"></span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">token_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">body</span><span class="p">)</span>
+    <span class="n">json_response</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="n">session</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json_response</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span>
+    <span class="n">session</span><span class="p">[</span><span class="s1">&#39;refresh_token&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json_response</span><span class="p">[</span><span class="s1">&#39;refresh_token&#39;</span><span class="p">]</span>
+    <span class="c1"># ..</span>
+    <span class="c1"># ..</span>
+    <span class="c1"># ..</span>
 
-<span class="w">    </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">token_url</span><span class="p">,</span><span class="w"> </span><span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span><span class="w"> </span><span class="k">data</span><span class="o">=</span><span class="n">body</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">json_response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="n">json</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="k">session</span><span class="o">[</span><span class="n">&#39;access_token&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json_response</span><span class="o">[</span><span class="n">&#39;access_token&#39;</span><span class="o">]</span><span class="w"></span>
-<span class="w">    </span><span class="k">session</span><span class="o">[</span><span class="n">&#39;refresh_token&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json_response</span><span class="o">[</span><span class="n">&#39;refresh_token&#39;</span><span class="o">]</span><span class="w"></span>
-<span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="p">..</span><span class="w"></span>
-<span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="p">..</span><span class="w"></span>
-<span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="p">..</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;play_list&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="k">session</span><span class="o">[</span><span class="n">&#39;prev_url&#39;</span><span class="o">]</span><span class="p">))</span><span class="w"></span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;play_list&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;prev_url&#39;</span><span class="p">]))</span>
 </code></pre></div>
 
 <ul>
@@ -232,12 +233,12 @@ def authorize():
         <span class="n">songs_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">({</span><span class="s1">&#39;song&#39;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span> <span class="s1">&#39;artist&#39;</span><span class="p">:</span> <span class="n">artist</span><span class="p">}))</span>
 </code></pre></div>
 
-<p>*Please remember that Web scraping consumes server resources for the host website. If we just scrape one page once, it would be ok, but if our code scrapes 1000s of pages, then it will get expensive for the website owner. So please avoid that. *</p>
+<p><em>Remember that Web scraping is a kind of grey area, so check with the website's terms if you are using it for commercial purposes also web scraping consumes server resources for the host website. If we just scrape one page once, it would be ok, but if our code scrapes 1000s of pages, then it will get expensive for the website owner. So please avoid that.</em></p>
 <h6>Deployment:</h6>
 <ul>
 <li>I have chosen Heroku, a popular cloud hosting platform, which is very friendly for python applications. It has a free service tier that allows us to deploy our application without spending any money. </li>
 <li>I have referenced <a href="https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xviii-deployment-on-heroku">Miguel's Post</a> for this deployment.</li>
-<li>For us to open this application for a broader userbase we need to submit a quota extension request in the Spotify developer account. I prefer not to use that since this is a hobby project.  </li>
+<li>For us to open this application for a broader userbase we need to submit a quota extension request in the Spotify developer account. I prefer not to use that since this is a hobby project.</li>
 </ul>
     </div>
   </article>
