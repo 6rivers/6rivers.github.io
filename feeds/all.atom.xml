@@ -186,9 +186,9 @@
 &lt;p&gt;Now, 'env_name' will be created inside the project folder&lt;/p&gt;
 &lt;h4&gt;To acitvate the Virtual Env:&lt;/h4&gt;
 &lt;p&gt;In Windows:
-    &lt;code&gt;env_name\scripts\activate.bat&lt;/code&gt;&lt;/p&gt;
+    &lt;code&gt;env_name\scripts\activate&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;In Linux:
-      &lt;code&gt;source env_name\bin\activate.bat&lt;/code&gt;&lt;/p&gt;
+      &lt;code&gt;source env_name/bin/activate&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;After activation: 
      &lt;code&gt;(venv) C:\Users\Name\Folder&amp;gt;&lt;/code&gt; &lt;/p&gt;
 &lt;p&gt;Do not store any project scripts inside 'env_name' folder&lt;/p&gt;
