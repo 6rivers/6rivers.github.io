@@ -130,7 +130,7 @@
 
 &lt;h6&gt;Getting playlists from different providers:&lt;/h6&gt;
 &lt;ul&gt;
-&lt;li&gt;Till now I have discussed Spotify Authorization, and playlist creation, but how did I get all these playlist data from different providers like LastFM, billboard, etc., into my database?. For this, I have used the 'Web Scraping' technique. This is used when you need a large amount of information from a website but it doesn't have any API to access that data. Most of this data is unstructured data in an HTML format, and we need to process it and save it in our database. For this, I have chosen the 'Beautiful Soup' Library in Python due to its simplicity.&lt;/li&gt;
+&lt;li&gt;Till now I have discussed Spotify Authorization, and playlist creation, but how did I get all these playlist data from different providers like LastFM, billboard, etc., into my database?. For this, I have used the 'Web Scraping' technique. This is used when you need a large amount of information from a website but it doesn't have any API to access that data. Most of this data is unstructured data in the HTML format, and we need to process it and save it in our database. For this, I have chosen the 'Beautiful Soup' Library in Python due to its simplicity.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Below is the sample code for web scraping: &lt;/p&gt;
 &lt;p&gt;&lt;code&gt;pip install beautifulsoup4&lt;/code&gt;&lt;/p&gt;

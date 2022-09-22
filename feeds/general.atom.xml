@@ -9,6 +9,6 @@
 &lt;p&gt;&lt;img alt="image2" src="https://ranganaths.com/images/20220817133338.png"&gt;&lt;/p&gt;
 &lt;p&gt;Now, you have a new bot, which Telegram users can find and use  it. &lt;/p&gt;
 &lt;p&gt;When a user send &lt;code&gt;/start&lt;/code&gt; to your bot, you will have new updates for this bot at &lt;code&gt;https://api.telegram.org/bot{your_bot_token}/getUpdates&lt;/code&gt; (replace {your_bot_token} with your token you got in the above step). You can use any browser to see the results.&lt;/p&gt;
-&lt;p&gt;To make the results look good, you can use&lt;a href="https://chrome.google.com/webstore/detail/json-formatter/mhimpmpmffogbmmkmajibklelopddmjf"&gt;JSON Formatter&lt;/a&gt; extension if your using chrome browser. You will get the information like the user's name, username, chat_id and the text the user has sent to you.&lt;/p&gt;
+&lt;p&gt;To make the results look good, you can use&lt;a href="https://chrome.google.com/webstore/detail/json-formatter/mhimpmpmffogbmmkmajibklelopddmjf"&gt;JSON Formatter&lt;/a&gt; extension if you are using chrome browser. You will get the information like the user's name, username, chat_id and the text the user has sent to you.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="image3" src="https://ranganaths.com/images/20220817140345.png"&gt;&lt;/p&gt;
 &lt;p&gt;You can integrate this within your application like using the chat_id to send alerts or custom messages to the user.&lt;/p&gt;</content><category term="General"></category></entry></feed>

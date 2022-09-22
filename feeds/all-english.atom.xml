@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ranganath S</title><link href="https://ranganaths.com/" rel="alternate"></link><link href="https://ranganaths.com/feeds/all-english.atom.xml" rel="self"></link><id>https://ranganaths.com/</id><updated>2022-08-22T00:00:00+05:30</updated><subtitle>Jottings on tech and life</subtitle><entry><title>How to create a Telegram bot</title><link href="https://ranganaths.com/how-to-create-a-telegram-bot.html" rel="alternate"></link><published>2022-08-22T00:00:00+05:30</published><updated>2022-08-22T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-08-22:/how-to-create-a-telegram-bot.html</id><summary type="html">&lt;p&gt;Create a Telegram bot to integrate within any application&lt;/p&gt;</summary><content type="html">&lt;p&gt;Telegram is a great platform to send your application alerts to your users. To create a telegram bot for yourself, you can follow below steps.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ranganath S</title><link href="https://ranganaths.com/" rel="alternate"></link><link href="https://ranganaths.com/feeds/all-english.atom.xml" rel="self"></link><id>https://ranganaths.com/</id><updated>2022-08-25T00:00:00+05:30</updated><subtitle>Jottings on tech and life</subtitle><entry><title>Installing Ubuntu on Windows 10</title><link href="https://ranganaths.com/installing-ubuntu-on-windows-10.html" rel="alternate"></link><published>2022-08-25T00:00:00+05:30</published><updated>2022-08-25T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-08-25:/installing-ubuntu-on-windows-10.html</id><summary type="html">&lt;p&gt;How to run a Linux environment on windows to run Linux commands&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Intro:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Sometimes we may want to run a Linux environment on windows to run Linux commands, we can do this by creating virtual machine on windows system but it would take more resources(CPU, Memory and storage)&lt;/li&gt;
+&lt;li&gt;But there is an another option called WSL aka Windows Subsystem for Linux which would require less resources than a full Virtual Machine.&lt;/li&gt;
+&lt;li&gt;WSL also allows you to run Linux command-line tools and apps alongside your Windows command-line also you can access your Windows files from within Linux. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;how to install Linux system on Windows 10 using WSL:&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Search for "Turn Windows features On or Off" in windows search
+&lt;img alt="turn_on_feature" src="https://ranganaths.com/images/turn_windows_features.png"&gt;&lt;/li&gt;
+&lt;li&gt;It will open a window as below, scroll down and select 'Windows subsystems for Linux' and click on OK.
+&lt;img alt="features_window" src="https://ranganaths.com/images/windows_feature_window.png"&gt;&lt;/li&gt;
+&lt;li&gt;Once you click on OK, it will apply required changes and asks for your system restart. 
+&lt;img alt="restart" src="https://ranganaths.com/images/windows_feature_restart.png"&gt;&lt;/li&gt;
+&lt;li&gt;After the restart, we can install our preferred Linux Distributions using "Microsoft Store" in your system, search for 'Ubuntu' or 'Linux'.
+&lt;img alt="ms_store" src="https://ranganaths.com/images/microsoft_store_ubuntu.png"&gt;&lt;/li&gt;
+&lt;li&gt;Here, I am trying to install Ubuntu(Linux distribution)&lt;/li&gt;
+&lt;li&gt;Once installed, open the app, it will take few moments to finish the installation and will launch a Ubuntu Terminal.&lt;/li&gt;
+&lt;li&gt;Inside the terminal, you will be asked to enter Unix username and password, which is different from your windows credentials, so you can give new credentials here.&lt;/li&gt;
+&lt;li&gt;Finally, we can run Linux commands in the Ubuntu terminal&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ls -al&lt;/code&gt;, will list the files and directories in the current directory&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;How to navigate through Windows drives,&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;enter below commands sequentially&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;ls /mnt/&lt;/code&gt; &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cd /mnt/c&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ls -al&lt;/code&gt;, &lt;code&gt;cd Users/your_desktop_path/&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img alt="commands" src="https://ranganaths.com/images/ubuntu_terminal.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Simple Linux Commands :&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;touch notes.txt&lt;/code&gt; -- to create notes.txt text file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nano notes.txt&lt;/code&gt;  -- opens the text file using default and simple terminal-based text editor&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cat notes.txt&lt;/code&gt; --displays text in the file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pwd&lt;/code&gt; -- path of the current working directory (folder)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mkdir Music&lt;/code&gt; -- creates a new 'Music' folder &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;you can find and learn more about Linux command line &lt;a href="https://ubuntu.com/tutorials/command-line-for-beginners#1-overview"&gt;here&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;Also, you can open bash terminal in windows command prompt window by entering, &lt;code&gt;bash&lt;/code&gt; -- and run Linux commands    &lt;/p&gt;</content><category term="Linux"></category></entry><entry><title>How to create a Telegram bot</title><link href="https://ranganaths.com/how-to-create-a-telegram-bot.html" rel="alternate"></link><published>2022-08-22T00:00:00+05:30</published><updated>2022-08-22T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-08-22:/how-to-create-a-telegram-bot.html</id><summary type="html">&lt;p&gt;Create a Telegram bot to integrate within any application&lt;/p&gt;</summary><content type="html">&lt;p&gt;Telegram is a great platform to send your application alerts to your users. To create a telegram bot for yourself, you can follow below steps.&lt;/p&gt;
 &lt;p&gt;Open Telegram app in your mobile or desktop and search for "BotFather", or you may use this &lt;a href="https://telegram.me/botfather"&gt;link&lt;/a&gt; for that. And enter &lt;code&gt;/start&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="image0" src="https://ranganaths.com/images/20220817132237.png"&gt;&lt;/p&gt;
 &lt;p&gt;Then you would be presented with number of options to try. But to create a new bot enter or click on &lt;code&gt;/newbot&lt;/code&gt;&lt;/p&gt;
@@ -9,7 +52,7 @@
 &lt;p&gt;&lt;img alt="image2" src="https://ranganaths.com/images/20220817133338.png"&gt;&lt;/p&gt;
 &lt;p&gt;Now, you have a new bot, which Telegram users can find and use  it. &lt;/p&gt;
 &lt;p&gt;When a user send &lt;code&gt;/start&lt;/code&gt; to your bot, you will have new updates for this bot at &lt;code&gt;https://api.telegram.org/bot{your_bot_token}/getUpdates&lt;/code&gt; (replace {your_bot_token} with your token you got in the above step). You can use any browser to see the results.&lt;/p&gt;
-&lt;p&gt;To make the results look good, you can use&lt;a href="https://chrome.google.com/webstore/detail/json-formatter/mhimpmpmffogbmmkmajibklelopddmjf"&gt;JSON Formatter&lt;/a&gt; extension if your using chrome browser. You will get the information like the user's name, username, chat_id and the text the user has sent to you.&lt;/p&gt;
+&lt;p&gt;To make the results look good, you can use&lt;a href="https://chrome.google.com/webstore/detail/json-formatter/mhimpmpmffogbmmkmajibklelopddmjf"&gt;JSON Formatter&lt;/a&gt; extension if you are using chrome browser. You will get the information like the user's name, username, chat_id and the text the user has sent to you.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="image3" src="https://ranganaths.com/images/20220817140345.png"&gt;&lt;/p&gt;
 &lt;p&gt;You can integrate this within your application like using the chat_id to send alerts or custom messages to the user.&lt;/p&gt;</content><category term="General"></category></entry><entry><title>Playlist Generator - a web application using Flask</title><link href="https://ranganaths.com/playlist-generator-a-web-application-using-flask.html" rel="alternate"></link><published>2022-05-30T00:00:00+05:30</published><updated>2022-05-30T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-05-30:/playlist-generator-a-web-application-using-flask.html</id><summary type="html">&lt;p&gt;Building a web application using Flask&lt;/p&gt;</summary><content type="html">&lt;ul&gt;
 &lt;li&gt;This article is about my recent side project, building a web application using &lt;ul&gt;
@@ -142,7 +185,7 @@
 
 &lt;h6&gt;Getting playlists from different providers:&lt;/h6&gt;
 &lt;ul&gt;
-&lt;li&gt;Till now I have discussed Spotify Authorization, and playlist creation, but how did I get all these playlist data from different providers like LastFM, billboard, etc., into my database?. For this, I have used the 'Web Scraping' technique. This is used when you need a large amount of information from a website but it doesn't have any API to access that data. Most of this data is unstructured data in an HTML format, and we need to process it and save it in our database. For this, I have chosen the 'Beautiful Soup' Library in Python due to its simplicity.&lt;/li&gt;
+&lt;li&gt;Till now I have discussed Spotify Authorization, and playlist creation, but how did I get all these playlist data from different providers like LastFM, billboard, etc., into my database?. For this, I have used the 'Web Scraping' technique. This is used when you need a large amount of information from a website but it doesn't have any API to access that data. Most of this data is unstructured data in the HTML format, and we need to process it and save it in our database. For this, I have chosen the 'Beautiful Soup' Library in Python due to its simplicity.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Below is the sample code for web scraping: &lt;/p&gt;
 &lt;p&gt;&lt;code&gt;pip install beautifulsoup4&lt;/code&gt;&lt;/p&gt;
