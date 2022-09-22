@@ -7,19 +7,37 @@
 &lt;/ul&gt;
 &lt;h3&gt;how to install Linux system on Windows 10 using WSL:&lt;/h3&gt;
 &lt;ol&gt;
-&lt;li&gt;Search for "Turn Windows features On or Off" in windows search
-&lt;img alt="turn_on_feature" src="https://ranganaths.com/images/turn_windows_features.png"&gt;&lt;/li&gt;
-&lt;li&gt;It will open a window as below, scroll down and select 'Windows subsystems for Linux' and click on OK.
-&lt;img alt="features_window" src="https://ranganaths.com/images/windows_feature_window.png"&gt;&lt;/li&gt;
-&lt;li&gt;Once you click on OK, it will apply required changes and asks for your system restart. 
-&lt;img alt="restart" src="https://ranganaths.com/images/windows_feature_restart.png"&gt;&lt;/li&gt;
-&lt;li&gt;After the restart, we can install our preferred Linux Distributions using "Microsoft Store" in your system, search for 'Ubuntu' or 'Linux'.
-&lt;img alt="ms_store" src="https://ranganaths.com/images/microsoft_store_ubuntu.png"&gt;&lt;/li&gt;
-&lt;li&gt;Here, I am trying to install Ubuntu(Linux distribution)&lt;/li&gt;
-&lt;li&gt;Once installed, open the app, it will take few moments to finish the installation and will launch a Ubuntu Terminal.&lt;/li&gt;
-&lt;li&gt;Inside the terminal, you will be asked to enter Unix username and password, which is different from your windows credentials, so you can give new credentials here.&lt;/li&gt;
-&lt;li&gt;Finally, we can run Linux commands in the Ubuntu terminal&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;ls -al&lt;/code&gt;, will list the files and directories in the current directory&lt;/li&gt;
+&lt;li&gt;Search for "Turn Windows features On or Off" in windows search&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img alt="turn_on_feature" src="https://ranganaths.com/images/turn_windows_features.png"&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;It will open a window as below, scroll down and select 'Windows subsystems for Linux' and click on OK.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img alt="features_window" src="https://ranganaths.com/images/windows_feature_window.png"&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Once you click on OK, it will apply required changes and asks for your system restart.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img alt="restart" src="https://ranganaths.com/images/windows_feature_restart.png"&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;After the restart, we can install our preferred Linux Distributions using "Microsoft Store" in your system, search for 'Ubuntu' or 'Linux'.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img alt="ms_store" src="https://ranganaths.com/images/microsoft_store_ubuntu.png"&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Here, I am trying to install Ubuntu(Linux distribution)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Once installed, open the app, it will take few moments to finish the installation and will launch a Ubuntu Terminal.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Inside the terminal, you will be asked to enter Unix username and password, which is different from your windows credentials, so you can give new credentials here.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Finally, we can run Linux commands in the Ubuntu terminal&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;ls -al&lt;/code&gt;, will list the files and directories in the current directory&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3&gt;How to navigate through Windows drives,&lt;/h3&gt;
 &lt;ul&gt;
