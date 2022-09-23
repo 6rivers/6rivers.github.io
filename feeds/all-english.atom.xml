@@ -5,24 +5,24 @@
 &lt;li&gt;But there is another option called WSL aka Windows Subsystem for Linux, which would require fewer resources than a full Virtual Machine.&lt;/li&gt;
 &lt;li&gt;WSL also allows you to run Linux command-line tools and apps alongside your Windows command-line and you can even access your Windows files from within Linux environment. &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3&gt;how to install Linux system on Windows 10 using WSL:&lt;/h3&gt;
+&lt;h3&gt;How to install Linux system on Windows 10 using WSL:&lt;/h3&gt;
 &lt;ol&gt;
-&lt;li&gt;Search for "Turn Windows features On or Off" in the windows search&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img alt="turn_on_feature" src="https://ranganaths.com/images/turn_windows_features.png"&gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;It will open a window as below, scroll down, select 'Windows subsystems for Linux' and click on OK.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img alt="features_window" src="https://ranganaths.com/images/windows_feature_window.png"&gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Once you click OK, it will apply the required changes and requests you to restart your system&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img alt="restart" src="https://ranganaths.com/images/windows_feature_restart.png"&gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;After the restart, we can install our preferred Linux Distributions using "Microsoft Store" in your system, and search for 'Ubuntu' or 'Linux'.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img alt="ms_store" src="https://ranganaths.com/images/microsoft_store_ubuntu.png"&gt;&lt;/p&gt;
-&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Search for "Turn Windows features On or Off" in the windows search
+        &lt;img alt="turn_on_feature" src="https://ranganaths.com/images/turn_windows_features.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It will open a window as below, scroll down, select 'Windows subsystems for Linux' and click on OK.
+        &lt;img alt="features_window" src="https://ranganaths.com/images/windows_feature_window.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Once you click OK, it will apply the required changes and requests you to restart your system
+        &lt;img alt="restart" src="https://ranganaths.com/images/windows_feature_restart.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;After the restart, we can install our preferred Linux Distributions using "Microsoft Store" in your system, and search for 'Ubuntu' or 'Linux'.
+        &lt;img alt="ms_store" src="https://ranganaths.com/images/microsoft_store_ubuntu.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Here, I am trying to install Ubuntu(Linux distribution)&lt;/p&gt;
 &lt;/li&gt;
@@ -41,14 +41,12 @@
 &lt;/ol&gt;
 &lt;h3&gt;How to navigate through Windows drives,&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;enter the below commands&lt;/p&gt;
-&lt;ol&gt;
+&lt;li&gt;enter the below commands&lt;ol&gt;
 &lt;li&gt;&lt;code&gt;ls /mnt/&lt;/code&gt; &lt;/li&gt;
 &lt;li&gt;&lt;code&gt;cd /mnt/c&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;ls -al&lt;/code&gt;, &lt;code&gt;cd Users/your_desktop_path/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ls -al&lt;/code&gt;, &lt;code&gt;cd Users/your_desktop_path/&lt;/code&gt;
+    &lt;img alt="commands" src="https://ranganaths.com/images/ubuntu_terminal.png"&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img alt="commands" src="https://ranganaths.com/images/ubuntu_terminal.png"&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3&gt;Simple Linux Commands :&lt;/h3&gt;
