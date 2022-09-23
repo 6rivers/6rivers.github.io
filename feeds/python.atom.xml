@@ -130,7 +130,7 @@
 
 &lt;h6&gt;Getting playlists from different providers:&lt;/h6&gt;
 &lt;ul&gt;
-&lt;li&gt;Till now I have discussed Spotify Authorization, and playlist creation, but how did I get all these playlist data from different providers like LastFM, billboard, etc., into my database?. For this, I have used the 'Web Scraping' technique. This is used when you need a large amount of information from a website but it doesn't have any API to access that data. Most of this data is unstructured data in the HTML format, and we need to process it and save it in our database. For this, I have chosen the 'Beautiful Soup' Library in Python due to its simplicity.&lt;/li&gt;
+&lt;li&gt;Till now I have discussed Spotify Authorization, and playlist creation, but how did I get all these playlist data from different providers like LastFM, billboard, etc., into my database? For this, I have used the 'Web Scraping' technique. This is used when you need a large amount of information from a website but it doesn't have any API to access that data. Most of this data is unstructured data in the HTML format, and we need to process it and save it in our database. For this, I have chosen the 'Beautiful Soup' Library in Python due to its simplicity.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Below is the sample code for web scraping: &lt;/p&gt;
 &lt;p&gt;&lt;code&gt;pip install beautifulsoup4&lt;/code&gt;&lt;/p&gt;
@@ -156,33 +156,39 @@
 &lt;ul&gt;
 &lt;li&gt;I have chosen Heroku, a popular cloud hosting platform, which is very friendly for python applications. It has a free service tier that allows us to deploy our application without spending any money. &lt;/li&gt;
 &lt;li&gt;I have referenced &lt;a href="https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xviii-deployment-on-heroku"&gt;Miguel's Post&lt;/a&gt; for this deployment.&lt;/li&gt;
-&lt;li&gt;For us to open this application for a broader userbase we need to submit a quota extension request in the Spotify developer account. I prefer not to use that since this is a hobby project.&lt;/li&gt;
-&lt;/ul&gt;</content><category term="Python"></category></entry><entry><title>What is the use of Virtual Environments in Python projects?</title><link href="https://ranganaths.com/what-is-the-use-of-virtual-environments-in-python-projects.html" rel="alternate"></link><published>2021-10-13T01:20:00+05:30</published><updated>2021-10-13T01:20:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2021-10-13:/what-is-the-use-of-virtual-environments-in-python-projects.html</id><summary type="html">&lt;p&gt;Virtual Environment is used to seperate out the versions of packages.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Use of Virtual Environments in Python Projects:&lt;/h3&gt;
+&lt;li&gt;For us to open this application for a broader user base we need to submit a quota extension request in the Spotify developer account. I prefer not to use that since this is a hobby project.&lt;/li&gt;
+&lt;/ul&gt;</content><category term="Python"></category></entry><entry><title>What is the use of Virtual Environments in Python projects?</title><link href="https://ranganaths.com/what-is-the-use-of-virtual-environments-in-python-projects.html" rel="alternate"></link><published>2021-10-13T01:20:00+05:30</published><updated>2021-10-13T01:20:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2021-10-13:/what-is-the-use-of-virtual-environments-in-python-projects.html</id><summary type="html">&lt;p&gt;Virtual Environment is used to separate out the versions of packages.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Use of Virtual Environments in Python Projects:&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;Virtual Environment is used to seperate out the versions of packages for eg., Django or Flask. &lt;/li&gt;
+&lt;li&gt;Virtual Environment is used to separate out the versions of packages for eg., Django or Flask. &lt;/li&gt;
 &lt;li&gt;In general, if we install Packages directly without Virtual Environment then they will be installed on global levels&lt;/li&gt;
-&lt;li&gt;If you have multiple Django projects where some older projects need previous versions of Django and when you need a new project with latest version of Django package and if you install it without virtual env then your older projects would be affected since the older version of Django package will be replaced with newer version after the upgrade. &lt;/li&gt;
-&lt;li&gt;Hence it is best practice to use Virtual Env for each project and have whatever packages needed for that particular project inside the virtual environment. &lt;/li&gt;
+&lt;li&gt;If you have multiple Django projects where some older projects need previous versions of Django and when you need a new project with the latest version of Django package and if you install it without virtual env then your older projects would be affected since the older version of Django package will be replaced with newer version after the upgrade. &lt;/li&gt;
+&lt;li&gt;Hence it is best practice to use Virtual Env for each project and have whatever packages are needed for that particular project inside the virtual environment. &lt;/li&gt;
 &lt;li&gt;venv is recommended for creating Virtual Environments from Python 3.5&lt;/li&gt;
 &lt;li&gt;Create a folder for the new project then cd to the folder and execute below to create new virtual env&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Creating Virtual Env:&lt;/h4&gt;
-&lt;p&gt;In Windows:
-  &lt;code&gt;python -m venv env_name&lt;/code&gt;  &lt;/p&gt;
-&lt;p&gt;In Linux:
-  &lt;code&gt;python3 -m venv env_name&lt;/code&gt; (assuming you have python3 version in your machine)&lt;/p&gt;
-&lt;p&gt;Now, 'env_name' will be created inside the project folder&lt;/p&gt;
-&lt;h4&gt;To acitvate the Virtual Env:&lt;/h4&gt;
-&lt;p&gt;In Windows:
-    &lt;code&gt;env_name\scripts\activate&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;In Linux:
-      &lt;code&gt;source env_name/bin/activate&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;After activation: 
-     &lt;code&gt;(venv) C:\Users\Name\Folder&amp;gt;&lt;/code&gt; &lt;/p&gt;
+&lt;p&gt;cd to your project folder&lt;/p&gt;
+&lt;h5&gt;Linux:&lt;/h5&gt;
+&lt;p&gt;&lt;code&gt;sudo apt-get install python-pip&lt;/code&gt; to install pip if not already present. &lt;/p&gt;
+&lt;p&gt;Now install a tool for creating isolated virtual python environments or you can use &lt;code&gt;venv&lt;/code&gt; that comes directly with Python installation&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pip install virtualenv&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;virtualenv env_name&lt;/code&gt;  or
+&lt;code&gt;python3 -m venv env_name&lt;/code&gt; &lt;/p&gt;
+&lt;p&gt;this will create a new folder(env_name) in your current directory&lt;/p&gt;
+&lt;p&gt;To activate a virtual environment&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;source env_name/bin/activate&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;After activation, you would see a change similar to 
+&lt;code&gt;(venv) C:\Users\Name\Folder&amp;gt;&lt;/code&gt; &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;deactivate&lt;/code&gt; -- to deactivate the venv&lt;/p&gt;
+&lt;h5&gt;Windows:&lt;/h5&gt;
+&lt;p&gt;&lt;code&gt;python -m venv env_name&lt;/code&gt; -- to create Virtual Environment&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;env_name\scripts\activate&lt;/code&gt; -- to activate&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;deactivate&lt;/code&gt; -- to deactivate&lt;/p&gt;
+&lt;h5&gt;other info:&lt;/h5&gt;
 &lt;p&gt;Do not store any project scripts inside 'env_name' folder&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;pip list&lt;/code&gt; -- to get list of packages installed in the current venv&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;pip freeze&lt;/code&gt; -- to get list of packages in a format usable to copy for requirements.txt&lt;/p&gt;
-&lt;p&gt;Below commands creates a requirements.txt file with all packages installed in the project
-    &lt;code&gt;pip freeze &amp;gt; requirements.txt&lt;/code&gt; &lt;/p&gt;
-&lt;p&gt;To directly install all packages from requirements.txt use
-    &lt;code&gt;pip install -r requirements.txt&lt;/code&gt;&lt;/p&gt;</content><category term="Python"></category></entry></feed>
+&lt;p&gt;&lt;code&gt;pip list&lt;/code&gt; -- to get a list of packages installed in the current venv&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pip freeze&lt;/code&gt; -- to get a list of packages in a format usable to copy for requirements.txt&lt;/p&gt;
+&lt;p&gt;command to create a requirements.txt file with a list of packages installed in the current project
+&lt;code&gt;pip freeze &amp;gt; requirements.txt&lt;/code&gt; &lt;/p&gt;
+&lt;p&gt;To directly install all packages from the requirements.txt use 
+&lt;code&gt;pip install -r requirements.txt&lt;/code&gt;&lt;/p&gt;</content><category term="Python"></category></entry></feed>

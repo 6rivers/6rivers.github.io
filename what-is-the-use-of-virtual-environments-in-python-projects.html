@@ -8,7 +8,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ranganaths.com/what-is-the-use-of-virtual-environments-in-python-projects.html" />
 <meta property="og:title" content="What is the use of Virtual Environments in Python projects?" />
-<meta property="og:description" content="Use of Virtual Environments in Python Projects: Virtual Environment is used to seperate out the versions of packages for eg., Django or Flask. In general, if we install Packages directly..." />
+<meta property="og:description" content="Use of Virtual Environments in Python Projects: Virtual Environment is used to separate out the versions of packages for eg., Django or Flask. In general, if we install Packages directly..." />
 <meta property="og:image" content="https://ranganaths.com/images/opengraph-default.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://ranganaths.com/images/opengraph-default.jpg" />
@@ -33,7 +33,7 @@
         href="https://ranganaths.com/feeds/all.atom.xml">
   <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
         href="https://ranganaths.com/feeds/python.atom.xml">  
-  <meta name="description" content="Virtual Environment is used to seperate out the versions of packages.">
+  <meta name="description" content="Virtual Environment is used to separate out the versions of packages.">
 
 
 </head>
@@ -83,33 +83,39 @@
     <div class="content">
       <h3>Use of Virtual Environments in Python Projects:</h3>
 <ul>
-<li>Virtual Environment is used to seperate out the versions of packages for eg., Django or Flask. </li>
+<li>Virtual Environment is used to separate out the versions of packages for eg., Django or Flask. </li>
 <li>In general, if we install Packages directly without Virtual Environment then they will be installed on global levels</li>
-<li>If you have multiple Django projects where some older projects need previous versions of Django and when you need a new project with latest version of Django package and if you install it without virtual env then your older projects would be affected since the older version of Django package will be replaced with newer version after the upgrade. </li>
-<li>Hence it is best practice to use Virtual Env for each project and have whatever packages needed for that particular project inside the virtual environment. </li>
+<li>If you have multiple Django projects where some older projects need previous versions of Django and when you need a new project with the latest version of Django package and if you install it without virtual env then your older projects would be affected since the older version of Django package will be replaced with newer version after the upgrade. </li>
+<li>Hence it is best practice to use Virtual Env for each project and have whatever packages are needed for that particular project inside the virtual environment. </li>
 <li>venv is recommended for creating Virtual Environments from Python 3.5</li>
 <li>Create a folder for the new project then cd to the folder and execute below to create new virtual env</li>
 </ul>
 <h4>Creating Virtual Env:</h4>
-<p>In Windows:
-  <code>python -m venv env_name</code>  </p>
-<p>In Linux:
-  <code>python3 -m venv env_name</code> (assuming you have python3 version in your machine)</p>
-<p>Now, 'env_name' will be created inside the project folder</p>
-<h4>To acitvate the Virtual Env:</h4>
-<p>In Windows:
-    <code>env_name\scripts\activate</code></p>
-<p>In Linux:
-      <code>source env_name/bin/activate</code></p>
-<p>After activation: 
-     <code>(venv) C:\Users\Name\Folder&gt;</code> </p>
+<p>cd to your project folder</p>
+<h5>Linux:</h5>
+<p><code>sudo apt-get install python-pip</code> to install pip if not already present. </p>
+<p>Now install a tool for creating isolated virtual python environments or you can use <code>venv</code> that comes directly with Python installation</p>
+<p><code>pip install virtualenv</code></p>
+<p><code>virtualenv env_name</code>  or
+<code>python3 -m venv env_name</code> </p>
+<p>this will create a new folder(env_name) in your current directory</p>
+<p>To activate a virtual environment</p>
+<p><code>source env_name/bin/activate</code></p>
+<p>After activation, you would see a change similar to 
+<code>(venv) C:\Users\Name\Folder&gt;</code> </p>
+<p><code>deactivate</code> -- to deactivate the venv</p>
+<h5>Windows:</h5>
+<p><code>python -m venv env_name</code> -- to create Virtual Environment</p>
+<p><code>env_name\scripts\activate</code> -- to activate</p>
+<p><code>deactivate</code> -- to deactivate</p>
+<h5>other info:</h5>
 <p>Do not store any project scripts inside 'env_name' folder</p>
-<p><code>pip list</code> -- to get list of packages installed in the current venv</p>
-<p><code>pip freeze</code> -- to get list of packages in a format usable to copy for requirements.txt</p>
-<p>Below commands creates a requirements.txt file with all packages installed in the project
-    <code>pip freeze &gt; requirements.txt</code> </p>
-<p>To directly install all packages from requirements.txt use
-    <code>pip install -r requirements.txt</code></p>
+<p><code>pip list</code> -- to get a list of packages installed in the current venv</p>
+<p><code>pip freeze</code> -- to get a list of packages in a format usable to copy for requirements.txt</p>
+<p>command to create a requirements.txt file with a list of packages installed in the current project
+<code>pip freeze &gt; requirements.txt</code> </p>
+<p>To directly install all packages from the requirements.txt use 
+<code>pip install -r requirements.txt</code></p>
     </div>
   </article>
     </div>
