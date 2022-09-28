@@ -9,7 +9,7 @@
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Create a new HTML file, hello.html in any local folder
-   ```
+   ```python
    &lt;!DOCTYPE html&gt;&lt;/p&gt;
 &lt;p&gt;&lt;html lang="en"&gt;
 &lt;head&gt;
