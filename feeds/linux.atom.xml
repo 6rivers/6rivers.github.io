@@ -45,7 +45,7 @@
 &lt;li&gt;&lt;code&gt;ls /mnt/&lt;/code&gt; &lt;/li&gt;
 &lt;li&gt;&lt;code&gt;cd /mnt/c&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;ls -al&lt;/code&gt;, &lt;code&gt;cd Users/your_desktop_path/&lt;/code&gt;
-    &lt;img alt="commands" src="https://ranganaths.com/images/ubuntu_terminal.png"&gt;&lt;/li&gt;
+   &lt;img alt="commands" src="https://ranganaths.com/images/ubuntu_terminal.png"&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ul&gt;

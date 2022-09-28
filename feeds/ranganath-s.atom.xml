@@ -7,8 +7,9 @@
 &lt;h6&gt;How to use NGROK:&lt;/h6&gt;
 &lt;p&gt;To demo this, I will run a simple HTML file on my localhost. You can extend its usability to other areas as I mentioned above.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Create a new HTML file, hello.html in any local folder
-   &lt;code&gt;html
+&lt;li&gt;Create a new HTML file, hello.html in any local folder&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;html
     &amp;lt;!DOCTYPE html&amp;gt;
     &amp;lt;html lang="en"&amp;gt;
     &amp;lt;head&amp;gt;
@@ -17,17 +18,16 @@
     &amp;lt;body&amp;gt;
         &amp;lt;h3&amp;gt;Hello World&amp;lt;/h3&amp;gt;
     &amp;lt;/body&amp;gt;
-    &amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Assuming you have python installed on your machine, you can run this HTML on the local server using the below command in your command prompt
-    &lt;code&gt;python -m http.server&lt;/code&gt; &lt;/li&gt;
-&lt;li&gt;You can see the results at http://127.0.0.1:8000/hello.html using a browser. (default port will be 8000)&lt;/li&gt;
-&lt;li&gt;We can now use "Ngrok" to share this with our friends.&lt;/li&gt;
-&lt;li&gt;Download its package from Ngrok's official &lt;a href="https://ngrok.com/download"&gt;website&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Unzip the downloaded file to your local storage.&lt;/li&gt;
-&lt;li&gt;Open Command prompt, cd to the folder containing the ngrok file, and run the below command&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;ngrok http 8000&lt;/code&gt;, will provide you with a public URL that serves the same hello.html file
-    &lt;img alt="ngrok_demo" src="https://ranganaths.com/images/ngrok_demo.png"&gt;&lt;/li&gt;
-&lt;/ol&gt;</content><category term="General"></category></entry><entry><title>Installing Ubuntu on Windows 10</title><link href="https://ranganaths.com/installing-ubuntu-on-windows-10.html" rel="alternate"></link><published>2022-08-25T00:00:00+05:30</published><updated>2022-08-25T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-08-25:/installing-ubuntu-on-windows-10.html</id><summary type="html">&lt;p&gt;How to run a Linux environment on windows to run Linux commands&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Intro:&lt;/h3&gt;
+    &amp;lt;/html&amp;gt;&lt;/code&gt;
+2. Assuming you have python installed on your machine, you can run this HTML on the local server using the below command in your command prompt
+    &lt;code&gt;python -m http.server&lt;/code&gt; 
+3. You can see the results at http://127.0.0.1:8000/hello.html using a browser. (default port will be 8000)
+4. We can now use "Ngrok" to share this with our friends.
+5. Download its package from Ngrok's official &lt;a href="https://ngrok.com/download"&gt;website&lt;/a&gt;
+6. Unzip the downloaded file to your local storage.
+7. Open Command prompt, cd to the folder containing the ngrok file, and run the below command
+8. &lt;code&gt;ngrok http 8000&lt;/code&gt;, will provide you with a public URL that serves the same hello.html file
+   &lt;img alt="ngrok_demo" src="https://ranganaths.com/images/ngrok_demo.png"&gt;&lt;/p&gt;</content><category term="General"></category></entry><entry><title>Installing Ubuntu on Windows 10</title><link href="https://ranganaths.com/installing-ubuntu-on-windows-10.html" rel="alternate"></link><published>2022-08-25T00:00:00+05:30</published><updated>2022-08-25T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-08-25:/installing-ubuntu-on-windows-10.html</id><summary type="html">&lt;p&gt;How to run a Linux environment on windows to run Linux commands&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Intro:&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;From time to time, we might need to run a Linux environment on windows to run Linux commands, we can do this by creating a virtual machine on the windows system however it would take more resources(CPU, Memory, and storage)&lt;/li&gt;
 &lt;li&gt;But there is another option called WSL aka Windows Subsystem for Linux, which would require fewer resources than a full Virtual Machine.&lt;/li&gt;
@@ -73,7 +73,7 @@
 &lt;li&gt;&lt;code&gt;ls /mnt/&lt;/code&gt; &lt;/li&gt;
 &lt;li&gt;&lt;code&gt;cd /mnt/c&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;ls -al&lt;/code&gt;, &lt;code&gt;cd Users/your_desktop_path/&lt;/code&gt;
-    &lt;img alt="commands" src="https://ranganaths.com/images/ubuntu_terminal.png"&gt;&lt;/li&gt;
+   &lt;img alt="commands" src="https://ranganaths.com/images/ubuntu_terminal.png"&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
