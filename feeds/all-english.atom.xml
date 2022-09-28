@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ranganath S</title><link href="https://ranganaths.com/" rel="alternate"></link><link href="https://ranganaths.com/feeds/all-english.atom.xml" rel="self"></link><id>https://ranganaths.com/</id><updated>2022-08-25T00:00:00+05:30</updated><subtitle>Jottings on tech and life</subtitle><entry><title>Installing Ubuntu on Windows 10</title><link href="https://ranganaths.com/installing-ubuntu-on-windows-10.html" rel="alternate"></link><published>2022-08-25T00:00:00+05:30</published><updated>2022-08-25T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-08-25:/installing-ubuntu-on-windows-10.html</id><summary type="html">&lt;p&gt;How to run a Linux environment on windows to run Linux commands&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Intro:&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ranganath S</title><link href="https://ranganaths.com/" rel="alternate"></link><link href="https://ranganaths.com/feeds/all-english.atom.xml" rel="self"></link><id>https://ranganaths.com/</id><updated>2022-09-01T00:00:00+05:30</updated><subtitle>Jottings on tech and life</subtitle><entry><title>How to share your local server with anyone using Ngrok</title><link href="https://ranganaths.com/how-to-share-your-local-server-with-anyone-using-ngrok.html" rel="alternate"></link><published>2022-09-01T00:00:00+05:30</published><updated>2022-09-01T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-09-01:/how-to-share-your-local-server-with-anyone-using-ngrok.html</id><summary type="html">&lt;p&gt;Getting a secure, private public url for our local server&lt;/p&gt;</summary><content type="html">&lt;ul&gt;
+&lt;li&gt;There will be instances where we want to share our dev web app with friends before deploying it somewhere, or even check its UI on your mobile, or we may need to test webhooks. A common constraint in these situations is that your development web app is on your local machine. &lt;/li&gt;
+&lt;li&gt;A free tool called Ngrok is available to handle this.&lt;/li&gt;
+&lt;li&gt;Ngrok creates a secure, private connection tunnel to the cloud service. Your local server is mapped to a ngrok.io sub-domain, which can be used by a remote user to access your local server.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6&gt;How to use NGROK:&lt;/h6&gt;
+&lt;p&gt;To demo this, I will run a simple HTML file on my localhost. You can extend its usability to other areas as I mentioned above.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Create a new HTML file, hello.html in any local folder
+   ```html
+   &lt;!DOCTYPE html&gt;&lt;/p&gt;
+&lt;p&gt;&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;title&gt;Hello&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h3&gt;Hello World&lt;/h3&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;code&gt;``
+2. Assuming you have python installed on your machine, you can run this HTML on the local server using the below command in your command prompt&lt;/code&gt;python -m http.server&lt;code&gt;3. You can see the results at http://127.0.0.1:8000/hello.html using a browser. (default port will be 8000)
+4. We can now use "Ngrok" to share this with our friends.
+5. Download its package from Ngrok's official [website](https://ngrok.com/download)
+6. Unzip the downloaded file to your local storage.
+7. Open Command prompt, cd to the folder containing the ngrok file, and run the below command
+8.&lt;/code&gt;ngrok http 8000`, will provide you with a public URL that serves the same hello.html file
+&lt;img alt="ngrok_demo" src="https://ranganaths.com/images/ngrok_demo.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</content><category term="General"></category></entry><entry><title>Installing Ubuntu on Windows 10</title><link href="https://ranganaths.com/installing-ubuntu-on-windows-10.html" rel="alternate"></link><published>2022-08-25T00:00:00+05:30</published><updated>2022-08-25T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-08-25:/installing-ubuntu-on-windows-10.html</id><summary type="html">&lt;p&gt;How to run a Linux environment on windows to run Linux commands&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Intro:&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;From time to time, we might need to run a Linux environment on windows to run Linux commands, we can do this by creating a virtual machine on the windows system however it would take more resources(CPU, Memory, and storage)&lt;/li&gt;
 &lt;li&gt;But there is another option called WSL aka Windows Subsystem for Linux, which would require fewer resources than a full Virtual Machine.&lt;/li&gt;
@@ -240,7 +269,7 @@
 &lt;h4&gt;Creating Virtual Env:&lt;/h4&gt;
 &lt;p&gt;cd to your project folder&lt;/p&gt;
 &lt;h5&gt;Linux:&lt;/h5&gt;
-&lt;p&gt;&lt;code&gt;sudo apt-get install python-pip&lt;/code&gt; to install pip if not already present. &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt install python3-pip&lt;/code&gt; to install pip if not already present. &lt;/p&gt;
 &lt;p&gt;Now install a tool for creating isolated virtual python environments or you can use &lt;code&gt;venv&lt;/code&gt; that comes directly with Python installation&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;pip install virtualenv&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;virtualenv env_name&lt;/code&gt;  or

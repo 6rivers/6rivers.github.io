@@ -169,7 +169,7 @@
 &lt;h4&gt;Creating Virtual Env:&lt;/h4&gt;
 &lt;p&gt;cd to your project folder&lt;/p&gt;
 &lt;h5&gt;Linux:&lt;/h5&gt;
-&lt;p&gt;&lt;code&gt;sudo apt-get install python-pip&lt;/code&gt; to install pip if not already present. &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt install python3-pip&lt;/code&gt; to install pip if not already present. &lt;/p&gt;
 &lt;p&gt;Now install a tool for creating isolated virtual python environments or you can use &lt;code&gt;venv&lt;/code&gt; that comes directly with Python installation&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;pip install virtualenv&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;virtualenv env_name&lt;/code&gt;  or
