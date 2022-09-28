@@ -9,15 +9,15 @@
 &lt;ol&gt;
 &lt;li&gt;Create a new HTML file, hello.html in any local folder
    &lt;code&gt;html
-        &amp;lt;!DOCTYPE html&amp;gt;
-        &amp;lt;html lang="en"&amp;gt;
-        &amp;lt;head&amp;gt;
-            &amp;lt;title&amp;gt;Hello&amp;lt;/title&amp;gt;
-        &amp;lt;/head&amp;gt;
-        &amp;lt;body&amp;gt;
-            &amp;lt;h3&amp;gt;Hello World&amp;lt;/h3&amp;gt;
-        &amp;lt;/body&amp;gt;
-        &amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/li&gt;
+    &amp;lt;!DOCTYPE html&amp;gt;
+    &amp;lt;html lang="en"&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;title&amp;gt;Hello&amp;lt;/title&amp;gt;
+    &amp;lt;/head&amp;gt;
+    &amp;lt;body&amp;gt;
+        &amp;lt;h3&amp;gt;Hello World&amp;lt;/h3&amp;gt;
+    &amp;lt;/body&amp;gt;
+    &amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Assuming you have python installed on your machine, you can run this HTML on the local server using the below command in your command prompt
     &lt;code&gt;python -m http.server&lt;/code&gt; &lt;/li&gt;
 &lt;li&gt;You can see the results at http://127.0.0.1:8000/hello.html using a browser. (default port will be 8000)&lt;/li&gt;
