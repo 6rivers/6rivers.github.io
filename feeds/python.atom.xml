@@ -1,5 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ranganath S - Python</title><link href="https://ranganaths.com/" rel="alternate"></link><link href="https://ranganaths.com/feeds/python.atom.xml" rel="self"></link><id>https://ranganaths.com/</id><updated>2022-10-22T00:00:00+05:30</updated><subtitle>Jottings on tech and life</subtitle><entry><title>Dockerize a Flask application</title><link href="https://ranganaths.com/dockerize-a-flask-application.html" rel="alternate"></link><published>2022-10-22T00:00:00+05:30</published><updated>2022-10-22T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-10-22:/dockerize-a-flask-application.html</id><summary type="html">&lt;p&gt;Creating a flask application and deploy  it using Docker&lt;/p&gt;</summary><content type="html">&lt;h4&gt;About Docker:&lt;/h4&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ranganath S - Python</title><link href="https://ranganaths.com/" rel="alternate"></link><link href="https://ranganaths.com/feeds/python.atom.xml" rel="self"></link><id>https://ranganaths.com/</id><updated>2022-12-04T00:00:00+05:30</updated><subtitle>Jottings on tech and life</subtitle><entry><title>Deploy Flask Docker image on AWS Lightsail</title><link href="https://ranganaths.com/deploy-flask-docker-image-on-aws-lightsail.html" rel="alternate"></link><published>2022-12-04T00:00:00+05:30</published><updated>2022-12-04T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-12-04:/deploy-flask-docker-image-on-aws-lightsail.html</id><summary type="html">&lt;p&gt;Creating a flask application, its Docker image and deploying it to AWS Lightsail&lt;/p&gt;</summary><content type="html">&lt;ul&gt;
+&lt;li&gt;If you have your Flask application container built and running locally on your local dev machine. And want to get it running on the cloud to make your application available for other users over the internet, there is a simplified solution on AWS called Amazon Lightsail Container Services. &lt;/li&gt;
+&lt;li&gt;It removes many underlying complex AWS concepts for us and it is an ideal solution for developers who just want to focus on coding their applications.&lt;/li&gt;
+&lt;li&gt;Also Lightsail's budgeting is easy and has predictable price structure.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Prerequisites:&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;AWS account&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Docker&lt;/strong&gt; -- to create docker image&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AWS Command Line Interface (CLI)&lt;/strong&gt; -- to manage Lightsail service. Follow this &lt;a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html"&gt;link&lt;/a&gt; to install CLI on your machine&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Lightsail Control Plugin&lt;/strong&gt; -- to access container images on your local machine, &lt;a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-install-software#install-software-lightsailctl"&gt;link&lt;/a&gt; to install plugin.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Detailed post on dockerization of Flask app, can be find &lt;a href="https://ranganaths.com/dockerize-a-flask-application.html"&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;Build a sample Flask app:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a new directory&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;mkdir Docker-Flask-Lightsail
+cd Docker-Flask-Lightsail
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create a new 'application.py' and copy the below code and save it&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;flask&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;
+&lt;span class="n"&gt;app&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="vm"&gt;__name__&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nd"&gt;@app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;route&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;home&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;lt;h3&amp;gt;This is a demo for deploying a flask app on AWS Lightsail using Docker&amp;lt;/h3&amp;gt;&amp;#39;&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="vm"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Now create a 'requirements.txt' file and write &lt;code&gt;Flask==2.1.2&lt;/code&gt; and save the file.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Dockerize Flask app:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a new 'Dockerfile' and write the below commands and save it.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="s"&gt;python:3.8-slim&lt;/span&gt;
+
+&lt;span class="k"&gt;WORKDIR&lt;/span&gt;&lt;span class="s"&gt; /app&lt;/span&gt;
+&lt;span class="k"&gt;COPY&lt;/span&gt; . /app
+
+&lt;span class="k"&gt;RUN&lt;/span&gt; pip install -r requirements.txt
+
+&lt;span class="k"&gt;EXPOSE&lt;/span&gt;&lt;span class="s"&gt; 5000&lt;/span&gt;
+&lt;span class="k"&gt;ENTRYPOINT&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;python&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="k"&gt;CMD&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;application.py&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;run below command to create docker image&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;docker build -t flask-lightsail:latest .
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Now to run docker container run below command&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;docker run --name flask-service -d -p &lt;span class="m"&gt;5000&lt;/span&gt;:5000 flask-lightsail:latest 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To verify, go to 'http://127.0.0.1:5000/' &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Deploy the image to AWS Lighsail:&lt;/h4&gt;
+&lt;p&gt;Now, we need to deploy this image to AWS Lightsail. For that we need to create Lightsail container service using the AWS CLI and push our local container image to the new Lightsail container service.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;To create the Lightsail container service use below command, where power and scale parameters represents the capacity of the container service. Here we are using "mirco" which provides &lt;strong&gt;vCPU:&lt;/strong&gt; 0.25 and &lt;strong&gt;RAM:&lt;/strong&gt; 1GB. This option is free of charge for first three months.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;aws lightsail create-container-service --service-name flask-app --power micro --scale 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Initially you might see &lt;code&gt;"state": "PENDING",&lt;/code&gt; in the output while your lightsail container service is being created for you.&lt;/li&gt;
+&lt;li&gt;To check the status of your container service, use below command&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;aws lightsail get-container-services
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To push our application container image use&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;aws lightsail push-container-image --service-name flask-app --label flask-container-image --image flask-lightsail:latest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--service-name&lt;/code&gt; -- The name of the container service in the lightsail service to which our application container image will be pushed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--label&lt;/code&gt; -- the label to be applied for the image on the container service&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--image&lt;/code&gt; -- our application container image which will be pushed to the container service&lt;/li&gt;
+&lt;li&gt;The above command will returns an output similar to below where ":flask-app.flask-container-image.8" is the image details&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Refer to this image as &amp;quot;:flask-app.flask-container-image.8&amp;quot; in deployments
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Now we need to create two json files called "&lt;strong&gt;containers.json&lt;/strong&gt;" and "&lt;strong&gt;public-endpoint.json&lt;/strong&gt;" &lt;/li&gt;
+&lt;li&gt;"&lt;strong&gt;containers.json&lt;/strong&gt;" -- describes the settings of the containers&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;flask&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;quot;image&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;:flask-app.flask-container.7&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;quot;ports&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nt"&gt;&amp;quot;5000&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;HTTP&amp;quot;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;"&lt;strong&gt;public-endpoint.json&lt;/strong&gt;" -- describes the settings of the public endpoint for the container service&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;containerName&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;flask&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;containerPort&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;5000&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Now we need to run the container on the Lightsail using below command&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;aws lightsail create-container-service-deployment --service-name flask-app --containers file://containers.json --public-endpoint file://public-endpoint.json 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It will return you an URL to navigate to our flask app&lt;/li&gt;
+&lt;li&gt;To delete container service&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;aws lightsail delete-container-service --service-name flask-app
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="Python"></category></entry><entry><title>Dockerize a Flask application</title><link href="https://ranganaths.com/dockerize-a-flask-application.html" rel="alternate"></link><published>2022-10-22T00:00:00+05:30</published><updated>2022-10-22T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-10-22:/dockerize-a-flask-application.html</id><summary type="html">&lt;p&gt;Creating a flask application and deploy  it using Docker&lt;/p&gt;</summary><content type="html">&lt;h4&gt;About Docker:&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Docker is an open source platform that enables developers to manage containers. A container is a lightweight virtualization solution that enables our flask web app to run in total isolation from all of its dependencies and configurations without the use of actual virtual servers. &lt;/li&gt;
 &lt;li&gt;By using  Python "virtualenv", you can easily swap between Python versions and dependencies, but you are restricted to the host OS. Containerization enables portability from one machine to another. Although it is not the only platform for containers, "Docker" is the most commonly used.&lt;/li&gt;
