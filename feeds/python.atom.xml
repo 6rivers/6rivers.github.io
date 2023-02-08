@@ -1,5 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ranganath S - Python</title><link href="https://ranganaths.com/" rel="alternate"></link><link href="https://ranganaths.com/feeds/python.atom.xml" rel="self"></link><id>https://ranganaths.com/</id><updated>2022-10-09T00:00:00+05:30</updated><subtitle>Jottings on tech and life</subtitle><entry><title>News aggregator web app</title><link href="https://ranganaths.com/news-aggregator-web-app.html" rel="alternate"></link><published>2022-10-09T00:00:00+05:30</published><updated>2022-10-09T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-10-09:/news-aggregator-web-app.html</id><summary type="html">&lt;p&gt;Building a News aggregator web app using Flask&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is about a web app, "News Aggregator" that serves users with daily News from different sources. It is built using Flask for the backend, and HTML / CSS for the frontend. This is a simple news aggregator that displays the Title, URL for the news with an image. It has different news categories like World, India, sports, etc. The final version of the web app can be seen at &lt;a href="https://news-aggregator-i0e5.onrender.com/"&gt;News Aggregator&lt;/a&gt; and the complete code at my &lt;a href="https://github.com/6rivers/news-aggregator"&gt;GitHub Repo&lt;/a&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ranganath S - Python</title><link href="https://ranganaths.com/" rel="alternate"></link><link href="https://ranganaths.com/feeds/python.atom.xml" rel="self"></link><id>https://ranganaths.com/</id><updated>2022-10-22T00:00:00+05:30</updated><subtitle>Jottings on tech and life</subtitle><entry><title>Dockerize a Flask application</title><link href="https://ranganaths.com/dockerize-a-flask-application.html" rel="alternate"></link><published>2022-10-22T00:00:00+05:30</published><updated>2022-10-22T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-10-22:/dockerize-a-flask-application.html</id><summary type="html">&lt;p&gt;Creating a flask application and deploy  it using Docker&lt;/p&gt;</summary><content type="html">&lt;h4&gt;About Docker:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Docker is an open source platform that enables developers to manage containers. A container is a lightweight virtualization solution that enables our flask web app to run in total isolation from all of its dependencies and configurations without the use of actual virtual servers. &lt;/li&gt;
+&lt;li&gt;By using  Python "virtualenv", you can easily swap between Python versions and dependencies, but you are restricted to the host OS. Containerization enables portability from one machine to another. Although it is not the only platform for containers, "Docker" is the most commonly used.&lt;/li&gt;
+&lt;li&gt;You can find several docker &lt;a href="https://hub.docker.com/_/python/"&gt;images&lt;/a&gt; with every combination of OS and Python versions.&lt;/li&gt;
+&lt;li&gt;You can follow this &lt;a href="https://docs.docker.com/get-docker/"&gt;official link&lt;/a&gt; to install Docker on your machine.&lt;/li&gt;
+&lt;li&gt;Now we will create a simple web app using Flask and will dockerize it.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Build a sample Flask app:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a new folder&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="n"&gt;Docker&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Flask&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Inside the root folder, Create and activate virtual environment(I'm using Windows OS here)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;Docker&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Flask&lt;/span&gt;
+&lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;venv&lt;/span&gt; &lt;span class="n"&gt;venv&lt;/span&gt;
+&lt;span class="n"&gt;venv&lt;/span&gt;\&lt;span class="n"&gt;scripts&lt;/span&gt;\&lt;span class="n"&gt;activate&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Within activated virtual environment, install Flask&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create a new "application.py" in the same folder and add below sample code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;flask&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;
+&lt;span class="n"&gt;app&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="vm"&gt;__name__&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nd"&gt;@app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;route&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;home&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;lt;h3&amp;gt;This is a Docker Demo for Flask Application&amp;lt;/h3&amp;gt;&amp;#39;&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="vm"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Now create a '.flaskenv' file and write "FLASK_APP=application.py" which specify how to load the application.&lt;/li&gt;
+&lt;li&gt;Since we are using '.flaskenv' file we need to install 'python-dotenv' using &lt;code&gt;pip install python-dotenv&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Now run &lt;code&gt;pip freeze &amp;gt; requirements.txt&lt;/code&gt; to create a file that has a list of all libraries used in this project.&lt;/li&gt;
+&lt;li&gt;To start our development server, run &lt;code&gt;flask run&lt;/code&gt; command from the root folder(Docker-Flask).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="run_flask" src="https://ranganaths.com/images/docker_flask_2.png"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;To verify, go to "http://127.0.0.1:5000/" in your browser.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Dockerfile:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;The command that is used to build container images is &lt;code&gt;docker build&lt;/code&gt; and we can give instructions to this build command using a file called "Dockerfile".&lt;/li&gt;
+&lt;li&gt;Create this file in the root folder and copy the below commands and save it.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="s"&gt;python:3.8-slim&lt;/span&gt;
+
+&lt;span class="k"&gt;WORKDIR&lt;/span&gt;&lt;span class="s"&gt; /app&lt;/span&gt;
+&lt;span class="k"&gt;COPY&lt;/span&gt; . /app
+
+&lt;span class="k"&gt;RUN&lt;/span&gt; pip install -r requirements.txt
+
+&lt;span class="k"&gt;EXPOSE&lt;/span&gt;&lt;span class="s"&gt; 5000&lt;/span&gt;
+&lt;span class="k"&gt;CMD&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;flask&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;run&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;--host&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;0.0.0.0&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;"&lt;code&gt;FROM python:3.8-slim&lt;/code&gt;" tells the Docker which base image to be used, in this case, a Python image.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;WORKDIR /app&lt;/code&gt; tells the Docker which folder to use for rest of the operations.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;COPY . /app&lt;/code&gt;, this command makes the Docker to copy all the files in our local root directory to container's '/app' folder.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RUN pip install -r requirements.txt&lt;/code&gt; will install each requirement written in the requirements.txt file.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;EXPOSE 5000&lt;/code&gt;, the port that this container will use for web server can be configured by this command. (5000 is the standard Flask port)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CMD ["flask", "run", "--host", "0.0.0.0"]&lt;/code&gt;, this command starts the server. Here we are using &lt;code&gt;host = 0.0.0.0&lt;/code&gt; which makes Flask to listen all IP addresses in that container so that the container can be accessible from outside.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Build a Docker Image:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Now we need to build the image using &lt;code&gt;docker build&lt;/code&gt; command as shown below&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;docker build -t flask-demo-app:latest .
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-t&lt;/code&gt; argument sets the name and tag for the new container image. The "&lt;code&gt;.&lt;/code&gt;" represents the base directory in which the container is to be created, which has Dockerfile. The image will be created during the build phase and saved on your machine after evaluating the commands in the Dockerfile.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker images&lt;/code&gt; lists the images created on your machine.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Run the Docker image:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;With an image created, now we can run the container version of our flask application using &lt;code&gt;docker run&lt;/code&gt; command&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;docker run --name flask-app -d -p &lt;span class="m"&gt;5000&lt;/span&gt;:5000 flask-demo-app:latest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--name&lt;/code&gt; parameter gives the name to the container(flask-app), &lt;code&gt;-d&lt;/code&gt; to run the container in the background or detached mode and not connected to our terminal,  &lt;code&gt;-p 5000:5000&lt;/code&gt; maps the host's(In this instance, my laptop) port 5000 to the container's port 5000. &lt;code&gt;flask-demo-app:latest&lt;/code&gt; indicates the image name.&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;By running the above command, your dockerized application will be available at localhost(http://127.0.0.1:5000/)
+&lt;img alt="check_app" src="https://ranganaths.com/images/docker_flask_1.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;When we have locally tested docker containers, we can migrate them to cloud services that support Docker.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Other Info:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;docker ps&lt;/code&gt; to see the list of containers running currently&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker stop &amp;lt;docker-id&amp;gt;&lt;/code&gt; to stop the container&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker restart &amp;lt;docker-id&amp;gt;&lt;/code&gt; to restart the container&lt;/li&gt;
+&lt;/ul&gt;</content><category term="Python"></category></entry><entry><title>News aggregator web app</title><link href="https://ranganaths.com/news-aggregator-web-app.html" rel="alternate"></link><published>2022-10-09T00:00:00+05:30</published><updated>2022-10-09T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-10-09:/news-aggregator-web-app.html</id><summary type="html">&lt;p&gt;Building a News aggregator web app using Flask&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is about a web app, "News Aggregator" that serves users with daily News from different sources. It is built using Flask for the backend, and HTML / CSS for the frontend. This is a simple news aggregator that displays the Title, URL for the news with an image. It has different news categories like World, India, sports, etc. The final version of the web app can be seen at &lt;a href="https://news-aggregator-i0e5.onrender.com/"&gt;News Aggregator&lt;/a&gt; and the complete code at my &lt;a href="https://github.com/6rivers/news-aggregator"&gt;GitHub Repo&lt;/a&gt;&lt;/p&gt;
 &lt;h1&gt;Database:&lt;/h1&gt;
 &lt;p&gt;The database for this application would have just two tables. One is to store the list of News sources(Source Table) and the other one is for news title, url, image_url, category, etc. These two tables have a relationship.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Source&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
