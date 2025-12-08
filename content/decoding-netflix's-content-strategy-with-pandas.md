@@ -8,9 +8,10 @@ opengraph_image: Decoding Netflix's Content Strategy with Pandas.png
 How did Netflix go from DVD rental company to dominating global streaming service? I analyzed 8,700+ Netflix titles (2008-2021) from Kaggle using **Pandas** to decode their content strategy across countries, formats and genres.
 
 `You can find the complete code for this analysis here.`
-## Analysis and Findings:
 
-### 1. How Did Netflix Content Volume Evolve Between 2008-2021?
+# Analysis and Findings:
+
+## 1. How Did Netflix Content Volume Evolve Between 2008-2021?
 
 ```python
 df_result = df.groupby(['year_added','type']).size().unstack(fill_value=0).reset_index()
@@ -29,14 +30,16 @@ df_result = df.groupby(['year_added','type']).size().unstack(fill_value=0).reset
 
 Now let's see whether Netflix used old or new content to ramp up this volume.
 
-### 2. How Recent is Netflix's Content?
+## 2. How Recent is Netflix's Content?
 
-`df.groupby('type')['content_age'].describe()`
+```python
+df.groupby('type')['content_age'].describe()
+```
 
 ![Netflix_content_freshness]({static}images/netflix_content_freshness.png)
-- `content_age` is a derived column (`year_added - release_year`).
 
 
+- `content_age` is a derived column (`year_added` - `release_year`).
 - TV Shows: Median age is 0 years(added same year as release).
 - Movies: Median age is 2 years.
 
@@ -45,7 +48,7 @@ Now let's see whether Netflix used old or new content to ramp up this volume.
 **Movie windows:**  Movies still follow traditional distribution: theatrical releases -> premium video on demand -> streaming. Hence the delay in adding movies to Netflix.
 
 
-### 3. Which Countries Dominates Netflix's Catalog and Does Content Type Vary by Region?
+## 3. Which Countries Dominates Netflix's Catalog and Does Content Type Vary by Region?
 
 - To answer this, I split multi-country entries (e.g., "United States, India, United Kingdom") into separate rows, then counted titles per country.
 
@@ -77,7 +80,7 @@ Two key reasons that made K-Dramas globally competitive, and their strong presen
 2. **Government policy:** After the 1997 Asian financial crisis, South Korea strategically invested in "culture industries" (K-drama, K-pop) as low-capital export businesses, sparking the "Korean Wave" phenomenon. 
  
 This demonstrates Netflix's localization approach, matching content format with regional preferences rather than applying one-size-fits-all strategy. But did that mean the content reached only to local audiences? That's what the next section uncovers.
-### 4. Which Genres Dominate Netflix's Library?
+## 4. Which Genres Dominate Netflix's Library?
 
 ```python
 df_genres = df[['type','listed_in']].copy()
@@ -108,13 +111,14 @@ The 'International' label refers to content originating outside the viewer's reg
 **Focus on True Crime:** 
 Netflix also focused more on "True Crime" docuseries/documentaries, as they have global appeal and also cost effective to produce. 
 
-### 5. Is Netflix Family-Friendly or Adult-Oriented?
+## 5. Is Netflix Family-Friendly or Adult-Oriented?
 
 
 
 ![Netflix_content_rating]({static}images/netflix_content_rating.png)
 
 **Rating Distribution:**
+
 - **Mature content (TV-MA/R)** 48% of Movies, 44% of TV Shows. 
 - **Teen content (PG-13/TV-14):** 45% of Movies, 39% of TV Shows.
 - **Kids content (G/TV-Y):** 7% of Movies, 17% of TV Shows.
@@ -122,6 +126,7 @@ Netflix also focused more on "True Crime" docuseries/documentaries, as they have
 Nearly half (47%) of Netflix content is rated mature, restricted to audiences 17+. When combined with teen content, 90% of the platform's content requires 'parental guidance' or age restrictions.
 
 **Why Netflix Prioritizes Mature Content:**
+
 1. Netflix's core paying subscribers are adults (18-49) and Netflix doesn't have any pressure from advertisers to influence content, so Netflix optimizes its content to this core audience to retain their subscription.
 2. By eliminating content restrictions, Netflix gave creative freedom for makers to tell their stories without any censorship restrictions. 
 
@@ -129,9 +134,11 @@ This demonstrates Netflix's strategic positioning as a more adult-oriented platf
 
 Content fit is important, but it can create an impact only when the release timing is right.
 
-### 6. When Does Netflix Prefer to release Content?
+## 6. When Does Netflix Prefer to release Content?
+
 
 ### 6.1 Day-of-Week Patterns:
+
 
 ```python
 df_day_patterns = df[['type','day_added']].copy()
@@ -140,12 +147,15 @@ df_result = df_result['day_added'].value_counts().reset_index(name='num_of_title
 # ...
 ```
 
-![Netflix_day_of_week]({static}images/netflix_day_of_week.png)
+
+![Netflix_day_of_week]({static}images/netflix_day_of_week.png){: width="800px"}
+
 
 
 - Netflix adds content mostly on **Fridays**, which is similar to traditional theatrical releases.
 - This likely lets viewers start watching on Friday, binge over the weekend and discuss it with friends or colleagues on Monday, creating free and effective word-of-mouth marketing.
 - **Saturdays and Sundays** show the fewest releases.
+
 
 ### 6.2 Month-of-Year Patterns:
 
@@ -170,7 +180,9 @@ df_result = df_result['month_name'].value_counts().reset_index(name='num_of_titl
 - This indicates either Netflix's strategic holiday timing or simply when licensed content becomes available to add to Netflix.
 - **February** has the lowest content additions for both categories.
 
+
 #### 6.3 India's Patterns:
+
 
 ```python
 df_ind = df_result.loc[Ind_filt]
@@ -187,6 +199,8 @@ df_ind = df_ind['month_name'].value_counts().reset_index(name = 'num_of_titles_a
 - **October/November** - Dussehra and Diwali festivals.
 - **April** - Start of summer holidays for schools.
 - Unlike the global **July** peak (summer in US/Europe), Indian content additions show patterns aligned with India's own holidays, likely reflecting either Netflix's localization strategy or Indian Film Industry's traditional holiday releases (or both).
+
+
 
 Netflix's rise follows a clear pattern. The analysis highlights three major moves: aggressive content production (not just licensing) from 2016 onward that unlocked network effects (more content -> more users -> more revenue -> more content), a localization strategy that matched content formats to regional preferences like movies for India and TV shows for Japan and South Korea, and deliberate positioning with more mature content that differentiated Netflix from competitors.
 
