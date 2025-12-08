@@ -1,0 +1,91 @@
+{%- macro url(destination) -%}
+{%- if destination|lower|truncate(4, True, '') == 'http' or not destination -%}
+{{ destination }}
+{%- elif destination|first == '/' -%}
+{{ SITEURL + destination }}
+{%- else -%}
+{{ SITEURL + '/' + destination }}
+{%- endif -%}
+{%- endmacro -%}
+<!doctype html>
+<html lang="{{ DEFAULT_LANG }}">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% if article is defined %}
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{{ SITEURL }}/{{ article.url }}" />
+<meta property="og:title" content="{{ article.title | replace("\"", "&quot;") }}" />
+<meta property="og:description" content="{{ article.content | striptags | replace("\"", "&quot;") | truncate(196, False, '...') }}" />
+<meta property="og:image" content="{{ SITEURL }}/images/{% if article.opengraph_image is defined %}{{ article.opengraph_image }}{% else %}opengraph-default.jpg{% endif %}" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="{{ SITEURL }}/images/{% if article.opengraph_image is defined %}{{ article.opengraph_image }}{% else %}opengraph-default.jpg{% endif %}" />
+{% elif page is defined %}
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ SITEURL }}/{{ page.url }}" />
+<meta property="og:title" content="{{ SITENAME }} - {{ page.title | replace("\"", "&quot;") }}" />
+<meta property="og:description" content="{{ page.content | striptags | replace("\"", "&quot;") | truncate(196, False, '...') }}" />
+<meta property="og:image" content="{{ SITEURL }}/images/{% if page.opengraph_image is defined %}{{ page.opengraph_image }}{% else %}opengraph-default.jpg{% endif %}" />
+
+{% else %}
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ SITEURL }}/{{ output_file }}" />
+<meta property="og:title" content="{{ SITENAME }}" />
+<meta property="og:description" content="Ranganath's personal site" />
+<meta property="og:image" content="{{ SITEURL }}/images/opengraph-default.jpg" />
+{% endif %}
+
+  <title>{% block title %}| {{ SITENAME }}{% endblock %}</title>
+  <link rel="canonical" href="{{ SITEURL }}/{{ output_file }}">
+
+  {% if RFG_FAVICONS %}
+    <link rel="apple-touch-icon" href="{{ SITEURL }}/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="{{ SITEURL }}/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ SITEURL }}/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="{{ SITEURL }}/manifest.json">
+    <meta name="theme-color" content="#333333">
+  {% endif %}
+
+  <link rel="stylesheet" href="{{ url(BOOTSTRAP_CSS or '/theme/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url(FONTAWESOME_CSS or '/theme/css/fontawesome.min.css') }}">
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/pygments/{{ PYGMENTS_STYLE|default('default') }}.min.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/theme.css">
+  {% for stylesheet in THEME_CSS_OVERRIDES or () %}
+  <link rel="stylesheet" href="{{ url(stylesheet) }}">
+  {% endfor %}
+
+  {% include 'include/xml_feeds.html' %}
+  {% block head %}{% endblock %}
+  {% include 'include/analytics.html' %}
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      {% include 'include/header.html' %}
+    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <i>{% block page_header %}{% endblock %}</i>
+      <h3>{% block page_header1 %}{% endblock %}</h3>
+      <hr>
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      {% include 'include/footer.html' %}
+    </div>
+  </footer>
+
+  {% for script in THEME_JS_OVERRIDES or () %}
+  <script type="text/javascript" src="{{ url(script) }}" crossorigin="anonymous"></script>
+  {% endfor %}
+</body>
+
+</html>

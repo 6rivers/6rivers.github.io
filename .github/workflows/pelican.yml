@@ -1,0 +1,28 @@
+name: Deploy Pelican
+
+on:
+  push:
+    branches: [main]  # Notice: main, not gh-pages
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Install dependencies
+        run: |
+          pip install pelican markdown ghp-import
+      
+      - name: Build site
+        run: pelican content
+      
+      - name: Deploy to GitHub Pages
+        run: |
+          ghp-import -n -p -f output
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
