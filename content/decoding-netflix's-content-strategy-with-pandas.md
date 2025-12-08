@@ -7,7 +7,7 @@ opengraph_image: Decoding Netflix's Content Strategy with Pandas.png
 
 How did Netflix go from DVD rental company to dominating global streaming service? I analyzed 8,700+ Netflix titles (2008-2021) from Kaggle using **Pandas** to decode their content strategy across countries, formats and genres.
 
-`You can find the complete code for this analysis here.`
+You can find the complete code for this analysis [here](https://github.com/6rivers/netflix-analysis-pandas).
 
 # Analysis and Findings:
 
@@ -181,7 +181,7 @@ df_result = df_result['month_name'].value_counts().reset_index(name='num_of_titl
 - **February** has the lowest content additions for both categories.
 
 
-#### 6.3 India's Patterns:
+#### India's Patterns:
 
 
 ```python
@@ -206,4 +206,4 @@ Netflix's rise follows a clear pattern. The analysis highlights three major move
 
 All of these insights were uncovered by using Pandas to clean the messy data, run datetime manipulations, and perform groupby operations on 8,700+ Netflix titles.
 
-You can find the complete code for this analysis here.
+You can find the complete code for this analysis [here](https://github.com/6rivers/netflix-analysis-pandas).
