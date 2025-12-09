@@ -78,21 +78,42 @@ p img {
   margin-bottom: .5rem;
 }
 
-/* Fix alignment: Neutralize Bootstrap column padding to align both columns at the same left position */
-/* On larger screens, remove the gutter between columns */
-@media (min-width: 576px) {
-  .teaser.row {
-    margin-left: 0;
-    margin-right: 0;
+/* Fix alignment: On mobile (below 576px), columns stack and metadata should align left */
+@media (max-width: 575px) {
+  .teaser header,
+  .teaser .title {
+    text-align: left;
   }
 
-  .teaser header.col-sm-4,
-  .teaser .col-sm-8 {
+  .teaser header ul {
     padding-left: 0;
-    padding-right: 0;
+    margin-left: 0;
+  }
+}
+
+/* Fix alignment: On large screens (576px+), keep Bootstrap grid but align content within columns */
+@media (min-width: 576px) {
+  /* Keep row margins to work with Bootstrap's gutter system */
+  .teaser.row {
+    margin-left: -15px;
+    margin-right: -15px;
   }
 
-  /* Ensure teaser title aligns with metadata */
+  /* Align metadata flush left within its column */
+  .teaser header.col-sm-4 {
+    padding-left: 15px;
+  }
+
+  .teaser header ul {
+    padding-left: 0;
+    margin-left: 0;
+  }
+
+  /* Align title flush left within its column */
+  .teaser .col-sm-8 {
+    padding-left: 15px;
+  }
+
   .teaser .title {
     margin-left: 0;
     padding-left: 0;
@@ -183,7 +204,10 @@ p img {
     text-align: center;
   }
 
-
+  /* Ensure teaser items align to left on mobile */
+  .teaser header {
+    text-align: left;
+  }
 
   .teaser header li {
     display: inline-block;
