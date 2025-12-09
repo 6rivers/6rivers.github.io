@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ranganath S</title><link href="https://ranganaths.com/" rel="alternate"/><link href="https://ranganaths.com/feeds/all.atom.xml" rel="self"/><id>https://ranganaths.com/</id><updated>2025-12-08T00:00:00+05:30</updated><subtitle>Jottings on tech and life</subtitle><entry><title>Decoding Netflix's Content Strategy with Pandas</title><link href="https://ranganaths.com/decoding-netflixs-content-strategy-with-pandas.html" rel="alternate"/><published>2025-12-08T00:00:00+05:30</published><updated>2025-12-08T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2025-12-08:/decoding-netflixs-content-strategy-with-pandas.html</id><summary type="html">&lt;p&gt;What 8,700+ titles (2008-2021) reveal about their rise to dominance&lt;/p&gt;</summary><content type="html">&lt;p&gt;How did Netflix go from DVD rental company to dominating global streaming service? I analyzed 8,700+ Netflix titles (2008-2021) from Kaggle using Pandas to decode their content strategy across countries, formats and genres.&lt;/p&gt;
+&lt;p&gt;You can find the complete code for this analysis &lt;a href="https://github.com/6rivers/netflix-analysis-pandas"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h1&gt;Analysis and Findings:&lt;/h1&gt;
+&lt;h2&gt;1. How Did Netflix Content Volume Evolve Between 2008-2021?&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;df_result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;groupby&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;year_added&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;unstack&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fill_value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;reset_index&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img alt="Netflix_content_evolution" src="https://ranganaths.com/images/netflix_content_evolution.png"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Netflix was founded in 1997 as a DVD rental business, but they waited for internet infrastructure and its costs to improve in the US (2007-08) to start the streaming service.&lt;/li&gt;
+&lt;li&gt;Between 2008 and 2014, Netflix added only &lt;strong&gt;54 titles&lt;/strong&gt; in total, reflecting the slow transition from &lt;strong&gt;DVD rentals to streaming&lt;/strong&gt; through licensing.&lt;/li&gt;
+&lt;li&gt;Then the explosive growth of Netflix started in January 2016, when they expanded to 130+ countries. We can see a &lt;strong&gt;5.7x surge&lt;/strong&gt; in content additions: from 73 titles (2015) to 418 titles(2016).&lt;/li&gt;
+&lt;li&gt;Movies peaked in 2019 with &lt;strong&gt;1424 titles&lt;/strong&gt;, while TV Shows peaked in 2020 with &lt;strong&gt;594 titles&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;After adding &lt;strong&gt;1,999 titles in 2019&lt;/strong&gt;, Netflix content additions fell 25% by 2021. &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Intense competition started in 2019&lt;/strong&gt;, when major media companies started their own streaming services, they stopped licensing content to Netflix. This explains the post-2019 decline in content additions to Netflix.&lt;/li&gt;
+&lt;li&gt;Additionally, COVID-19 disrupted global content production in 2020.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now let's see whether Netflix used old or new content to ramp up this volume.&lt;/p&gt;
+&lt;h2&gt;2. How Recent is Netflix's Content?&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;groupby&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;content_age&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;describe&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img alt="Netflix_content_freshness" src="https://ranganaths.com/images/netflix_content_freshness.png"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;content_age&lt;/code&gt; is a derived column (&lt;code&gt;year_added&lt;/code&gt; - &lt;code&gt;release_year&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;TV Shows:&lt;/strong&gt; Median age is 0 years(added same year as release).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Movies:&lt;/strong&gt; Median age is 2 years.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Why TV Shows are Added Sooner:&lt;/strong&gt; In their early years, Netflix licensed TV Shows from media companies and added them to their catalogue within a year of each season's original release. These were either reruns after the season ended or added just before the new season to draw in new viewers. From 2012 onwards, Netflix began producing its own content labeled as "Netflix Originals", which are available from day one.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Movie windows:&lt;/strong&gt;  Movies still follow traditional distribution: theatrical releases -&amp;gt; premium video on demand -&amp;gt; streaming. Hence the delay in adding movies to Netflix.&lt;/p&gt;
+&lt;h2&gt;3. Which Countries Dominates Netflix's Catalog and Does Content Type Vary by Region?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;To answer this, I split multi-country entries (e.g., "United States, India, United Kingdom") into separate rows, then counted titles per country.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;df_country&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;country&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;copy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;df_country&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;country&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df_country&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;country&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;str&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;, &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;df_exploded&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df_country&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;explode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;country&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c1"&gt;# ...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img alt="Netflix_movies_shows" src="https://ranganaths.com/images/netflix_movies_shows.png"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The United States dominates&lt;/strong&gt; the catalog with &lt;strong&gt;3,642 titles&lt;/strong&gt;, accounting for &lt;strong&gt;about 42%&lt;/strong&gt; of all content on Netflix.&lt;/li&gt;
+&lt;li&gt;The top five content producing countries are: &lt;strong&gt;United States, India, UK, Canada, and France&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Movie-Heavy Countries&lt;/strong&gt;: India(92%), Germany(81%) and France(78%).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;TV Show-Heavy Countries:&lt;/strong&gt; South Korea(73%) and Japan(62%).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Why These Patterns Exist:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;India's Movie Focus:&lt;/strong&gt; 
+In India, historically cinema has been the primary entertainment medium, while TV content lagged in production quality. Netflix's Indian catalog reflects this cinema-first culture, though streaming platforms are now elevating the TV Show quality.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Japan's TV Dominance:&lt;/strong&gt; Japanese TV content heavily features Anime series adapted from Manga, which come with in-built fan bases. This makes serialized anime production more commercially viable than standalone films.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;South Korea's K-Drama Strategy:&lt;/strong&gt; 
+Two key reasons that made K-Dramas globally competitive, and their strong presence on Netflix are:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Government policy:&lt;/strong&gt; After the 1997 Asian financial crisis, South Korea strategically invested in "culture industries" (K-drama, K-pop) as low-capital export businesses, sparking the "Korean Wave" phenomenon. &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Economic Efficiency:&lt;/strong&gt; The cost per minute of content for most of the TV Shows is less compared to movies. &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This demonstrates Netflix's localization approach, matching content format with regional preferences rather than applying one-size-fits-all strategy. But did that mean the content reached only to local audiences? That's what the next section uncovers.&lt;/p&gt;
+&lt;h2&gt;4. Which Genres Dominate Netflix's Library?&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;df_genres&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;listed_in&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;copy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;df_genres&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;listed_in&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;listed_in&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;str&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;, &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;df_genres_exploded&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df_genres&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;explode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;listed_in&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;df_genres_exploded&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;listed_in&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df_genres_exploded&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;listed_in&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;str&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;strip&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;df_genres_groups&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df_genres_exploded&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;groupby&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;df_genres_groups&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;listed_in&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;value_counts&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img alt="Netflix_movies_genre" src="https://ranganaths.com/images/netflix_movie_genre.png"&gt;
+&lt;img alt="Netflix_show_genre" src="https://ranganaths.com/images/netflix_show_genre.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Overall Genre leaders:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;International content:&lt;/strong&gt; 4,080 titles.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Drama:&lt;/strong&gt; 3,166 titles (36% of catalog).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Comedy:&lt;/strong&gt; 2,224 titles(26%).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Movies favor:&lt;/strong&gt; Documentaries, Action &amp;amp; Adventure and Independent Movies.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;TV Shows favor:&lt;/strong&gt; Crime TV Shows, Kids' TV and Docuseries.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;The International content strategy:&lt;/strong&gt;
+The 'International' label refers to content originating outside the viewer's region (e.g., non-English or non-US content for US viewers). Netflix recognized that great stories can come from anywhere and strategically invested in 'International content' to attract global subscribers. Examples like 'Money Heist (Spain)', 'Squid Game (South Korea)', and 'Lupin (France)' validated this approach.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Why Drama dominates:&lt;/strong&gt;
+'Drama' creates emotional connections with audiences across all cultures. Additionally, dramas are cheaper to produce than Action, Sci-Fi, Adventure content(no stunts or CGI required), making them ideal for Netflix's volume-based content strategy.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Focus on True Crime:&lt;/strong&gt; 
+Netflix also focused more on "True Crime" docuseries/documentaries, as they have global appeal and also cost effective to produce. &lt;/p&gt;
+&lt;h2&gt;5. Is Netflix Family-Friendly or Adult-Oriented?&lt;/h2&gt;
+&lt;p&gt;&lt;img alt="Netflix_content_rating" src="https://ranganaths.com/images/netflix_content_rating.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Rating Distribution:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Mature content (TV-MA/R)&lt;/strong&gt; 48% of Movies, 44% of TV Shows. &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Teen content (PG-13/TV-14):&lt;/strong&gt; 45% of Movies, 39% of TV Shows.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Kids content (G/TV-Y):&lt;/strong&gt; 7% of Movies, 17% of TV Shows.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Nearly half (47%) of Netflix content is rated mature, restricted to audiences 17+. When combined with teen content, 90% of the platform's content requires 'parental guidance' or age restrictions.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Why Netflix Prioritizes Mature Content:&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Netflix's core paying subscribers are adults (18-49) and Netflix doesn't have any pressure from advertisers to influence content, so Netflix optimizes its content to this core audience to retain their subscription.&lt;/li&gt;
+&lt;li&gt;By eliminating content restrictions, Netflix gave creative freedom for makers to tell their stories without any censorship restrictions. &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This demonstrates Netflix's strategic positioning as a more adult-oriented platform, deliberately differentiating from family-friendly competitors like Disney+.&lt;/p&gt;
+&lt;p&gt;Content fit is important, but it can create an impact only when the release timing is right.&lt;/p&gt;
+&lt;h2&gt;6. When Does Netflix Prefer to release Content?&lt;/h2&gt;
+&lt;h3&gt;6.1 Day-of-Week Patterns:&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;df_day_patterns&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;day_added&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;copy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;df_result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df_day_patterns&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;groupby&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;df_result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df_result&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;day_added&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;value_counts&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;reset_index&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;num_of_titles_added&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c1"&gt;# ...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img alt="Netflix_day_of_week" src="https://ranganaths.com/images/netflix_day_of_week.png" width="800px"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Netflix adds content mostly on &lt;strong&gt;Fridays&lt;/strong&gt;, which is similar to traditional theatrical releases.&lt;/li&gt;
+&lt;li&gt;This likely lets viewers start watching on Friday, binge over the weekend and discuss it with friends or colleagues on Monday, creating free and effective word-of-mouth marketing.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Saturdays and Sundays&lt;/strong&gt; show the fewest releases.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;6.2 Month-of-Year Patterns:&lt;/h3&gt;
+&lt;h4&gt;Global Patterns:&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;df_month_patterns&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;month_name&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;copy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;df_result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df_month_patterns&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;groupby&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;df_result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df_result&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;month_name&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;value_counts&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;reset_index&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;num_of_titles_added&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img alt="Netflix_month_of_year1" src="https://ranganaths.com/images/netflix_month_of_year1.png"&gt;
+&lt;img alt="Netflix_month_of_year2" src="https://ranganaths.com/images/netflix_month_of_year2.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Netflix_month_show1" src="https://ranganaths.com/images/netflix_month_show1.png"&gt;
+&lt;img alt="Netflix_month_show2" src="https://ranganaths.com/images/netflix_month_show2.png"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;July&lt;/strong&gt; is the most active month to release new content, which coincides with the summer holiday season in the US and Europe.&lt;/li&gt;
+&lt;li&gt;Second most preferred month for TV Shows is &lt;strong&gt;December&lt;/strong&gt;,  the holiday season in most Western countries.&lt;/li&gt;
+&lt;li&gt;This indicates either Netflix's strategic holiday timing or simply when licensed content becomes available to add to Netflix.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;February&lt;/strong&gt; has the lowest content additions for both categories.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;India's Patterns:&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;df_ind&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df_result&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;loc&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Ind_filt&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;df_ind&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df_ind&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;groupby&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;df_ind&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df_ind&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;month_name&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;value_counts&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;reset_index&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;num_of_titles_added&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img alt="Netflix_India_month1" src="https://ranganaths.com/images/netflix_india_month1.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Netflix_India_month2" src="https://ranganaths.com/images/netflix_india_month2.png"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;December&lt;/strong&gt; - Christmas and New Year's Eve.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;October/November&lt;/strong&gt; - Dussehra and Diwali festivals.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;April&lt;/strong&gt; - Start of summer holidays for schools.&lt;/li&gt;
+&lt;li&gt;Unlike the global &lt;strong&gt;July&lt;/strong&gt; peak (summer in US/Europe), Indian content additions show patterns aligned with India's own holidays, likely reflecting either Netflix's localization strategy or Indian Film Industry's traditional holiday releases (or both).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Netflix's rise follows a clear pattern. The analysis highlights three major moves: aggressive content production (not just licensing) from 2016 onward that unlocked network effects (more content -&amp;gt; more users -&amp;gt; more revenue -&amp;gt; more content), a localization strategy that matched content formats to regional preferences like movies for India and TV shows for Japan and South Korea, and deliberate positioning with more mature content that differentiated Netflix from competitors.&lt;/p&gt;
+&lt;p&gt;All of these insights were uncovered by using Pandas to clean the messy data, run datetime manipulations, and perform groupby operations on 8,700+ Netflix titles.&lt;/p&gt;
+&lt;p&gt;You can find the complete code for this analysis &lt;a href="https://github.com/6rivers/netflix-analysis-pandas"&gt;here&lt;/a&gt;.&lt;/p&gt;</content><category term="Python"/></entry><entry><title>Deploy Flask Docker image on AWS Lightsail</title><link href="https://ranganaths.com/deploy-flask-docker-image-on-aws-lightsail.html" rel="alternate"/><published>2022-12-04T00:00:00+05:30</published><updated>2022-12-04T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-12-04:/deploy-flask-docker-image-on-aws-lightsail.html</id><summary type="html">&lt;p&gt;Creating a flask application, its Docker image and deploying it to AWS Lightsail&lt;/p&gt;</summary><content type="html">&lt;ul&gt;
+&lt;li&gt;If you have your Flask application container built and running locally on your local dev machine. And want to get it running on the cloud to make your application available for other users over the internet, there is a simplified solution on AWS called Amazon Lightsail Container Services. &lt;/li&gt;
+&lt;li&gt;It removes many underlying complex AWS concepts for us and it is an ideal solution for developers who just want to focus on coding their applications.&lt;/li&gt;
+&lt;li&gt;Also Lightsail's budgeting is easy and has predictable price structure.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Prerequisites:&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;AWS account&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Docker&lt;/strong&gt; -- to create docker image&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AWS Command Line Interface (CLI)&lt;/strong&gt; -- to manage Lightsail service. Follow this &lt;a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html"&gt;link&lt;/a&gt; to install CLI on your machine&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Lightsail Control Plugin&lt;/strong&gt; -- to access container images on your local machine, &lt;a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-install-software#install-software-lightsailctl"&gt;link&lt;/a&gt; to install plugin.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Detailed post on dockerization of Flask app, can be find &lt;a href="https://ranganaths.com/dockerize-a-flask-application.html"&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;Build a sample Flask app:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a new directory&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;mkdir Docker-Flask-Lightsail
+cd Docker-Flask-Lightsail
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create a new 'application.py' and copy the below code and save it&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;flask&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;
+&lt;span class="n"&gt;app&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="vm"&gt;__name__&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nd"&gt;@app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;route&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;home&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;lt;h3&amp;gt;This is a demo for deploying a flask app on AWS Lightsail using Docker&amp;lt;/h3&amp;gt;&amp;#39;&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="vm"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Now create a 'requirements.txt' file and write &lt;code&gt;Flask==2.1.2&lt;/code&gt; and save the file.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Dockerize Flask app:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a new 'Dockerfile' and write the below commands and save it.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;FROM&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;python:3.8-slim&lt;/span&gt;
+
+&lt;span class="k"&gt;WORKDIR&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;/app&lt;/span&gt;
+&lt;span class="k"&gt;COPY&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;/app
+
+&lt;span class="k"&gt;RUN&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;-r&lt;span class="w"&gt; &lt;/span&gt;requirements.txt
+
+&lt;span class="k"&gt;EXPOSE&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;5000&lt;/span&gt;
+&lt;span class="k"&gt;ENTRYPOINT&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;python&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="k"&gt;CMD&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;application.py&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;run below command to create docker image&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;docker&lt;span class="w"&gt; &lt;/span&gt;build&lt;span class="w"&gt; &lt;/span&gt;-t&lt;span class="w"&gt; &lt;/span&gt;flask-lightsail:latest&lt;span class="w"&gt; &lt;/span&gt;.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Now to run docker container run below command&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;docker&lt;span class="w"&gt; &lt;/span&gt;run&lt;span class="w"&gt; &lt;/span&gt;--name&lt;span class="w"&gt; &lt;/span&gt;flask-service&lt;span class="w"&gt; &lt;/span&gt;-d&lt;span class="w"&gt; &lt;/span&gt;-p&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;5000&lt;/span&gt;:5000&lt;span class="w"&gt; &lt;/span&gt;flask-lightsail:latest&lt;span class="w"&gt; &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To verify, go to 'http://127.0.0.1:5000/' &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Deploy the image to AWS Lighsail:&lt;/h4&gt;
+&lt;p&gt;Now, we need to deploy this image to AWS Lightsail. For that we need to create Lightsail container service using the AWS CLI and push our local container image to the new Lightsail container service.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;To create the Lightsail container service use below command, where power and scale parameters represents the capacity of the container service. Here we are using "mirco" which provides &lt;strong&gt;vCPU:&lt;/strong&gt; 0.25 and &lt;strong&gt;RAM:&lt;/strong&gt; 1GB. This option is free of charge for first three months.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;aws lightsail create-container-service --service-name flask-app --power micro --scale 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Initially you might see &lt;code&gt;"state": "PENDING",&lt;/code&gt; in the output while your lightsail container service is being created for you.&lt;/li&gt;
+&lt;li&gt;To check the status of your container service, use below command&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;aws lightsail get-container-services
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To push our application container image use&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;aws lightsail push-container-image --service-name flask-app --label flask-container-image --image flask-lightsail:latest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--service-name&lt;/code&gt; -- The name of the container service in the lightsail service to which our application container image will be pushed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--label&lt;/code&gt; -- the label to be applied for the image on the container service&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--image&lt;/code&gt; -- our application container image which will be pushed to the container service&lt;/li&gt;
+&lt;li&gt;The above command will returns an output similar to below where ":flask-app.flask-container-image.8" is the image details&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Refer to this image as &amp;quot;:flask-app.flask-container-image.8&amp;quot; in deployments
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Now we need to create two json files called "&lt;strong&gt;containers.json&lt;/strong&gt;" and "&lt;strong&gt;public-endpoint.json&lt;/strong&gt;" &lt;/li&gt;
+&lt;li&gt;"&lt;strong&gt;containers.json&lt;/strong&gt;" -- describes the settings of the containers&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;flask&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;image&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;:flask-app.flask-container.7&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;ports&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;5000&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;HTTP&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;"&lt;strong&gt;public-endpoint.json&lt;/strong&gt;" -- describes the settings of the public endpoint for the container service&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;containerName&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;flask&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;containerPort&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;5000&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Now we need to run the container on the Lightsail using below command&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;aws lightsail create-container-service-deployment --service-name flask-app --containers file://containers.json --public-endpoint file://public-endpoint.json 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It will return you an URL to navigate to our flask app&lt;/li&gt;
+&lt;li&gt;To delete container service&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;aws lightsail delete-container-service --service-name flask-app
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="Python"/></entry><entry><title>Dockerize a Flask application</title><link href="https://ranganaths.com/dockerize-a-flask-application.html" rel="alternate"/><published>2022-10-22T00:00:00+05:30</published><updated>2022-10-22T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-10-22:/dockerize-a-flask-application.html</id><summary type="html">&lt;p&gt;Creating a flask application and deploy  it using Docker&lt;/p&gt;</summary><content type="html">&lt;h4&gt;About Docker:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Docker is an open source platform that enables developers to manage containers. A container is a lightweight virtualization solution that enables our flask web app to run in total isolation from all of its dependencies and configurations without the use of actual virtual servers. &lt;/li&gt;
+&lt;li&gt;By using  Python "virtualenv", you can easily swap between Python versions and dependencies, but you are restricted to the host OS. Containerization enables portability from one machine to another. Although it is not the only platform for containers, "Docker" is the most commonly used.&lt;/li&gt;
+&lt;li&gt;You can find several docker &lt;a href="https://hub.docker.com/_/python/"&gt;images&lt;/a&gt; with every combination of OS and Python versions.&lt;/li&gt;
+&lt;li&gt;You can follow this &lt;a href="https://docs.docker.com/get-docker/"&gt;official link&lt;/a&gt; to install Docker on your machine.&lt;/li&gt;
+&lt;li&gt;Now we will create a simple web app using Flask and will dockerize it.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Build a sample Flask app:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a new folder&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="n"&gt;Docker&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Flask&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Inside the root folder, Create and activate virtual environment(I'm using Windows OS here)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;Docker&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Flask&lt;/span&gt;
+&lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;venv&lt;/span&gt; &lt;span class="n"&gt;venv&lt;/span&gt;
+&lt;span class="n"&gt;venv&lt;/span&gt;\&lt;span class="n"&gt;scripts&lt;/span&gt;\&lt;span class="n"&gt;activate&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Within activated virtual environment, install Flask&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create a new "application.py" in the same folder and add below sample code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;flask&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;
+&lt;span class="n"&gt;app&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="vm"&gt;__name__&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nd"&gt;@app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;route&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;home&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;lt;h3&amp;gt;This is a Docker Demo for Flask Application&amp;lt;/h3&amp;gt;&amp;#39;&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="vm"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Now create a '.flaskenv' file and write "FLASK_APP=application.py" which specify how to load the application.&lt;/li&gt;
+&lt;li&gt;Since we are using '.flaskenv' file we need to install 'python-dotenv' using &lt;code&gt;pip install python-dotenv&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Now run &lt;code&gt;pip freeze &amp;gt; requirements.txt&lt;/code&gt; to create a file that has a list of all libraries used in this project.&lt;/li&gt;
+&lt;li&gt;To start our development server, run &lt;code&gt;flask run&lt;/code&gt; command from the root folder(Docker-Flask).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="run_flask" src="https://ranganaths.com/images/docker_flask_2.png"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;To verify, go to "http://127.0.0.1:5000/" in your browser.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Dockerfile:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;The command that is used to build container images is &lt;code&gt;docker build&lt;/code&gt; and we can give instructions to this build command using a file called "Dockerfile".&lt;/li&gt;
+&lt;li&gt;Create this file in the root folder and copy the below commands and save it.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;FROM&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;python:3.8-slim&lt;/span&gt;
+
+&lt;span class="k"&gt;WORKDIR&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;/app&lt;/span&gt;
+&lt;span class="k"&gt;COPY&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;/app
+
+&lt;span class="k"&gt;RUN&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;-r&lt;span class="w"&gt; &lt;/span&gt;requirements.txt
+
+&lt;span class="k"&gt;EXPOSE&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;5000&lt;/span&gt;
+&lt;span class="k"&gt;CMD&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;flask&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;run&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;--host&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;0.0.0.0&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;"&lt;code&gt;FROM python:3.8-slim&lt;/code&gt;" tells the Docker which base image to be used, in this case, a Python image.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;WORKDIR /app&lt;/code&gt; tells the Docker which folder to use for rest of the operations.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;COPY . /app&lt;/code&gt;, this command makes the Docker to copy all the files in our local root directory to container's '/app' folder.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RUN pip install -r requirements.txt&lt;/code&gt; will install each requirement written in the requirements.txt file.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;EXPOSE 5000&lt;/code&gt;, the port that this container will use for web server can be configured by this command. (5000 is the standard Flask port)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CMD ["flask", "run", "--host", "0.0.0.0"]&lt;/code&gt;, this command starts the server. Here we are using &lt;code&gt;host = 0.0.0.0&lt;/code&gt; which makes Flask to listen all IP addresses in that container so that the container can be accessible from outside.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Build a Docker Image:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Now we need to build the image using &lt;code&gt;docker build&lt;/code&gt; command as shown below&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;docker&lt;span class="w"&gt; &lt;/span&gt;build&lt;span class="w"&gt; &lt;/span&gt;-t&lt;span class="w"&gt; &lt;/span&gt;flask-demo-app:latest&lt;span class="w"&gt; &lt;/span&gt;.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-t&lt;/code&gt; argument sets the name and tag for the new container image. The "&lt;code&gt;.&lt;/code&gt;" represents the base directory in which the container is to be created, which has Dockerfile. The image will be created during the build phase and saved on your machine after evaluating the commands in the Dockerfile.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker images&lt;/code&gt; lists the images created on your machine.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Run the Docker image:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;With an image created, now we can run the container version of our flask application using &lt;code&gt;docker run&lt;/code&gt; command&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;docker&lt;span class="w"&gt; &lt;/span&gt;run&lt;span class="w"&gt; &lt;/span&gt;--name&lt;span class="w"&gt; &lt;/span&gt;flask-app&lt;span class="w"&gt; &lt;/span&gt;-d&lt;span class="w"&gt; &lt;/span&gt;-p&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;5000&lt;/span&gt;:5000&lt;span class="w"&gt; &lt;/span&gt;flask-demo-app:latest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--name&lt;/code&gt; parameter gives the name to the container(flask-app), &lt;code&gt;-d&lt;/code&gt; to run the container in the background or detached mode and not connected to our terminal,  &lt;code&gt;-p 5000:5000&lt;/code&gt; maps the host's(In this instance, my laptop) port 5000 to the container's port 5000. &lt;code&gt;flask-demo-app:latest&lt;/code&gt; indicates the image name.&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;By running the above command, your dockerized application will be available at localhost(http://127.0.0.1:5000/)
+&lt;img alt="check_app" src="https://ranganaths.com/images/docker_flask_1.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;When we have locally tested docker containers, we can migrate them to cloud services that support Docker.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Other Info:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;docker ps&lt;/code&gt; to see the list of containers running currently&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker stop &amp;lt;docker-id&amp;gt;&lt;/code&gt; to stop the container&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker restart &amp;lt;docker-id&amp;gt;&lt;/code&gt; to restart the container&lt;/li&gt;
+&lt;/ul&gt;</content><category term="Python"/></entry><entry><title>News aggregator web app</title><link href="https://ranganaths.com/news-aggregator-web-app.html" rel="alternate"/><published>2022-10-09T00:00:00+05:30</published><updated>2022-10-09T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-10-09:/news-aggregator-web-app.html</id><summary type="html">&lt;p&gt;Building a News aggregator web app using Flask&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is about a web app, "News Aggregator" that serves users with daily News from different sources. It is built using Flask for the backend, and HTML / CSS for the frontend. This is a simple news aggregator that displays the Title, URL for the news with an image. It has different news categories like World, India, sports, etc. The final version of the web app can be seen at &lt;a href="https://news-aggregator-i0e5.onrender.com/"&gt;News Aggregator&lt;/a&gt; and the complete code at my &lt;a href="https://github.com/6rivers/news-aggregator"&gt;GitHub Repo&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;Database:&lt;/h1&gt;
+&lt;p&gt;The database for this application would have just two tables. One is to store the list of News sources(Source Table) and the other one is for news title, url, image_url, category, etc. These two tables have a relationship.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Source&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="nb"&gt;id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Column&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Integer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;primary_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Column&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;24&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;nullable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;False&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;image_url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Column&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Text&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;news&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;relationship&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;News&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;backref&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;news_source&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;lazy&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;dynamic&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;News&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="nb"&gt;id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Column&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Integer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;primary_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;title&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Column&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Text&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;nullable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;False&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Column&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Text&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;nullable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;False&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;image_url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Column&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Text&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;nullable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;False&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;pub_date&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Column&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;64&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;nullable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;False&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;category&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Column&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;nullable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;False&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;source_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Column&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Integer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ForeignKey&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;source.id&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1&gt;News Source:&lt;/h1&gt;
+&lt;p&gt;To source the news, I have used RSS feeds from different news outlets and also NewsAPI.  "requests" and "BeautifulSoup" libraries were used for the web scraping process.&lt;/p&gt;
+&lt;h1&gt;News from RSS feeds:&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;bs4&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;BeautifulSoup&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;application&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;application.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;News&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Source&lt;/span&gt;
+
+&lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://www.yahoo.com/news/rss&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Yahoo News&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;category&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;world&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;headers&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;User-Agent&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Mozilla/5.0&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;content&lt;/span&gt;
+&lt;span class="n"&gt;soup&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BeautifulSoup&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;lxml-xml&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;items&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;soup&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find_all&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;item&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;item&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;items&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;title&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;
+&lt;span class="n"&gt;link&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;link&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;
+&lt;span class="n"&gt;img&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;media:content&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;img_url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;url&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;pub_date&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pubDate&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;
+&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Source&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;filter_by&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;news&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;News&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;link&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;image_url&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;img_url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="n"&gt;pub_date&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;pub_date&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;category&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;category&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;news_source&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;session&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;news&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;session&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;commit&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1&gt;News from NewsAPI&lt;/h1&gt;
+&lt;p&gt;Another way to get news data is from &lt;a href="https: // newsapi.org /"&gt;NewsAPI&lt;/a&gt;, through its JSON API. It provides an APIKey if we register(free) with them, to send API requests&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;application.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;News&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Source&lt;/span&gt;
+
+&lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://newsapi.org/v2/top-headlines&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;apiKey&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;API Key you&amp;#39;ve got from NewsAPI&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;params&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;country&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;in&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;category&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;sports&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;q&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;cricbuzz&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;sortBy&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;top&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;apiKey&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;apiKey&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;articles&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;articles&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="c1"&gt;# find the complete code at my GitHub repo&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;After we get the data, we can save the required fields to the database tables as shown above.&lt;/p&gt;
+&lt;h1&gt;App Routing:&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;flask&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;render_template&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;application&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;app&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;application.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;News&lt;/span&gt;
+
+
+&lt;span class="nd"&gt;@app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;route&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;index&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;category&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;india&amp;#39;&lt;/span&gt;
+    &lt;span class="n"&gt;news&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;News&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;filter_by&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;category&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;category&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;render_template&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;index.html&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;news&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;news&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1&gt;Deployment:&lt;/h1&gt;
+&lt;p&gt;To deploy this web app I have used &lt;a href="https://render.com/docs/deploy-flask"&gt;Render&lt;/a&gt;, you can find the final version of this web app at &lt;a href="https://news-aggregator-i0e5.onrender.com/"&gt;News Aggregator&lt;/a&gt;&lt;/p&gt;</content><category term="Python"/></entry><entry><title>How to share your local server with anyone using Ngrok</title><link href="https://ranganaths.com/how-to-share-your-local-server-with-anyone-using-ngrok.html" rel="alternate"/><published>2022-09-01T00:00:00+05:30</published><updated>2022-09-01T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-09-01:/how-to-share-your-local-server-with-anyone-using-ngrok.html</id><summary type="html">&lt;p&gt;Getting a secure, private public url for our local server&lt;/p&gt;</summary><content type="html">&lt;ul&gt;
+&lt;li&gt;There will be instances where we want to share our dev web app with friends before deploying it somewhere, or even check its UI on your mobile, or we may need to test webhooks. A common constraint in these situations is that your development web app is on your local machine. &lt;/li&gt;
+&lt;li&gt;A free tool called Ngrok is available to handle this.&lt;/li&gt;
+&lt;li&gt;Ngrok creates a secure, private connection tunnel to the cloud service. Your local server is mapped to a ngrok.io sub-domain, which can be used by a remote user to access your local server.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6&gt;How to use NGROK:&lt;/h6&gt;
+&lt;p&gt;To demo this, I will run a simple HTML file on my localhost. You can extend its usability to other areas as I mentioned above.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Create a new HTML file, hello.html in any local folder&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;html
+    &amp;lt;!DOCTYPE html&amp;gt;
+    &amp;lt;html lang="en"&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;title&amp;gt;Hello&amp;lt;/title&amp;gt;
+    &amp;lt;/head&amp;gt;
+    &amp;lt;body&amp;gt;
+        &amp;lt;h3&amp;gt;Hello World&amp;lt;/h3&amp;gt;
+    &amp;lt;/body&amp;gt;
+    &amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Assuming you have python installed on your machine, you can run this HTML on the local server using the below command in your command prompt
+    &lt;code&gt;python -m http.server&lt;/code&gt; &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;You can see the results at http://127.0.0.1:8000/hello.html using a browser. (default port will be 8000)&lt;/li&gt;
+&lt;li&gt;We can now use "Ngrok" to share this with our friends.&lt;/li&gt;
+&lt;li&gt;Download its package from Ngrok's official &lt;a href="https://ngrok.com/download"&gt;website&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Unzip the downloaded file to your local storage.&lt;/li&gt;
+&lt;li&gt;Open Command prompt, cd to the folder containing the ngrok file, and run the below command&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ngrok http 8000&lt;/code&gt;, will provide you with a public URL that serves the same hello.html file
+        &lt;img alt="ngrok_demo" src="https://ranganaths.com/images/ngrok_demo.png"&gt;&lt;/li&gt;
+&lt;/ol&gt;</content><category term="General"/></entry><entry><title>Installing Ubuntu on Windows 10</title><link href="https://ranganaths.com/installing-ubuntu-on-windows-10.html" rel="alternate"/><published>2022-08-25T00:00:00+05:30</published><updated>2022-08-25T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-08-25:/installing-ubuntu-on-windows-10.html</id><summary type="html">&lt;p&gt;How to run a Linux environment on windows to run Linux commands&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Intro:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;From time to time, we might need to run a Linux environment on windows to run Linux commands, we can do this by creating a virtual machine on the windows system however it would take more resources(CPU, Memory, and storage)&lt;/li&gt;
+&lt;li&gt;But there is another option called WSL aka Windows Subsystem for Linux, which would require fewer resources than a full Virtual Machine.&lt;/li&gt;
+&lt;li&gt;WSL also allows you to run Linux command-line tools and apps alongside your Windows command-line and you can even access your Windows files from within Linux environment. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;How to install Linux system on Windows 10 using WSL:&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Search for "Turn Windows features On or Off" in the windows search
+        &lt;img alt="turn_on_feature" src="https://ranganaths.com/images/turn_windows_features.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It will open a window as below, scroll down, select 'Windows subsystems for Linux' and click on OK.
+        &lt;img alt="features_window" src="https://ranganaths.com/images/windows_feature_window.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Once you click OK, it will apply the required changes and requests you to restart your system
+        &lt;img alt="restart" src="https://ranganaths.com/images/windows_feature_restart.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;After the restart, we can install our preferred Linux Distributions using "Microsoft Store" in your system, and search for 'Ubuntu' or 'Linux'.
+        &lt;img alt="ms_store" src="https://ranganaths.com/images/microsoft_store_ubuntu.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Here, I am trying to install Ubuntu(Linux distribution)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Once installed, open the Ubuntu app, it will take a few moments to finish the installation and would launch a Ubuntu Terminal.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Inside the terminal, you will be asked to enter your Unix username and password, which is different from your windows credentials, so you can give new credentials here.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Finally, we can run Linux commands in the Ubuntu terminal&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;ls -al&lt;/code&gt;, will list the files and directories in the current directory&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;How to navigate through Windows drives,&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;enter the below commands&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;ls /mnt/&lt;/code&gt; &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cd /mnt/c&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ls -al&lt;/code&gt;, &lt;code&gt;cd Users/your_desktop_path/&lt;/code&gt;
+   &lt;img alt="commands" src="https://ranganaths.com/images/ubuntu_terminal.png"&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Simple Linux Commands :&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;touch notes.txt&lt;/code&gt; -- to create notes.txt text file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nano notes.txt&lt;/code&gt;  -- opens the text file using default and simple terminal-based text editor&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cat notes.txt&lt;/code&gt; --displays text in the file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pwd&lt;/code&gt; -- the path of the current working directory (folder)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mkdir Music&lt;/code&gt; -- creates a new 'Music' folder &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can find and learn more about the Linux command line &lt;a href="https://ubuntu.com/tutorials/command-line-for-beginners#1-overview"&gt;here&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;Also, you can open the bash terminal in the windows cmd by running, &lt;code&gt;bash&lt;/code&gt; command-- and run Linux commands.&lt;/p&gt;</content><category term="Linux"/></entry><entry><title>How to create a Telegram bot</title><link href="https://ranganaths.com/how-to-create-a-telegram-bot.html" rel="alternate"/><published>2022-08-22T00:00:00+05:30</published><updated>2022-08-22T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-08-22:/how-to-create-a-telegram-bot.html</id><summary type="html">&lt;p&gt;Create a Telegram bot to integrate within any application&lt;/p&gt;</summary><content type="html">&lt;p&gt;Telegram is a great platform to send your application alerts to your users. To create a telegram bot for yourself, you can follow the below steps.&lt;/p&gt;
+&lt;p&gt;Open the Telegram app on your mobile or desktop and search for "BotFather", or you may use this &lt;a href="https://telegram.me/botfather"&gt;link&lt;/a&gt; for that. And enter &lt;code&gt;/start&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="image0" src="https://ranganaths.com/images/20220817132237.png"&gt;&lt;/p&gt;
+&lt;p&gt;Then you would be presented with a number of options to try. But to create a new bot enter or click on &lt;code&gt;/newbot&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="image1" src="https://ranganaths.com/images/20220817132315.png"&gt;&lt;/p&gt;
+&lt;p&gt;Now it asks for the bot name and 'username' for it, where &lt;em&gt;username should end with 'bot'&lt;/em&gt;. &lt;/p&gt;
+&lt;p&gt;And since it should be unique, your preferred username might have already been taken by others. But eventually, you are going to get a new username and an access token for it&lt;/p&gt;
+&lt;p&gt;&lt;img alt="image2" src="https://ranganaths.com/images/20220817133338.png"&gt;&lt;/p&gt;
+&lt;p&gt;Now, you have a new bot, which Telegram users can find and use it. &lt;/p&gt;
+&lt;p&gt;When a user sends &lt;code&gt;/start&lt;/code&gt; to your bot, you will have new updates for this bot at &lt;code&gt;https://api.telegram.org/bot{your_bot_token}/getUpdates&lt;/code&gt; (replace {your_bot_token} with the token you got in the above step). You can use any browser to see the results.&lt;/p&gt;
+&lt;p&gt;To make the results look good, you can use&lt;a href="https://chrome.google.com/webstore/detail/json-formatter/mhimpmpmffogbmmkmajibklelopddmjf"&gt;JSON Formatter&lt;/a&gt; extension if you are using a chrome browser. You will get information like the user's name, username, chat_id, and the text the user has sent to you.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="image3" src="https://ranganaths.com/images/20220817140345.png"&gt;&lt;/p&gt;
+&lt;p&gt;You can integrate this within your application by using the chat_id to send alerts or custom messages to the user.&lt;/p&gt;</content><category term="General"/></entry><entry><title>Playlist Generator - a web application using Flask</title><link href="https://ranganaths.com/playlist-generator-a-web-application-using-flask.html" rel="alternate"/><published>2022-05-30T00:00:00+05:30</published><updated>2022-05-30T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-05-30:/playlist-generator-a-web-application-using-flask.html</id><summary type="html">&lt;p&gt;Building a web application using Flask&lt;/p&gt;</summary><content type="html">&lt;ul&gt;
+&lt;li&gt;This article is about my recent side project, building a web application using &lt;ul&gt;
+&lt;li&gt;Flask(a micro web framework written in Python), &lt;/li&gt;
+&lt;li&gt;PostgreSQL for database, &lt;/li&gt;
+&lt;li&gt;HTML/CSS for frontend, &lt;/li&gt;
+&lt;li&gt;Heroku for deployment&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Note: This project is just to demonstrate coding patterns and NOT for commercial purposes.&lt;/strong&gt;&lt;/p&gt;
+&lt;h4&gt;What/Why this application?&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;We usually like different playlists from different providers, e.g., I like "Weekly Top 20: English" from Wynk and also LastFM's "Top Tracks" playlist. But having these playlists in a single place(Spotify) is very convenient&lt;/li&gt;
+&lt;li&gt;Using this application, users can select any listed playlist from available providers like LastFM, BillBoard, etc., and can directly create those playlists in their Spotify account with few clicks.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="playlists" src="https://ranganaths.com/images/playlists.png"&gt;&lt;/p&gt;
+&lt;h5&gt;This article documents how I went about building this feature in Flask:&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;I have used &lt;a href="https://developer.spotify.com/"&gt;Spotify's Web API&lt;/a&gt; to handle authorization. Spotify provides good documentation on authorization, different endpoints to access the User's data, and how to send requests to Spotify API on the user's behalf to create playlists and add items to playlists.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6&gt;Authorization:&lt;/h6&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;base_url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://accounts.spotify.com&amp;#39;&lt;/span&gt;
+
+&lt;span class="nd"&gt;@app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;route&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/authorize&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;authorize&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;auth_url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;base_url&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s1"&gt;/authorize?client_id=&lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;client_id&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s1"&gt;&amp;amp;response_type=code&amp;amp;redirect_uri=&lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;redirect_uri&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s1"&gt;&amp;amp;scope=&lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;scope&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;redirect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;auth_url&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Here Scopes provide Spotify users using third-party apps the confidence that only the information they choose to share will be shared, and nothing more. When a user attempts to create a playlist, they will be redirected to log in to Spotify. Once they log in and provide authorization, then Spotify redirects to the callback URL, which should match the redirect URL in our Spotify developer account. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nd"&gt;@app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;route&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/callback&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;callback&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;code&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;code&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;token_url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;base_url&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;/api/token&amp;quot;&lt;/span&gt;
+
+    &lt;span class="n"&gt;headers&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;Authorization&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Basic &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;client_creds_b64&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;decode&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;Content-Type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;application/x-www-form-urlencoded&amp;#39;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="n"&gt;body&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;grant_type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;authorization_code&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;code&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;code&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;redirect_uri&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;redirect_uri&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;token_url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;body&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;json_response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;session&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;access_token&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;json_response&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;access_token&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;session&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;refresh_token&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;json_response&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;refresh_token&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="c1"&gt;# ..&lt;/span&gt;
+    &lt;span class="c1"&gt;# ..&lt;/span&gt;
+    &lt;span class="c1"&gt;# ..&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;redirect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url_for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;play_list&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;id&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;session&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;prev_url&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Once Spotify redirects the request to '/callback', we need to send a post request to '{base_url}/api/token' with an encoded version of (ID:secret) along with the code received, redirect_uri in the body of the request as shown above. A successful request which has a status code of 200, returns 'access token' and 'refresh token'. This access token is used to make API calls on behalf of the user. I have used the flask session object to store these values.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6&gt;Create playlist and add songs:&lt;/h6&gt;
+&lt;ul&gt;
+&lt;li&gt;By now, we have all essentials to Create a playlist and add songs to it on behalf of the user. These two are separate POST requests. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;base_endpoint = 'https://api.spotify.com'&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# Creating a playlist&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;create_playlist&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;user_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;access_token&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;endpoint&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;base_endpoint&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;/v1/users/&lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;user_id&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;/playlists&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;headers&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s2"&gt;&amp;quot;Authorization&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Bearer &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;access_token&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;Content-Type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;application/json&amp;#39;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;body&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dumps&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;name&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;description&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;By Playlist Generator&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;public&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;False&lt;/span&gt;
+    &lt;span class="p"&gt;})&lt;/span&gt;
+    &lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;endpoint&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;body&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;status_code&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;201&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;status_code&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;401&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# Adding songs to the playlist created in the above step&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;add_songs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;playlist_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;access_token&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;uris&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;endpoint&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;base_endpoint&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;/v1/playlists/&lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;playlist_id&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;/tracks&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;headers&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s2"&gt;&amp;quot;Authorization&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Bearer &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;access_token&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;Content-Type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;application/json&amp;#39;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;body&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dumps&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;uris&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;uris&lt;/span&gt;
+    &lt;span class="p"&gt;})&lt;/span&gt;
+    &lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;endpoint&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;body&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;status_code&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;201&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;status_code&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;401&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h6&gt;Auto-Update Feature:&lt;/h6&gt;
+&lt;ul&gt;
+&lt;li&gt;This application also provides the user an option to auto-update the desired playlist every week. For this, the user needs to create an account with this application, so that we can save the refresh token, playlist_id in the database. To implement this feature, I have used The association object pattern which is a variant on many-to-many, this is useful when we need an extra column, in this case, user_playlist_id, beyond the foreign keys to the left and right tables.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Subscriptions&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;__tablename__&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;subscriptions&amp;#39;&lt;/span&gt;
+
+    &lt;span class="n"&gt;user_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Column&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Integer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ForeignKey&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;users.id&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;primary_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;playlist_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Column&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Integer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ForeignKey&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;playlists.id&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;primary_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;user_playlist_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Column&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+        &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;60&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;False&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;unique&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;False&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;nullable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;subscribed_user&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;relationship&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;User&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;back_populates&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;user_playlists&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;subscribed_playlist&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;relationship&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+        &lt;span class="s2"&gt;&amp;quot;Playlist&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;back_populates&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;playlist_users&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h6&gt;Getting playlists from different providers:&lt;/h6&gt;
+&lt;ul&gt;
+&lt;li&gt;Till now I have discussed Spotify Authorization, and playlist creation, but how did I get all these playlist data from different providers like LastFM, billboard, etc., into my database? For this, I have used the 'Web Scraping' technique. This is used when you need a large amount of information from a website but it doesn't have any API to access that data. Most of this data is unstructured data in the HTML format, and we need to process it and save it in our database. For this, I have chosen the 'Beautiful Soup' Library in Python due to its simplicity.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Below is the sample code for web scraping: &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pip install beautifulsoup4&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;bs4&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;BeautifulSoup&lt;/span&gt;
+
+&lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://wynk.in/music/playlist/weekly-top-20-english/bb_1527140401220&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;soup&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BeautifulSoup&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;lxml&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;results&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;soup&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find_all&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;div&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;class_&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ml-4 flex flex-col lg:my-auto&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;songs_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;results&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;track&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+            &lt;span class="s1"&gt;&amp;#39;div&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;class_&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;text-base line-clamp-1 text-title&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;
+        &lt;span class="n"&gt;artist&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+            &lt;span class="s1"&gt;&amp;#39;div&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;class_&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;text-xs text-subtitle-hover line-clamp-1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;
+        &lt;span class="n"&gt;songs_list&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;dict&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;song&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;track&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;artist&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;artist&lt;/span&gt;&lt;span class="p"&gt;}))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;Remember that Web scraping is a kind of grey area, so check with the website's terms if you are using it for commercial purposes also web scraping consumes server resources for the host website. If we just scrape one page once, it would be ok, but if our code scrapes 1000s of pages, then it will get expensive for the website owner. So please avoid that.&lt;/em&gt;&lt;/p&gt;
+&lt;h6&gt;Deployment:&lt;/h6&gt;
+&lt;ul&gt;
+&lt;li&gt;I have chosen Heroku, a popular cloud hosting platform, which is very friendly for python applications. It has a free service tier that allows us to deploy our application without spending any money. &lt;/li&gt;
+&lt;li&gt;I have referenced &lt;a href="https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xviii-deployment-on-heroku"&gt;Miguel's Post&lt;/a&gt; for this deployment.&lt;/li&gt;
+&lt;li&gt;For us to open this application for a broader user base we need to submit a quota extension request in the Spotify developer account. I prefer not to use that since this is a hobby project.&lt;/li&gt;
+&lt;/ul&gt;</content><category term="Python"/></entry><entry><title>What is the use of Virtual Environments in Python projects?</title><link href="https://ranganaths.com/what-is-the-use-of-virtual-environments-in-python-projects.html" rel="alternate"/><published>2021-10-13T01:20:00+05:30</published><updated>2021-10-13T01:20:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2021-10-13:/what-is-the-use-of-virtual-environments-in-python-projects.html</id><summary type="html">&lt;p&gt;Virtual Environment is used to separate out the versions of packages.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Use of Virtual Environments in Python Projects:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Virtual Environment is used to separate out the versions of packages for eg., Django or Flask. &lt;/li&gt;
+&lt;li&gt;In general, if we install Packages directly without Virtual Environment then they will be installed on global levels&lt;/li&gt;
+&lt;li&gt;If you have multiple Django projects where some older projects need previous versions of Django and when you need a new project with the latest version of Django package and if you install it without virtual env then your older projects would be affected since the older version of Django package will be replaced with newer version after the upgrade. &lt;/li&gt;
+&lt;li&gt;Hence it is best practice to use Virtual Env for each project and have whatever packages are needed for that particular project inside the virtual environment. &lt;/li&gt;
+&lt;li&gt;venv is recommended for creating Virtual Environments from Python 3.5&lt;/li&gt;
+&lt;li&gt;Create a folder for the new project then cd to the folder and execute below to create new virtual env&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Creating Virtual Env:&lt;/h4&gt;
+&lt;p&gt;cd to your project folder&lt;/p&gt;
+&lt;h5&gt;Linux:&lt;/h5&gt;
+&lt;p&gt;&lt;code&gt;sudo apt install python3-pip&lt;/code&gt; to install pip if not already present. &lt;/p&gt;
+&lt;p&gt;Now install a tool for creating isolated virtual python environments or you can use &lt;code&gt;venv&lt;/code&gt; that comes directly with Python installation&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pip install virtualenv&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;virtualenv env_name&lt;/code&gt;  or
+&lt;code&gt;python3 -m venv env_name&lt;/code&gt; &lt;/p&gt;
+&lt;p&gt;this will create a new folder(env_name) in your current directory&lt;/p&gt;
+&lt;p&gt;To activate a virtual environment&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;source env_name/bin/activate&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;After activation, you would see a change similar to 
+&lt;code&gt;(venv) C:\Users\Name\Folder&amp;gt;&lt;/code&gt; &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;deactivate&lt;/code&gt; -- to deactivate the venv&lt;/p&gt;
+&lt;h5&gt;Windows:&lt;/h5&gt;
+&lt;p&gt;&lt;code&gt;python -m venv env_name&lt;/code&gt; -- to create Virtual Environment&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;env_name\scripts\activate&lt;/code&gt; -- to activate&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;deactivate&lt;/code&gt; -- to deactivate&lt;/p&gt;
+&lt;h5&gt;other info:&lt;/h5&gt;
+&lt;p&gt;Do not store any project scripts inside 'env_name' folder&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pip list&lt;/code&gt; -- to get a list of packages installed in the current venv&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pip freeze&lt;/code&gt; -- to get a list of packages in a format usable to copy for requirements.txt&lt;/p&gt;
+&lt;p&gt;command to create a requirements.txt file with a list of packages installed in the current project
+&lt;code&gt;pip freeze &amp;gt; requirements.txt&lt;/code&gt; &lt;/p&gt;
+&lt;p&gt;To directly install all packages from the requirements.txt use 
+&lt;code&gt;pip install -r requirements.txt&lt;/code&gt;&lt;/p&gt;</content><category term="Python"/></entry></feed>

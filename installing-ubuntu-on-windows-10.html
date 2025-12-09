@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="english">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ranganaths.com/installing-ubuntu-on-windows-10.html" />
+<meta property="og:title" content="Installing Ubuntu on Windows 10" />
+<meta property="og:description" content="Intro: From time to time, we might need to run a Linux environment on windows to run Linux commands, we can do this by creating a virtual machine on the windows system however it would take..." />
+<meta property="og:image" content="https://ranganaths.com/images/ubuntu_og.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://ranganaths.com/images/ubuntu_og.jpg" />
+
+  <title>  Installing Ubuntu on Windows 10 | Ranganath S
+</title>
+  <link rel="canonical" href="https://ranganaths.com/installing-ubuntu-on-windows-10.html">
+
+    <link rel="apple-touch-icon" href="https://ranganaths.com/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="https://ranganaths.com/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://ranganaths.com/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://ranganaths.com/manifest.json">
+    <meta name="theme-color" content="#333333">
+
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/fontawesome.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/theme.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/theme1.css">
+
+  <link rel="alternate" type="application/atom+xml" title="Full Atom Feed"
+        href="https://ranganaths.com/feeds/all.atom.xml">
+  <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
+        href="https://ranganaths.com/feeds/linux.atom.xml">  
+  <meta name="description" content="How to run a Linux environment on windows to run Linux commands">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row gx-5">
+    <div class="col-xs-2">
+      <a href="https://ranganaths.com/">
+        <img class="img-fluid rounded-circle" src=https://ranganaths.com/images/avatar.png width=80 height=50 alt="Ranganath S">
+      </a>
+    </div>
+    <div class="col-xs-6 ml-3 p-1">
+      <a href="https://ranganaths.com/">
+        <img class="img-fluid" src=https://ranganaths.com/images/logo.svg width=200 height=160 alt="Ranganath S">
+      </a>
+      <p class="text-muted">Jottings on tech and life</p>
+    </div>
+    
+      <ul class="list-inline icons">
+          <li class="list-inline-item icon"><a class="fab fa-twitter h5" href="https://twitter.com/imRanganathS" target="_blank"></a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <i></i>
+      <h3>Installing Ubuntu on Windows 10</h3>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2022-08-25T00:00:00+05:30">
+          <i class="fas fa-clock"></i>
+          Thu 25 August 2022
+        </li>
+        <li class="list-inline-item">
+          <i class="fas fa-folder-open"></i>
+          <a href="https://ranganaths.com/category/linux.html">Linux</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content">
+      <h3>Intro:</h3>
+<ul>
+<li>From time to time, we might need to run a Linux environment on windows to run Linux commands, we can do this by creating a virtual machine on the windows system however it would take more resources(CPU, Memory, and storage)</li>
+<li>But there is another option called WSL aka Windows Subsystem for Linux, which would require fewer resources than a full Virtual Machine.</li>
+<li>WSL also allows you to run Linux command-line tools and apps alongside your Windows command-line and you can even access your Windows files from within Linux environment. </li>
+</ul>
+<h3>How to install Linux system on Windows 10 using WSL:</h3>
+<ol>
+<li>
+<p>Search for "Turn Windows features On or Off" in the windows search
+        <img alt="turn_on_feature" src="https://ranganaths.com/images/turn_windows_features.png"></p>
+</li>
+<li>
+<p>It will open a window as below, scroll down, select 'Windows subsystems for Linux' and click on OK.
+        <img alt="features_window" src="https://ranganaths.com/images/windows_feature_window.png"></p>
+</li>
+<li>
+<p>Once you click OK, it will apply the required changes and requests you to restart your system
+        <img alt="restart" src="https://ranganaths.com/images/windows_feature_restart.png"></p>
+</li>
+<li>
+<p>After the restart, we can install our preferred Linux Distributions using "Microsoft Store" in your system, and search for 'Ubuntu' or 'Linux'.
+        <img alt="ms_store" src="https://ranganaths.com/images/microsoft_store_ubuntu.png"></p>
+</li>
+<li>
+<p>Here, I am trying to install Ubuntu(Linux distribution)</p>
+</li>
+<li>
+<p>Once installed, open the Ubuntu app, it will take a few moments to finish the installation and would launch a Ubuntu Terminal.</p>
+</li>
+<li>
+<p>Inside the terminal, you will be asked to enter your Unix username and password, which is different from your windows credentials, so you can give new credentials here.</p>
+</li>
+<li>
+<p>Finally, we can run Linux commands in the Ubuntu terminal</p>
+</li>
+<li>
+<p><code>ls -al</code>, will list the files and directories in the current directory</p>
+</li>
+</ol>
+<h3>How to navigate through Windows drives,</h3>
+<ul>
+<li>enter the below commands<ol>
+<li><code>ls /mnt/</code> </li>
+<li><code>cd /mnt/c</code></li>
+<li><code>ls -al</code>, <code>cd Users/your_desktop_path/</code>
+   <img alt="commands" src="https://ranganaths.com/images/ubuntu_terminal.png"></li>
+</ol>
+</li>
+</ul>
+<h3>Simple Linux Commands :</h3>
+<ul>
+<li><code>touch notes.txt</code> -- to create notes.txt text file</li>
+<li><code>nano notes.txt</code>  -- opens the text file using default and simple terminal-based text editor</li>
+<li><code>cat notes.txt</code> --displays text in the file</li>
+<li><code>pwd</code> -- the path of the current working directory (folder)</li>
+<li><code>mkdir Music</code> -- creates a new 'Music' folder </li>
+</ul>
+<p>You can find and learn more about the Linux command line <a href="https://ubuntu.com/tutorials/command-line-for-beginners#1-overview">here</a> </p>
+<p>Also, you can open the bash terminal in the windows cmd by running, <code>bash</code> command-- and run Linux commands.</p>
+    </div>
+  </article>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="https://ranganaths.com/archives.html">Archives</a></li>
+    <li class="list-inline-item"><a href="https://ranganaths.com/categories.html">Categories</a></li>
+  </ul>
+  <p class="col-sm-6 text-xs-right text-muted small">
+    Powered by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+  </p>
+</div>    </div>
+  </footer>
+
+</body>
+
+</html>

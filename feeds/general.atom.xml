@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ranganath S - General</title><link href="https://ranganaths.com/" rel="alternate"/><link href="https://ranganaths.com/feeds/general.atom.xml" rel="self"/><id>https://ranganaths.com/</id><updated>2022-09-01T00:00:00+05:30</updated><subtitle>Jottings on tech and life</subtitle><entry><title>How to share your local server with anyone using Ngrok</title><link href="https://ranganaths.com/how-to-share-your-local-server-with-anyone-using-ngrok.html" rel="alternate"/><published>2022-09-01T00:00:00+05:30</published><updated>2022-09-01T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-09-01:/how-to-share-your-local-server-with-anyone-using-ngrok.html</id><summary type="html">&lt;p&gt;Getting a secure, private public url for our local server&lt;/p&gt;</summary><content type="html">&lt;ul&gt;
+&lt;li&gt;There will be instances where we want to share our dev web app with friends before deploying it somewhere, or even check its UI on your mobile, or we may need to test webhooks. A common constraint in these situations is that your development web app is on your local machine. &lt;/li&gt;
+&lt;li&gt;A free tool called Ngrok is available to handle this.&lt;/li&gt;
+&lt;li&gt;Ngrok creates a secure, private connection tunnel to the cloud service. Your local server is mapped to a ngrok.io sub-domain, which can be used by a remote user to access your local server.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6&gt;How to use NGROK:&lt;/h6&gt;
+&lt;p&gt;To demo this, I will run a simple HTML file on my localhost. You can extend its usability to other areas as I mentioned above.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Create a new HTML file, hello.html in any local folder&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;html
+    &amp;lt;!DOCTYPE html&amp;gt;
+    &amp;lt;html lang="en"&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;title&amp;gt;Hello&amp;lt;/title&amp;gt;
+    &amp;lt;/head&amp;gt;
+    &amp;lt;body&amp;gt;
+        &amp;lt;h3&amp;gt;Hello World&amp;lt;/h3&amp;gt;
+    &amp;lt;/body&amp;gt;
+    &amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Assuming you have python installed on your machine, you can run this HTML on the local server using the below command in your command prompt
+    &lt;code&gt;python -m http.server&lt;/code&gt; &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;You can see the results at http://127.0.0.1:8000/hello.html using a browser. (default port will be 8000)&lt;/li&gt;
+&lt;li&gt;We can now use "Ngrok" to share this with our friends.&lt;/li&gt;
+&lt;li&gt;Download its package from Ngrok's official &lt;a href="https://ngrok.com/download"&gt;website&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Unzip the downloaded file to your local storage.&lt;/li&gt;
+&lt;li&gt;Open Command prompt, cd to the folder containing the ngrok file, and run the below command&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ngrok http 8000&lt;/code&gt;, will provide you with a public URL that serves the same hello.html file
+        &lt;img alt="ngrok_demo" src="https://ranganaths.com/images/ngrok_demo.png"&gt;&lt;/li&gt;
+&lt;/ol&gt;</content><category term="General"/></entry><entry><title>How to create a Telegram bot</title><link href="https://ranganaths.com/how-to-create-a-telegram-bot.html" rel="alternate"/><published>2022-08-22T00:00:00+05:30</published><updated>2022-08-22T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-08-22:/how-to-create-a-telegram-bot.html</id><summary type="html">&lt;p&gt;Create a Telegram bot to integrate within any application&lt;/p&gt;</summary><content type="html">&lt;p&gt;Telegram is a great platform to send your application alerts to your users. To create a telegram bot for yourself, you can follow the below steps.&lt;/p&gt;
+&lt;p&gt;Open the Telegram app on your mobile or desktop and search for "BotFather", or you may use this &lt;a href="https://telegram.me/botfather"&gt;link&lt;/a&gt; for that. And enter &lt;code&gt;/start&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="image0" src="https://ranganaths.com/images/20220817132237.png"&gt;&lt;/p&gt;
+&lt;p&gt;Then you would be presented with a number of options to try. But to create a new bot enter or click on &lt;code&gt;/newbot&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="image1" src="https://ranganaths.com/images/20220817132315.png"&gt;&lt;/p&gt;
+&lt;p&gt;Now it asks for the bot name and 'username' for it, where &lt;em&gt;username should end with 'bot'&lt;/em&gt;. &lt;/p&gt;
+&lt;p&gt;And since it should be unique, your preferred username might have already been taken by others. But eventually, you are going to get a new username and an access token for it&lt;/p&gt;
+&lt;p&gt;&lt;img alt="image2" src="https://ranganaths.com/images/20220817133338.png"&gt;&lt;/p&gt;
+&lt;p&gt;Now, you have a new bot, which Telegram users can find and use it. &lt;/p&gt;
+&lt;p&gt;When a user sends &lt;code&gt;/start&lt;/code&gt; to your bot, you will have new updates for this bot at &lt;code&gt;https://api.telegram.org/bot{your_bot_token}/getUpdates&lt;/code&gt; (replace {your_bot_token} with the token you got in the above step). You can use any browser to see the results.&lt;/p&gt;
+&lt;p&gt;To make the results look good, you can use&lt;a href="https://chrome.google.com/webstore/detail/json-formatter/mhimpmpmffogbmmkmajibklelopddmjf"&gt;JSON Formatter&lt;/a&gt; extension if you are using a chrome browser. You will get information like the user's name, username, chat_id, and the text the user has sent to you.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="image3" src="https://ranganaths.com/images/20220817140345.png"&gt;&lt;/p&gt;
+&lt;p&gt;You can integrate this within your application by using the chat_id to send alerts or custom messages to the user.&lt;/p&gt;</content><category term="General"/></entry></feed>

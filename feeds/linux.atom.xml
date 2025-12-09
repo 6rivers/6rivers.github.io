@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ranganath S - Linux</title><link href="https://ranganaths.com/" rel="alternate"/><link href="https://ranganaths.com/feeds/linux.atom.xml" rel="self"/><id>https://ranganaths.com/</id><updated>2022-08-25T00:00:00+05:30</updated><subtitle>Jottings on tech and life</subtitle><entry><title>Installing Ubuntu on Windows 10</title><link href="https://ranganaths.com/installing-ubuntu-on-windows-10.html" rel="alternate"/><published>2022-08-25T00:00:00+05:30</published><updated>2022-08-25T00:00:00+05:30</updated><author><name>Ranganath S</name></author><id>tag:ranganaths.com,2022-08-25:/installing-ubuntu-on-windows-10.html</id><summary type="html">&lt;p&gt;How to run a Linux environment on windows to run Linux commands&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Intro:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;From time to time, we might need to run a Linux environment on windows to run Linux commands, we can do this by creating a virtual machine on the windows system however it would take more resources(CPU, Memory, and storage)&lt;/li&gt;
+&lt;li&gt;But there is another option called WSL aka Windows Subsystem for Linux, which would require fewer resources than a full Virtual Machine.&lt;/li&gt;
+&lt;li&gt;WSL also allows you to run Linux command-line tools and apps alongside your Windows command-line and you can even access your Windows files from within Linux environment. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;How to install Linux system on Windows 10 using WSL:&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Search for "Turn Windows features On or Off" in the windows search
+        &lt;img alt="turn_on_feature" src="https://ranganaths.com/images/turn_windows_features.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It will open a window as below, scroll down, select 'Windows subsystems for Linux' and click on OK.
+        &lt;img alt="features_window" src="https://ranganaths.com/images/windows_feature_window.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Once you click OK, it will apply the required changes and requests you to restart your system
+        &lt;img alt="restart" src="https://ranganaths.com/images/windows_feature_restart.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;After the restart, we can install our preferred Linux Distributions using "Microsoft Store" in your system, and search for 'Ubuntu' or 'Linux'.
+        &lt;img alt="ms_store" src="https://ranganaths.com/images/microsoft_store_ubuntu.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Here, I am trying to install Ubuntu(Linux distribution)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Once installed, open the Ubuntu app, it will take a few moments to finish the installation and would launch a Ubuntu Terminal.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Inside the terminal, you will be asked to enter your Unix username and password, which is different from your windows credentials, so you can give new credentials here.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Finally, we can run Linux commands in the Ubuntu terminal&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;ls -al&lt;/code&gt;, will list the files and directories in the current directory&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;How to navigate through Windows drives,&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;enter the below commands&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;ls /mnt/&lt;/code&gt; &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cd /mnt/c&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ls -al&lt;/code&gt;, &lt;code&gt;cd Users/your_desktop_path/&lt;/code&gt;
+   &lt;img alt="commands" src="https://ranganaths.com/images/ubuntu_terminal.png"&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Simple Linux Commands :&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;touch notes.txt&lt;/code&gt; -- to create notes.txt text file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nano notes.txt&lt;/code&gt;  -- opens the text file using default and simple terminal-based text editor&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cat notes.txt&lt;/code&gt; --displays text in the file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pwd&lt;/code&gt; -- the path of the current working directory (folder)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mkdir Music&lt;/code&gt; -- creates a new 'Music' folder &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can find and learn more about the Linux command line &lt;a href="https://ubuntu.com/tutorials/command-line-for-beginners#1-overview"&gt;here&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;Also, you can open the bash terminal in the windows cmd by running, &lt;code&gt;bash&lt;/code&gt; command-- and run Linux commands.&lt;/p&gt;</content><category term="Linux"/></entry></feed>

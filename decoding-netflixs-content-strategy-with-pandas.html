@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="english">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ranganaths.com/decoding-netflixs-content-strategy-with-pandas.html" />
+<meta property="og:title" content="Decoding Netflix's Content Strategy with Pandas" />
+<meta property="og:description" content="How did Netflix go from DVD rental company to dominating global streaming service? I analyzed 8,700+ Netflix titles (2008-2021) from Kaggle using Pandas to decode their content strategy across..." />
+<meta property="og:image" content="https://ranganaths.com/images/Decoding Netflix's Content Strategy with Pandas.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://ranganaths.com/images/Decoding Netflix's Content Strategy with Pandas.png" />
+
+  <title>  Decoding Netflix's Content Strategy with Pandas | Ranganath S
+</title>
+  <link rel="canonical" href="https://ranganaths.com/decoding-netflixs-content-strategy-with-pandas.html">
+
+    <link rel="apple-touch-icon" href="https://ranganaths.com/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="https://ranganaths.com/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://ranganaths.com/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://ranganaths.com/manifest.json">
+    <meta name="theme-color" content="#333333">
+
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/fontawesome.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/theme.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/theme1.css">
+
+  <link rel="alternate" type="application/atom+xml" title="Full Atom Feed"
+        href="https://ranganaths.com/feeds/all.atom.xml">
+  <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
+        href="https://ranganaths.com/feeds/python.atom.xml">  
+  <meta name="description" content="What 8,700+ titles (2008-2021) reveal about their rise to dominance">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row gx-5">
+    <div class="col-xs-2">
+      <a href="https://ranganaths.com/">
+        <img class="img-fluid rounded-circle" src=https://ranganaths.com/images/avatar.png width=80 height=50 alt="Ranganath S">
+      </a>
+    </div>
+    <div class="col-xs-6 ml-3 p-1">
+      <a href="https://ranganaths.com/">
+        <img class="img-fluid" src=https://ranganaths.com/images/logo.svg width=200 height=160 alt="Ranganath S">
+      </a>
+      <p class="text-muted">Jottings on tech and life</p>
+    </div>
+    
+      <ul class="list-inline icons">
+          <li class="list-inline-item icon"><a class="fab fa-twitter h5" href="https://twitter.com/imRanganathS" target="_blank"></a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <i></i>
+      <h3>Decoding Netflix's Content Strategy with Pandas</h3>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2025-12-08T00:00:00+05:30">
+          <i class="fas fa-clock"></i>
+          Mon 08 December 2025
+        </li>
+        <li class="list-inline-item">
+          <i class="fas fa-folder-open"></i>
+          <a href="https://ranganaths.com/category/python.html">Python</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content">
+      <p>How did Netflix go from DVD rental company to dominating global streaming service? I analyzed 8,700+ Netflix titles (2008-2021) from Kaggle using Pandas to decode their content strategy across countries, formats and genres.</p>
+<p>You can find the complete code for this analysis <a href="https://github.com/6rivers/netflix-analysis-pandas">here</a>.</p>
+<h1>Analysis and Findings:</h1>
+<h2>1. How Did Netflix Content Volume Evolve Between 2008-2021?</h2>
+<div class="highlight"><pre><span></span><code><span class="n">df_result</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;year_added&#39;</span><span class="p">,</span><span class="s1">&#39;type&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="Netflix_content_evolution" src="https://ranganaths.com/images/netflix_content_evolution.png"></p>
+<ul>
+<li>Netflix was founded in 1997 as a DVD rental business, but they waited for internet infrastructure and its costs to improve in the US (2007-08) to start the streaming service.</li>
+<li>Between 2008 and 2014, Netflix added only <strong>54 titles</strong> in total, reflecting the slow transition from <strong>DVD rentals to streaming</strong> through licensing.</li>
+<li>Then the explosive growth of Netflix started in January 2016, when they expanded to 130+ countries. We can see a <strong>5.7x surge</strong> in content additions: from 73 titles (2015) to 418 titles(2016).</li>
+<li>Movies peaked in 2019 with <strong>1424 titles</strong>, while TV Shows peaked in 2020 with <strong>594 titles</strong>.</li>
+<li>After adding <strong>1,999 titles in 2019</strong>, Netflix content additions fell 25% by 2021. </li>
+<li><strong>Intense competition started in 2019</strong>, when major media companies started their own streaming services, they stopped licensing content to Netflix. This explains the post-2019 decline in content additions to Netflix.</li>
+<li>Additionally, COVID-19 disrupted global content production in 2020.</li>
+</ul>
+<p>Now let's see whether Netflix used old or new content to ramp up this volume.</p>
+<h2>2. How Recent is Netflix's Content?</h2>
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)[</span><span class="s1">&#39;content_age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="Netflix_content_freshness" src="https://ranganaths.com/images/netflix_content_freshness.png"></p>
+<ul>
+<li><code>content_age</code> is a derived column (<code>year_added</code> - <code>release_year</code>).</li>
+<li><strong>TV Shows:</strong> Median age is 0 years(added same year as release).</li>
+<li><strong>Movies:</strong> Median age is 2 years.</li>
+</ul>
+<p><strong>Why TV Shows are Added Sooner:</strong> In their early years, Netflix licensed TV Shows from media companies and added them to their catalogue within a year of each season's original release. These were either reruns after the season ended or added just before the new season to draw in new viewers. From 2012 onwards, Netflix began producing its own content labeled as "Netflix Originals", which are available from day one.</p>
+<p><strong>Movie windows:</strong>  Movies still follow traditional distribution: theatrical releases -&gt; premium video on demand -&gt; streaming. Hence the delay in adding movies to Netflix.</p>
+<h2>3. Which Countries Dominates Netflix's Catalog and Does Content Type Vary by Region?</h2>
+<ul>
+<li>To answer this, I split multi-country entries (e.g., "United States, India, United Kingdom") into separate rows, then counted titles per country.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">df_country</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_country</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_country</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span>
+<span class="n">df_exploded</span> <span class="o">=</span> <span class="n">df_country</span><span class="o">.</span><span class="n">explode</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)</span>
+<span class="c1"># ...</span>
+</code></pre></div>
+
+<p><img alt="Netflix_movies_shows" src="https://ranganaths.com/images/netflix_movies_shows.png"></p>
+<ul>
+<li><strong>The United States dominates</strong> the catalog with <strong>3,642 titles</strong>, accounting for <strong>about 42%</strong> of all content on Netflix.</li>
+<li>The top five content producing countries are: <strong>United States, India, UK, Canada, and France</strong>.</li>
+<li><strong>Movie-Heavy Countries</strong>: India(92%), Germany(81%) and France(78%).</li>
+<li><strong>TV Show-Heavy Countries:</strong> South Korea(73%) and Japan(62%).</li>
+</ul>
+<p><strong>Why These Patterns Exist:</strong></p>
+<p><strong>India's Movie Focus:</strong> 
+In India, historically cinema has been the primary entertainment medium, while TV content lagged in production quality. Netflix's Indian catalog reflects this cinema-first culture, though streaming platforms are now elevating the TV Show quality.</p>
+<p><strong>Japan's TV Dominance:</strong> Japanese TV content heavily features Anime series adapted from Manga, which come with in-built fan bases. This makes serialized anime production more commercially viable than standalone films.</p>
+<p><strong>South Korea's K-Drama Strategy:</strong> 
+Two key reasons that made K-Dramas globally competitive, and their strong presence on Netflix are:</p>
+<ol>
+<li><strong>Government policy:</strong> After the 1997 Asian financial crisis, South Korea strategically invested in "culture industries" (K-drama, K-pop) as low-capital export businesses, sparking the "Korean Wave" phenomenon. </li>
+<li><strong>Economic Efficiency:</strong> The cost per minute of content for most of the TV Shows is less compared to movies. </li>
+</ol>
+<p>This demonstrates Netflix's localization approach, matching content format with regional preferences rather than applying one-size-fits-all strategy. But did that mean the content reached only to local audiences? That's what the next section uncovers.</p>
+<h2>4. Which Genres Dominate Netflix's Library?</h2>
+<div class="highlight"><pre><span></span><code><span class="n">df_genres</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;type&#39;</span><span class="p">,</span><span class="s1">&#39;listed_in&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_genres</span><span class="p">[</span><span class="s1">&#39;listed_in&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;listed_in&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span>
+<span class="n">df_genres_exploded</span> <span class="o">=</span> <span class="n">df_genres</span><span class="o">.</span><span class="n">explode</span><span class="p">(</span><span class="s1">&#39;listed_in&#39;</span><span class="p">)</span>
+<span class="n">df_genres_exploded</span><span class="p">[</span><span class="s1">&#39;listed_in&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_genres_exploded</span><span class="p">[</span><span class="s1">&#39;listed_in&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="n">df_genres_groups</span> <span class="o">=</span> <span class="n">df_genres_exploded</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span>
+<span class="n">df_genres_groups</span><span class="p">[</span><span class="s1">&#39;listed_in&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="Netflix_movies_genre" src="https://ranganaths.com/images/netflix_movie_genre.png">
+<img alt="Netflix_show_genre" src="https://ranganaths.com/images/netflix_show_genre.png"></p>
+<p><strong>Overall Genre leaders:</strong></p>
+<ul>
+<li><strong>International content:</strong> 4,080 titles.</li>
+<li><strong>Drama:</strong> 3,166 titles (36% of catalog).</li>
+<li><strong>Comedy:</strong> 2,224 titles(26%).</li>
+<li><strong>Movies favor:</strong> Documentaries, Action &amp; Adventure and Independent Movies.</li>
+<li><strong>TV Shows favor:</strong> Crime TV Shows, Kids' TV and Docuseries.</li>
+</ul>
+<p><strong>The International content strategy:</strong>
+The 'International' label refers to content originating outside the viewer's region (e.g., non-English or non-US content for US viewers). Netflix recognized that great stories can come from anywhere and strategically invested in 'International content' to attract global subscribers. Examples like 'Money Heist (Spain)', 'Squid Game (South Korea)', and 'Lupin (France)' validated this approach.</p>
+<p><strong>Why Drama dominates:</strong>
+'Drama' creates emotional connections with audiences across all cultures. Additionally, dramas are cheaper to produce than Action, Sci-Fi, Adventure content(no stunts or CGI required), making them ideal for Netflix's volume-based content strategy.</p>
+<p><strong>Focus on True Crime:</strong> 
+Netflix also focused more on "True Crime" docuseries/documentaries, as they have global appeal and also cost effective to produce. </p>
+<h2>5. Is Netflix Family-Friendly or Adult-Oriented?</h2>
+<p><img alt="Netflix_content_rating" src="https://ranganaths.com/images/netflix_content_rating.png"></p>
+<p><strong>Rating Distribution:</strong></p>
+<ul>
+<li><strong>Mature content (TV-MA/R)</strong> 48% of Movies, 44% of TV Shows. </li>
+<li><strong>Teen content (PG-13/TV-14):</strong> 45% of Movies, 39% of TV Shows.</li>
+<li><strong>Kids content (G/TV-Y):</strong> 7% of Movies, 17% of TV Shows.</li>
+</ul>
+<p>Nearly half (47%) of Netflix content is rated mature, restricted to audiences 17+. When combined with teen content, 90% of the platform's content requires 'parental guidance' or age restrictions.</p>
+<p><strong>Why Netflix Prioritizes Mature Content:</strong></p>
+<ol>
+<li>Netflix's core paying subscribers are adults (18-49) and Netflix doesn't have any pressure from advertisers to influence content, so Netflix optimizes its content to this core audience to retain their subscription.</li>
+<li>By eliminating content restrictions, Netflix gave creative freedom for makers to tell their stories without any censorship restrictions. </li>
+</ol>
+<p>This demonstrates Netflix's strategic positioning as a more adult-oriented platform, deliberately differentiating from family-friendly competitors like Disney+.</p>
+<p>Content fit is important, but it can create an impact only when the release timing is right.</p>
+<h2>6. When Does Netflix Prefer to release Content?</h2>
+<h3>6.1 Day-of-Week Patterns:</h3>
+<div class="highlight"><pre><span></span><code><span class="n">df_day_patterns</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;type&#39;</span><span class="p">,</span><span class="s1">&#39;day_added&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_result</span> <span class="o">=</span> <span class="n">df_day_patterns</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span>
+<span class="n">df_result</span> <span class="o">=</span> <span class="n">df_result</span><span class="p">[</span><span class="s1">&#39;day_added&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;num_of_titles_added&#39;</span><span class="p">)</span>
+<span class="c1"># ...</span>
+</code></pre></div>
+
+<p><img alt="Netflix_day_of_week" src="https://ranganaths.com/images/netflix_day_of_week.png" width="800px"></p>
+<ul>
+<li>Netflix adds content mostly on <strong>Fridays</strong>, which is similar to traditional theatrical releases.</li>
+<li>This likely lets viewers start watching on Friday, binge over the weekend and discuss it with friends or colleagues on Monday, creating free and effective word-of-mouth marketing.</li>
+<li><strong>Saturdays and Sundays</strong> show the fewest releases.</li>
+</ul>
+<h3>6.2 Month-of-Year Patterns:</h3>
+<h4>Global Patterns:</h4>
+<div class="highlight"><pre><span></span><code><span class="n">df_month_patterns</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;type&#39;</span><span class="p">,</span><span class="s1">&#39;month_name&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_result</span> <span class="o">=</span> <span class="n">df_month_patterns</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span>
+<span class="n">df_result</span> <span class="o">=</span> <span class="n">df_result</span><span class="p">[</span><span class="s1">&#39;month_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;num_of_titles_added&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="Netflix_month_of_year1" src="https://ranganaths.com/images/netflix_month_of_year1.png">
+<img alt="Netflix_month_of_year2" src="https://ranganaths.com/images/netflix_month_of_year2.png"></p>
+<p><img alt="Netflix_month_show1" src="https://ranganaths.com/images/netflix_month_show1.png">
+<img alt="Netflix_month_show2" src="https://ranganaths.com/images/netflix_month_show2.png"></p>
+<ul>
+<li><strong>July</strong> is the most active month to release new content, which coincides with the summer holiday season in the US and Europe.</li>
+<li>Second most preferred month for TV Shows is <strong>December</strong>,  the holiday season in most Western countries.</li>
+<li>This indicates either Netflix's strategic holiday timing or simply when licensed content becomes available to add to Netflix.</li>
+<li><strong>February</strong> has the lowest content additions for both categories.</li>
+</ul>
+<h4>India's Patterns:</h4>
+<div class="highlight"><pre><span></span><code><span class="n">df_ind</span> <span class="o">=</span> <span class="n">df_result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">Ind_filt</span><span class="p">]</span>
+<span class="n">df_ind</span> <span class="o">=</span> <span class="n">df_ind</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span>
+<span class="n">df_ind</span> <span class="o">=</span> <span class="n">df_ind</span><span class="p">[</span><span class="s1">&#39;month_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;num_of_titles_added&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="Netflix_India_month1" src="https://ranganaths.com/images/netflix_india_month1.png"></p>
+<p><img alt="Netflix_India_month2" src="https://ranganaths.com/images/netflix_india_month2.png"></p>
+<ul>
+<li><strong>December</strong> - Christmas and New Year's Eve.</li>
+<li><strong>October/November</strong> - Dussehra and Diwali festivals.</li>
+<li><strong>April</strong> - Start of summer holidays for schools.</li>
+<li>Unlike the global <strong>July</strong> peak (summer in US/Europe), Indian content additions show patterns aligned with India's own holidays, likely reflecting either Netflix's localization strategy or Indian Film Industry's traditional holiday releases (or both).</li>
+</ul>
+<p>Netflix's rise follows a clear pattern. The analysis highlights three major moves: aggressive content production (not just licensing) from 2016 onward that unlocked network effects (more content -&gt; more users -&gt; more revenue -&gt; more content), a localization strategy that matched content formats to regional preferences like movies for India and TV shows for Japan and South Korea, and deliberate positioning with more mature content that differentiated Netflix from competitors.</p>
+<p>All of these insights were uncovered by using Pandas to clean the messy data, run datetime manipulations, and perform groupby operations on 8,700+ Netflix titles.</p>
+<p>You can find the complete code for this analysis <a href="https://github.com/6rivers/netflix-analysis-pandas">here</a>.</p>
+    </div>
+  </article>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="https://ranganaths.com/archives.html">Archives</a></li>
+    <li class="list-inline-item"><a href="https://ranganaths.com/categories.html">Categories</a></li>
+  </ul>
+  <p class="col-sm-6 text-xs-right text-muted small">
+    Powered by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+  </p>
+</div>    </div>
+  </footer>
+
+</body>
+
+</html>

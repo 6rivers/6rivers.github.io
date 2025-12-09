@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="english">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ranganaths.com/news-aggregator-web-app.html" />
+<meta property="og:title" content="News aggregator web app" />
+<meta property="og:description" content="This is about a web app, &quot;News Aggregator&quot; that serves users with daily News from different sources. It is built using Flask for the backend, and HTML / CSS for the frontend. This is..." />
+<meta property="og:image" content="https://ranganaths.com/images/newsaggregator.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://ranganaths.com/images/newsaggregator.jpg" />
+
+  <title>  News aggregator web app | Ranganath S
+</title>
+  <link rel="canonical" href="https://ranganaths.com/news-aggregator-web-app.html">
+
+    <link rel="apple-touch-icon" href="https://ranganaths.com/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="https://ranganaths.com/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://ranganaths.com/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://ranganaths.com/manifest.json">
+    <meta name="theme-color" content="#333333">
+
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/fontawesome.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/theme.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/theme1.css">
+
+  <link rel="alternate" type="application/atom+xml" title="Full Atom Feed"
+        href="https://ranganaths.com/feeds/all.atom.xml">
+  <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
+        href="https://ranganaths.com/feeds/python.atom.xml">  
+  <meta name="description" content="Building a News aggregator web app using Flask">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row gx-5">
+    <div class="col-xs-2">
+      <a href="https://ranganaths.com/">
+        <img class="img-fluid rounded-circle" src=https://ranganaths.com/images/avatar.png width=80 height=50 alt="Ranganath S">
+      </a>
+    </div>
+    <div class="col-xs-6 ml-3 p-1">
+      <a href="https://ranganaths.com/">
+        <img class="img-fluid" src=https://ranganaths.com/images/logo.svg width=200 height=160 alt="Ranganath S">
+      </a>
+      <p class="text-muted">Jottings on tech and life</p>
+    </div>
+    
+      <ul class="list-inline icons">
+          <li class="list-inline-item icon"><a class="fab fa-twitter h5" href="https://twitter.com/imRanganathS" target="_blank"></a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <i></i>
+      <h3>News aggregator web app</h3>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2022-10-09T00:00:00+05:30">
+          <i class="fas fa-clock"></i>
+          Sun 09 October 2022
+        </li>
+        <li class="list-inline-item">
+          <i class="fas fa-folder-open"></i>
+          <a href="https://ranganaths.com/category/python.html">Python</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content">
+      <p>This is about a web app, "News Aggregator" that serves users with daily News from different sources. It is built using Flask for the backend, and HTML / CSS for the frontend. This is a simple news aggregator that displays the Title, URL for the news with an image. It has different news categories like World, India, sports, etc. The final version of the web app can be seen at <a href="https://news-aggregator-i0e5.onrender.com/">News Aggregator</a> and the complete code at my <a href="https://github.com/6rivers/news-aggregator">GitHub Repo</a></p>
+<h1>Database:</h1>
+<p>The database for this application would have just two tables. One is to store the list of News sources(Source Table) and the other one is for news title, url, image_url, category, etc. These two tables have a relationship.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Source</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">24</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">image_url</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="p">)</span>
+    <span class="n">news</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">relationship</span><span class="p">(</span><span class="s1">&#39;News&#39;</span><span class="p">,</span> <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;news_source&#39;</span><span class="p">,</span> <span class="n">lazy</span><span class="o">=</span><span class="s1">&#39;dynamic&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">News</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">image_url</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">pub_date</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">64</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">source_id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;source.id&#39;</span><span class="p">))</span>
+</code></pre></div>
+
+<h1>News Source:</h1>
+<p>To source the news, I have used RSS feeds from different news outlets and also NewsAPI.  "requests" and "BeautifulSoup" libraries were used for the web scraping process.</p>
+<h1>News from RSS feeds:</h1>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span> <span class="nn">application</span> <span class="kn">import</span> <span class="n">db</span>
+<span class="kn">from</span> <span class="nn">application.models</span> <span class="kn">import</span> <span class="n">News</span><span class="p">,</span> <span class="n">Source</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.yahoo.com/news/rss&quot;</span>
+<span class="n">source</span> <span class="o">=</span> <span class="s1">&#39;Yahoo News&#39;</span>
+<span class="n">category</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0&#39;</span><span class="p">}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s1">&#39;lxml-xml&#39;</span><span class="p">)</span>
+<span class="n">items</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;item&#39;</span><span class="p">)</span>
+<span class="n">item</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span>
+<span class="n">link</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">text</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;media:content&#39;</span><span class="p">)</span>
+<span class="n">img_url</span> <span class="o">=</span> <span class="n">img</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span>
+<span class="n">pub_date</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">pubDate</span><span class="o">.</span><span class="n">text</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">Source</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">source</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">news</span> <span class="o">=</span> <span class="n">News</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">link</span><span class="p">,</span> <span class="n">image_url</span><span class="o">=</span><span class="n">img_url</span><span class="p">,</span>
+            <span class="n">pub_date</span><span class="o">=</span><span class="n">pub_date</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">,</span> <span class="n">news_source</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
+<span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">news</span><span class="p">)</span>
+<span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</code></pre></div>
+
+<h1>News from NewsAPI</h1>
+<p>Another way to get news data is from <a href="https: // newsapi.org /">NewsAPI</a>, through its JSON API. It provides an APIKey if we register(free) with them, to send API requests</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">application.models</span> <span class="kn">import</span> <span class="n">News</span><span class="p">,</span> <span class="n">Source</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://newsapi.org/v2/top-headlines&quot;</span>
+<span class="n">apiKey</span> <span class="o">=</span> <span class="s2">&quot;API Key you&#39;ve got from NewsAPI&quot;</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="s1">&#39;in&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="s1">&#39;sports&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;q&#39;</span><span class="p">:</span> <span class="s1">&#39;cricbuzz&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;sortBy&#39;</span><span class="p">:</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;apiKey&#39;</span><span class="p">:</span> <span class="n">apiKey</span>
+<span class="p">}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="n">articles</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;articles&#39;</span><span class="p">]</span>
+<span class="c1"># find the complete code at my GitHub repo</span>
+</code></pre></div>
+
+<p>After we get the data, we can save the required fields to the database tables as shown above.</p>
+<h1>App Routing:</h1>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">render_template</span>
+<span class="kn">from</span> <span class="nn">application</span> <span class="kn">import</span> <span class="n">app</span>
+<span class="kn">from</span> <span class="nn">application.models</span> <span class="kn">import</span> <span class="n">News</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="s1">&#39;india&#39;</span>
+    <span class="n">news</span> <span class="o">=</span> <span class="n">News</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">,</span> <span class="n">news</span><span class="o">=</span><span class="n">news</span><span class="p">)</span>
+</code></pre></div>
+
+<h1>Deployment:</h1>
+<p>To deploy this web app I have used <a href="https://render.com/docs/deploy-flask">Render</a>, you can find the final version of this web app at <a href="https://news-aggregator-i0e5.onrender.com/">News Aggregator</a></p>
+    </div>
+  </article>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="https://ranganaths.com/archives.html">Archives</a></li>
+    <li class="list-inline-item"><a href="https://ranganaths.com/categories.html">Categories</a></li>
+  </ul>
+  <p class="col-sm-6 text-xs-right text-muted small">
+    Powered by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+  </p>
+</div>    </div>
+  </footer>
+
+</body>
+
+</html>
