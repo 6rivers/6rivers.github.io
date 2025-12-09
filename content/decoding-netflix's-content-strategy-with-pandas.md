@@ -5,7 +5,7 @@ Summary: What 8,700+ titles (2008-2021) reveal about their rise to dominance
 opengraph_image: Decoding Netflix's Content Strategy with Pandas.png
 
 
-How did Netflix go from DVD rental company to dominating global streaming service? I analyzed 8,700+ Netflix titles (2008-2021) from Kaggle using **Pandas** to decode their content strategy across countries, formats and genres.
+How did Netflix go from DVD rental company to dominating global streaming service? I analyzed 8,700+ Netflix titles (2008-2021) from Kaggle using Pandas to decode their content strategy across countries, formats and genres.
 
 You can find the complete code for this analysis [here](https://github.com/6rivers/netflix-analysis-pandas).
 
@@ -40,8 +40,8 @@ df.groupby('type')['content_age'].describe()
 
 
 - `content_age` is a derived column (`year_added` - `release_year`).
-- TV Shows: Median age is 0 years(added same year as release).
-- Movies: Median age is 2 years.
+- **TV Shows:** Median age is 0 years(added same year as release).
+- **Movies:** Median age is 2 years.
 
 **Why TV Shows are Added Sooner:** In their early years, Netflix licensed TV Shows from media companies and added them to their catalogue within a year of each season's original release. These were either reruns after the season ended or added just before the new season to draw in new viewers. From 2012 onwards, Netflix began producing its own content labeled as "Netflix Originals", which are available from day one.
 
@@ -95,7 +95,9 @@ df_genres_groups['listed_in'].value_counts()
 ![Netflix_show_genre]({static}images/netflix_show_genre.png)
 
 
+
 **Overall Genre leaders:**
+
 - **International content:** 4,080 titles.
 - **Drama:** 3,166 titles (36% of catalog).
 - **Comedy:** 2,224 titles(26%).
