@@ -157,39 +157,28 @@ article {
     font-size: 17px;
 }
 
-/* Spacing around headings - only for content sections */
-article.article h2,
-article.article h3,
-article.article h4 {
+/* Remove default margins from all article headings first */
+article h1,
+article h2, 
+article h3,
+article h4 {
+    margin-top: 0;
+    margin-bottom: 0.75em;
+}
+
+/* ONLY add spacing to headings inside the main content area */
+article .content h2,
+article .content h3,
+article .content h4 {
     margin-top: 2em;
     margin-bottom: 0.8em;
     line-height: 1.3;
 }
 
-/* First heading after intro */
-article.article h2:first-of-type {
-    margin-top: 1.5em;
-}
-
-/* Article page title - no extra top margin */
-article.article > h1 {
-    margin-top: 0;
-    margin-bottom: 0.5em;
-}
-
-/* Homepage teaser titles - keep aligned */
-.teaser h4.title {
-    margin-top: 0;
-    margin-bottom: 0.5em;
-}
-
-/* Article header metadata - no extra margins */
-.article header {
-    margin-bottom: 1.5em;
-}
-
-.article header ul {
-    margin-top: 0;
+/* First content heading needs less top margin */
+article .content h2:first-child,
+article .content h3:first-child {
+    margin-top: 1em;
 }
 
 /* Paragraphs */
@@ -242,7 +231,7 @@ article li {
     margin-bottom: 0.5em;
 }
 
-/* Blockquotes (if you use them) */
+/* Blockquotes */
 article blockquote {
     margin: 2em 0;
     padding: 1em 1.5em;
