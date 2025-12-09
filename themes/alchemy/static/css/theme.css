@@ -157,16 +157,30 @@ article {
     font-size: 17px;
 }
 
-/* Spacing around headings */
-article h1, article h2, article h3 {
-    margin-top: 2.5em;
+/* Spacing around headings - only for content sections */
+article .content h1, 
+article .content h2, 
+article .content h3 {
+    margin-top: 2em;
     margin-bottom: 0.8em;
     line-height: 1.3;
 }
 
-/* First heading shouldn't have top margin */
-article h2:first-of-type {
+/* First content heading */
+article .content h1:first-of-type,
+article .content h2:first-of-type {
     margin-top: 1em;
+}
+
+/* Article title and header info - no extra margins */
+article > h1,
+article > h2,
+article > h3,
+article header h1,
+article header h2,
+article header h3 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
 }
 
 /* Paragraphs */
