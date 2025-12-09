@@ -78,6 +78,15 @@ p img {
   margin-bottom: .5rem;
 }
 
+/* Fix alignment: Remove Bootstrap column offset for homepage teasers */
+.teaser header.col-sm-4 {
+  padding-left: 0;
+}
+
+.teaser .col-sm-8 {
+  padding-left: 0;
+}
+
 .teaser .content p {
   margin-bottom: 0;
 }
@@ -85,6 +94,11 @@ p img {
 .article header ul,
 .article header li {
   margin-bottom: .5rem;
+}
+
+/* Fix alignment: Remove default padding from article header list */
+.article header ul {
+  padding-left: 0;
 }
 
 .article header li:not(:last-child) {
