@@ -76,8 +76,9 @@ In India, historically cinema has been the primary entertainment medium, while T
 
 **South Korea's K-Drama Strategy:** 
 Two key reasons that made K-Dramas globally competitive, and their strong presence on Netflix are:
-1. **Economic Efficiency:** The cost per minute of content for most of the TV Shows is less compared to movies. 
-2. **Government policy:** After the 1997 Asian financial crisis, South Korea strategically invested in "culture industries" (K-drama, K-pop) as low-capital export businesses, sparking the "Korean Wave" phenomenon. 
+
+1. **Government policy:** After the 1997 Asian financial crisis, South Korea strategically invested in "culture industries" (K-drama, K-pop) as low-capital export businesses, sparking the "Korean Wave" phenomenon. 
+2. **Economic Efficiency:** The cost per minute of content for most of the TV Shows is less compared to movies. 
  
 This demonstrates Netflix's localization approach, matching content format with regional preferences rather than applying one-size-fits-all strategy. But did that mean the content reached only to local audiences? That's what the next section uncovers.
 ## 4. Which Genres Dominate Netflix's Library?
