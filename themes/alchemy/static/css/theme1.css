@@ -78,13 +78,25 @@ p img {
   margin-bottom: .5rem;
 }
 
-/* Fix alignment: Remove Bootstrap column offset for homepage teasers */
-.teaser header.col-sm-4 {
-  padding-left: 0;
-}
+/* Fix alignment: Neutralize Bootstrap column padding to align both columns at the same left position */
+/* On larger screens, remove the gutter between columns */
+@media (min-width: 576px) {
+  .teaser.row {
+    margin-left: 0;
+    margin-right: 0;
+  }
 
-.teaser .col-sm-8 {
-  padding-left: 0;
+  .teaser header.col-sm-4,
+  .teaser .col-sm-8 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Ensure teaser title aligns with metadata */
+  .teaser .title {
+    margin-left: 0;
+    padding-left: 0;
+  }
 }
 
 .teaser .content p {
@@ -96,8 +108,15 @@ p img {
   margin-bottom: .5rem;
 }
 
-/* Fix alignment: Remove default padding from article header list */
+/* Fix alignment: Ensure article metadata aligns with container and title */
 .article header ul {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+/* Ensure article title (h3) has consistent left alignment */
+.main .container > h3 {
+  margin-left: 0;
   padding-left: 0;
 }
 

@@ -10,13 +10,7 @@
 {% endblock %}
 
 {% block page_header1 %}
-  {% if article.link %}
-    <a href="{{ article.link }}" rel="bookmark">
-  {% endif %}
-  {{ article.title }}
-  {% if article.link %}
-    <i class="fas fa-link"></i></a>
-  {% endif %}
+{% if article.link %}<a href="{{ article.link }}" rel="bookmark">{% endif %}{{ article.title }}{% if article.link %}<i class="fas fa-link"></i></a>{% endif %}
 {% endblock %}
 
 {% block content %}
