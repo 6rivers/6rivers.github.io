@@ -1,0 +1,224 @@
+﻿:root {
+    --alchemy-border: rgba(0,0,0,.1);
+}
+::selection {
+  background: #000000;
+  color: #ffffff;
+  text-shadow: none;
+}
+
+blockquote {
+  opacity: .7;
+  font-style: italic;
+}
+
+hr {
+  margin: 1.5rem 0;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.container {
+  max-width: 960px;
+}
+
+p img {
+  width:100%;
+}
+
+.header,
+.footer {
+  padding: 1.5rem 0 0.25rem;
+}
+
+.header 
+{
+    padding-top: 3rem;
+    padding-bottom: 1rem;
+  border-style: hidden;
+}
+
+
+
+.header .title {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.header ul,
+.header li {
+  margin-bottom: .5rem;
+}
+
+.header ul {
+  font-size: 1.25rem;
+  font-weight: 300;
+  text-transform: lowercase;
+}
+
+.main {
+  padding: 1rem 0;
+}
+
+.footer {
+  border-top: 1px solid var(--alchemy-border);
+}
+
+.highlight pre {
+  border: 1px solid var(--alchemy-border);
+  padding: 1rem;
+}
+
+.teaser header ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.teaser header li {
+  margin-bottom: .5rem;
+}
+
+/* Fix alignment: On mobile (below 576px), columns stack and metadata should align left */
+@media (max-width: 575px) {
+  .teaser header,
+  .teaser .title {
+    text-align: left;
+  }
+
+  .teaser header ul {
+    padding-left: 0;
+    margin-left: 0;
+  }
+}
+
+/* Fix alignment: On large screens (576px+), keep Bootstrap grid but align content within columns */
+@media (min-width: 576px) {
+  /* Keep row margins to work with Bootstrap's gutter system */
+  .teaser.row {
+    margin-left: -15px;
+    margin-right: -15px;
+    align-items: flex-start;
+  }
+
+  /* Align metadata flush left within its column */
+  .teaser header.col-sm-4 {
+    padding-left: 15px;
+  }
+
+  .teaser header ul {
+    padding-left: 0;
+    margin-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  /* Align title flush left within its column */
+  .teaser .col-sm-8 {
+    padding-left: 15px;
+  }
+
+  .teaser .title {
+    margin-left: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.teaser .content p {
+  margin-bottom: 0;
+}
+
+.article header ul,
+.article header li {
+  margin-bottom: .5rem;
+}
+
+/* Fix alignment: Ensure article metadata aligns with container and title */
+.article header ul {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+/* Ensure article title (h3) has consistent left alignment */
+.main .container > h3 {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.article header li:not(:last-child) {
+  margin-right: 10px;
+}
+
+.article .content a {
+  text-decoration: underline
+}
+
+.admonition {
+  border: thin solid gray;
+  background-color: lightgrey;
+  padding: .25em .5em;
+  margin-bottom: 1rem;
+}
+
+.admonition .admonition-title {
+  font-weight: bold;
+  background-color: rgba(255,255,255,0.66);
+  text-align: center;
+}
+
+.admonition p.last  {
+  margin-bottom: 0;
+}
+
+.admonition.important, .admonition.note, .admonition.warning {
+  border-color: goldenrod;
+  background-color: lightgoldenrodyellow;
+}
+
+.admonition.attention, .admonition.caution, .admonition.danger, .admonition.error {
+  border-color: red;
+  background-color: lightpink;
+}
+
+.admonition.hint, .admonition.tip {
+  border-color: limegreen;
+  background-color: palegreen;
+}
+
+@media (min-width: 376px) {
+  .header .title {
+    font-size: 3rem;
+  }
+  .icons{
+    margin: auto;
+    text-align: center;
+  }
+  
+
+}
+
+@media (max-width: 768px) {
+  .header,
+  .footer {
+    text-align: center;
+  }
+
+  .icons{
+    margin: auto;
+    text-align: center;
+  }
+
+  /* Ensure teaser items align to left on mobile */
+  .teaser header {
+    text-align: left;
+  }
+
+  .teaser header li {
+    display: inline-block;
+  }
+
+  .teaser header li:not(:last-child) {
+    margin-right: 10px;
+  }
+}

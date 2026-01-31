@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="english">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ranganaths.com/what-is-the-use-of-virtual-environments-in-python-projects.html" />
+<meta property="og:title" content="What is the use of Virtual Environments in Python projects?" />
+<meta property="og:description" content="Use of Virtual Environments in Python Projects: Virtual Environment is used to separate out the versions of packages for eg., Django or Flask. In general, if we install Packages directly..." />
+<meta property="og:image" content="https://ranganaths.com/images/opengraph-default.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://ranganaths.com/images/opengraph-default.jpg" />
+
+  <title>  What is the use of Virtual Environments in Python projects? | Ranganath S
+</title>
+  <link rel="canonical" href="https://ranganaths.com/what-is-the-use-of-virtual-environments-in-python-projects.html">
+
+    <link rel="apple-touch-icon" href="https://ranganaths.com/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="https://ranganaths.com/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://ranganaths.com/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://ranganaths.com/manifest.json">
+    <meta name="theme-color" content="#333333">
+
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/fontawesome.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/theme.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/theme1.css">
+
+  <link rel="alternate" type="application/atom+xml" title="Full Atom Feed"
+        href="https://ranganaths.com/feeds/all.atom.xml">
+  <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
+        href="https://ranganaths.com/feeds/python.atom.xml">  
+  <meta name="description" content="Virtual Environment is used to separate out the versions of packages.">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row gx-5">
+    <div class="col-xs-2">
+      <a href="https://ranganaths.com/">
+        <img class="img-fluid rounded-circle" src=https://ranganaths.com/images/avatar.png width=80 height=50 alt="Ranganath S">
+      </a>
+    </div>
+    <div class="col-xs-6 ml-3 p-1">
+      <a href="https://ranganaths.com/">
+        <img class="img-fluid" src=https://ranganaths.com/images/logo.svg width=200 height=160 alt="Ranganath S">
+      </a>
+      <p class="text-muted">Jottings on tech and life</p>
+    </div>
+    
+      <ul class="list-inline icons">
+          <li class="list-inline-item icon"><a class="fab fa-twitter h5" href="https://twitter.com/imRanganathS" target="_blank"></a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <i></i>
+      <h3>What is the use of Virtual Environments in Python projects?</h3>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2021-10-13T01:20:00+05:30">
+          <i class="fas fa-clock"></i>
+          Wed 13 October 2021
+        </li>
+        <li class="list-inline-item">
+          <i class="fas fa-folder-open"></i>
+          <a href="https://ranganaths.com/category/python.html">Python</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content">
+      <h3>Use of Virtual Environments in Python Projects:</h3>
+<ul>
+<li>Virtual Environment is used to separate out the versions of packages for eg., Django or Flask. </li>
+<li>In general, if we install Packages directly without Virtual Environment then they will be installed on global levels</li>
+<li>If you have multiple Django projects where some older projects need previous versions of Django and when you need a new project with the latest version of Django package and if you install it without virtual env then your older projects would be affected since the older version of Django package will be replaced with newer version after the upgrade. </li>
+<li>Hence it is best practice to use Virtual Env for each project and have whatever packages are needed for that particular project inside the virtual environment. </li>
+<li>venv is recommended for creating Virtual Environments from Python 3.5</li>
+<li>Create a folder for the new project then cd to the folder and execute below to create new virtual env</li>
+</ul>
+<h4>Creating Virtual Env:</h4>
+<p>cd to your project folder</p>
+<h5>Linux:</h5>
+<p><code>sudo apt install python3-pip</code> to install pip if not already present. </p>
+<p>Now install a tool for creating isolated virtual python environments or you can use <code>venv</code> that comes directly with Python installation</p>
+<p><code>pip install virtualenv</code></p>
+<p><code>virtualenv env_name</code>  or
+<code>python3 -m venv env_name</code> </p>
+<p>this will create a new folder(env_name) in your current directory</p>
+<p>To activate a virtual environment</p>
+<p><code>source env_name/bin/activate</code></p>
+<p>After activation, you would see a change similar to 
+<code>(venv) C:\Users\Name\Folder&gt;</code> </p>
+<p><code>deactivate</code> -- to deactivate the venv</p>
+<h5>Windows:</h5>
+<p><code>python -m venv env_name</code> -- to create Virtual Environment</p>
+<p><code>env_name\scripts\activate</code> -- to activate</p>
+<p><code>deactivate</code> -- to deactivate</p>
+<h5>other info:</h5>
+<p>Do not store any project scripts inside 'env_name' folder</p>
+<p><code>pip list</code> -- to get a list of packages installed in the current venv</p>
+<p><code>pip freeze</code> -- to get a list of packages in a format usable to copy for requirements.txt</p>
+<p>command to create a requirements.txt file with a list of packages installed in the current project
+<code>pip freeze &gt; requirements.txt</code> </p>
+<p>To directly install all packages from the requirements.txt use 
+<code>pip install -r requirements.txt</code></p>
+    </div>
+  </article>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="https://ranganaths.com/archives.html">Archives</a></li>
+    <li class="list-inline-item"><a href="https://ranganaths.com/categories.html">Categories</a></li>
+  </ul>
+  <p class="col-sm-6 text-xs-right text-muted small">
+    Powered by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+  </p>
+</div>    </div>
+  </footer>
+
+</body>
+
+</html>

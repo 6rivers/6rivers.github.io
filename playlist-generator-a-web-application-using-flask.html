@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="english">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ranganaths.com/playlist-generator-a-web-application-using-flask.html" />
+<meta property="og:title" content="Playlist Generator - a web application using Flask" />
+<meta property="og:description" content="This article is about my recent side project, building a web application using Flask(a micro web framework written in Python), PostgreSQL for database, HTML/CSS for frontend, Heroku for..." />
+<meta property="og:image" content="https://ranganaths.com/images/newsaggregator.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://ranganaths.com/images/newsaggregator.jpg" />
+
+  <title>  Playlist Generator - a web application using Flask | Ranganath S
+</title>
+  <link rel="canonical" href="https://ranganaths.com/playlist-generator-a-web-application-using-flask.html">
+
+    <link rel="apple-touch-icon" href="https://ranganaths.com/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="https://ranganaths.com/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://ranganaths.com/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://ranganaths.com/manifest.json">
+    <meta name="theme-color" content="#333333">
+
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/fontawesome.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/theme.css">
+  <link rel="stylesheet" href="https://ranganaths.com/theme/css/theme1.css">
+
+  <link rel="alternate" type="application/atom+xml" title="Full Atom Feed"
+        href="https://ranganaths.com/feeds/all.atom.xml">
+  <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
+        href="https://ranganaths.com/feeds/python.atom.xml">  
+  <meta name="description" content="Building a web application using Flask">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row gx-5">
+    <div class="col-xs-2">
+      <a href="https://ranganaths.com/">
+        <img class="img-fluid rounded-circle" src=https://ranganaths.com/images/avatar.png width=80 height=50 alt="Ranganath S">
+      </a>
+    </div>
+    <div class="col-xs-6 ml-3 p-1">
+      <a href="https://ranganaths.com/">
+        <img class="img-fluid" src=https://ranganaths.com/images/logo.svg width=200 height=160 alt="Ranganath S">
+      </a>
+      <p class="text-muted">Jottings on tech and life</p>
+    </div>
+    
+      <ul class="list-inline icons">
+          <li class="list-inline-item icon"><a class="fab fa-twitter h5" href="https://twitter.com/imRanganathS" target="_blank"></a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <i></i>
+      <h3>Playlist Generator - a web application using Flask</h3>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2022-05-30T00:00:00+05:30">
+          <i class="fas fa-clock"></i>
+          Mon 30 May 2022
+        </li>
+        <li class="list-inline-item">
+          <i class="fas fa-folder-open"></i>
+          <a href="https://ranganaths.com/category/python.html">Python</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content">
+      <ul>
+<li>This article is about my recent side project, building a web application using <ul>
+<li>Flask(a micro web framework written in Python), </li>
+<li>PostgreSQL for database, </li>
+<li>HTML/CSS for frontend, </li>
+<li>Heroku for deployment</li>
+</ul>
+</li>
+</ul>
+<p><strong>Note: This project is just to demonstrate coding patterns and NOT for commercial purposes.</strong></p>
+<h4>What/Why this application?</h4>
+<ul>
+<li>We usually like different playlists from different providers, e.g., I like "Weekly Top 20: English" from Wynk and also LastFM's "Top Tracks" playlist. But having these playlists in a single place(Spotify) is very convenient</li>
+<li>Using this application, users can select any listed playlist from available providers like LastFM, BillBoard, etc., and can directly create those playlists in their Spotify account with few clicks.</li>
+</ul>
+<p><img alt="playlists" src="https://ranganaths.com/images/playlists.png"></p>
+<h5>This article documents how I went about building this feature in Flask:</h5>
+<ul>
+<li>I have used <a href="https://developer.spotify.com/">Spotify's Web API</a> to handle authorization. Spotify provides good documentation on authorization, different endpoints to access the User's data, and how to send requests to Spotify API on the user's behalf to create playlists and add items to playlists.</li>
+</ul>
+<h6>Authorization:</h6>
+<div class="highlight"><pre><span></span><code><span class="n">base_url</span> <span class="o">=</span> <span class="s1">&#39;https://accounts.spotify.com&#39;</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/authorize&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">authorize</span><span class="p">():</span>
+    <span class="n">auth_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s1">/authorize?client_id=</span><span class="si">{</span><span class="n">client_id</span><span class="si">}</span><span class="s1">&amp;response_type=code&amp;redirect_uri=</span><span class="si">{</span><span class="n">redirect_uri</span><span class="si">}</span><span class="s1">&amp;scope=</span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s1">&#39;</span>
+
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">auth_url</span><span class="p">)</span>
+</code></pre></div>
+
+<ul>
+<li>Here Scopes provide Spotify users using third-party apps the confidence that only the information they choose to share will be shared, and nothing more. When a user attempts to create a playlist, they will be redirected to log in to Spotify. Once they log in and provide authorization, then Spotify redirects to the callback URL, which should match the redirect URL in our Spotify developer account. </li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/callback&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">callback</span><span class="p">():</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)</span>
+
+    <span class="n">token_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/api/token&quot;</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Basic </span><span class="si">{</span><span class="n">client_creds_b64</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/x-www-form-urlencoded&#39;</span>
+    <span class="p">}</span>
+
+    <span class="n">body</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;grant_type&#39;</span><span class="p">:</span> <span class="s1">&#39;authorization_code&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">code</span><span class="p">),</span>
+        <span class="s1">&#39;redirect_uri&#39;</span><span class="p">:</span> <span class="n">redirect_uri</span>
+    <span class="p">}</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">token_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">body</span><span class="p">)</span>
+    <span class="n">json_response</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="n">session</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json_response</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span>
+    <span class="n">session</span><span class="p">[</span><span class="s1">&#39;refresh_token&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json_response</span><span class="p">[</span><span class="s1">&#39;refresh_token&#39;</span><span class="p">]</span>
+    <span class="c1"># ..</span>
+    <span class="c1"># ..</span>
+    <span class="c1"># ..</span>
+
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;play_list&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;prev_url&#39;</span><span class="p">]))</span>
+</code></pre></div>
+
+<ul>
+<li>Once Spotify redirects the request to '/callback', we need to send a post request to '{base_url}/api/token' with an encoded version of (ID:secret) along with the code received, redirect_uri in the body of the request as shown above. A successful request which has a status code of 200, returns 'access token' and 'refresh token'. This access token is used to make API calls on behalf of the user. I have used the flask session object to store these values.</li>
+</ul>
+<h6>Create playlist and add songs:</h6>
+<ul>
+<li>By now, we have all essentials to Create a playlist and add songs to it on behalf of the user. These two are separate POST requests. </li>
+</ul>
+<p><code>base_endpoint = 'https://api.spotify.com'</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Creating a playlist</span>
+
+<span class="k">def</span> <span class="nf">create_playlist</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">access_token</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="n">endpoint</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_endpoint</span><span class="si">}</span><span class="s2">/v1/users/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">/playlists&quot;</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Bearer </span><span class="si">{</span><span class="n">access_token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span>
+    <span class="p">}</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;By Playlist Generator&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;public&#39;</span><span class="p">:</span> <span class="kc">False</span>
+    <span class="p">})</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">body</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">201</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Adding songs to the playlist created in the above step</span>
+
+<span class="k">def</span> <span class="nf">add_songs</span><span class="p">(</span><span class="n">playlist_id</span><span class="p">,</span> <span class="n">access_token</span><span class="p">,</span> <span class="n">uris</span><span class="p">):</span>
+    <span class="n">endpoint</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_endpoint</span><span class="si">}</span><span class="s2">/v1/playlists/</span><span class="si">{</span><span class="n">playlist_id</span><span class="si">}</span><span class="s2">/tracks&quot;</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Bearer </span><span class="si">{</span><span class="n">access_token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span>
+    <span class="p">}</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+        <span class="s1">&#39;uris&#39;</span><span class="p">:</span> <span class="n">uris</span>
+    <span class="p">})</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">body</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">201</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+</code></pre></div>
+
+<h6>Auto-Update Feature:</h6>
+<ul>
+<li>This application also provides the user an option to auto-update the desired playlist every week. For this, the user needs to create an account with this application, so that we can save the refresh token, playlist_id in the database. To implement this feature, I have used The association object pattern which is a variant on many-to-many, this is useful when we need an extra column, in this case, user_playlist_id, beyond the foreign keys to the left and right tables.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Subscriptions</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;subscriptions&#39;</span>
+
+    <span class="n">user_id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="s1">&#39;users.id&#39;</span><span class="p">),</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">playlist_id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="s1">&#39;playlists.id&#39;</span><span class="p">),</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">user_playlist_id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">60</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">subscribed_user</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">relationship</span><span class="p">(</span><span class="s2">&quot;User&quot;</span><span class="p">,</span> <span class="n">back_populates</span><span class="o">=</span><span class="s1">&#39;user_playlists&#39;</span><span class="p">)</span>
+    <span class="n">subscribed_playlist</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">relationship</span><span class="p">(</span>
+        <span class="s2">&quot;Playlist&quot;</span><span class="p">,</span> <span class="n">back_populates</span><span class="o">=</span><span class="s1">&#39;playlist_users&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h6>Getting playlists from different providers:</h6>
+<ul>
+<li>Till now I have discussed Spotify Authorization, and playlist creation, but how did I get all these playlist data from different providers like LastFM, billboard, etc., into my database? For this, I have used the 'Web Scraping' technique. This is used when you need a large amount of information from a website but it doesn't have any API to access that data. Most of this data is unstructured data in the HTML format, and we need to process it and save it in our database. For this, I have chosen the 'Beautiful Soup' Library in Python due to its simplicity.</li>
+</ul>
+<p>Below is the sample code for web scraping: </p>
+<p><code>pip install beautifulsoup4</code></p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://wynk.in/music/playlist/weekly-top-20-english/bb_1527140401220&#39;</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;lxml&#39;</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;ml-4 flex flex-col lg:my-auto&#39;</span><span class="p">)</span>
+<span class="n">songs_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+        <span class="n">track</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">find</span><span class="p">(</span>
+            <span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;text-base line-clamp-1 text-title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">artist</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">find</span><span class="p">(</span>
+            <span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;text-xs text-subtitle-hover line-clamp-1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">songs_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">({</span><span class="s1">&#39;song&#39;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span> <span class="s1">&#39;artist&#39;</span><span class="p">:</span> <span class="n">artist</span><span class="p">}))</span>
+</code></pre></div>
+
+<p><em>Remember that Web scraping is a kind of grey area, so check with the website's terms if you are using it for commercial purposes also web scraping consumes server resources for the host website. If we just scrape one page once, it would be ok, but if our code scrapes 1000s of pages, then it will get expensive for the website owner. So please avoid that.</em></p>
+<h6>Deployment:</h6>
+<ul>
+<li>I have chosen Heroku, a popular cloud hosting platform, which is very friendly for python applications. It has a free service tier that allows us to deploy our application without spending any money. </li>
+<li>I have referenced <a href="https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xviii-deployment-on-heroku">Miguel's Post</a> for this deployment.</li>
+<li>For us to open this application for a broader user base we need to submit a quota extension request in the Spotify developer account. I prefer not to use that since this is a hobby project.</li>
+</ul>
+    </div>
+  </article>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="https://ranganaths.com/archives.html">Archives</a></li>
+    <li class="list-inline-item"><a href="https://ranganaths.com/categories.html">Categories</a></li>
+  </ul>
+  <p class="col-sm-6 text-xs-right text-muted small">
+    Powered by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+  </p>
+</div>    </div>
+  </footer>
+
+</body>
+
+</html>
