@@ -30,3 +30,33 @@ To make the results look good, you can use [JSON Formatter](https://chrome.googl
 ![image3]({static}images/20220817140345.png)
 
 You can integrate this within your application by using the chat_id to send alerts or custom messages to the user.
+
+### Sending Messages to Users:
+
+Once you have the `chat_id`, you can send messages back to your users. Here's how to send a message using Python:
+
+```python
+import requests
+
+bot_token = "your_bot_token_here"
+chat_id = "user_chat_id_here"
+message = "Hello! This is a message from your bot."
+
+url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+params = {
+    "chat_id": chat_id,
+    "text": message
+}
+
+response = requests.post(url, params=params)
+
+if response.status_code == 200:
+    print("Message sent successfully!")
+else:
+    print(f"Failed to send message: {response.text}")
+```
+
+You can also send messages directly from your browser by visiting:
+`https://api.telegram.org/bot{your_bot_token}/sendMessage?chat_id={chat_id}&text=Your message here`
+
+This completes the bi-directional communication - your bot can now both receive messages from users (via getUpdates) and send messages to them (via sendMessage).

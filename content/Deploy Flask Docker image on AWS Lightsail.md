@@ -36,12 +36,26 @@ def home():
     return '<h3>This is a demo for deploying a flask app on AWS Lightsail using Docker</h3>'
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
 ```
 
-- Now create a 'requirements.txt' file and write `Flask==2.1.2` and save the file.
+- Now create a 'requirements.txt' file and write `Flask==2.1.2` and `gunicorn==20.1.0` (one per line) and save the file.
 
 #### Dockerize Flask app:
+
+- First, create a `.dockerignore` file to exclude unnecessary files from the Docker image:
+```
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.env
+.git
+.gitignore
+*.md
+```
 
 - Create a new 'Dockerfile' and write the below commands and save it.
 ```Dockerfile
@@ -53,8 +67,7 @@ COPY . /app
 RUN pip install -r requirements.txt
 
 EXPOSE 5000
-ENTRYPOINT [ "python" ]
-CMD [ "application.py" ]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "application:app"]
 ```
 
 - run below command to create docker image
@@ -123,3 +136,7 @@ aws lightsail create-container-service-deployment --service-name flask-app --con
 ```cmd
 aws lightsail delete-container-service --service-name flask-app
 ```
+
+#### Production Deployment Note:
+
+**Important:** This tutorial uses Gunicorn, a production-ready WSGI server, which is the recommended approach for deploying Flask applications. Never use Flask's built-in development server (`flask run` or `app.run()` without a WSGI server) in production environments, as it's not designed to handle real-world traffic securely or efficiently.

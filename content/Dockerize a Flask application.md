@@ -27,9 +27,9 @@ python -m venv venv
 venv\scripts\activate
 ```
 
-- Within activated virtual environment, install Flask
+- Within activated virtual environment, install Flask and Gunicorn (a production WSGI server)
 ```python
-pip install Flask
+pip install Flask gunicorn
 ```
 
 - Create a new "application.py" in the same folder and add below sample code
@@ -54,6 +54,24 @@ if __name__ == '__main__':
 
 - To verify, go to "http://127.0.0.1:5000/" in your browser.
 
+#### .dockerignore file:
+
+- Before creating the Dockerfile, create a `.dockerignore` file in the root folder to exclude unnecessary files from the Docker image.
+```
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.env
+.git
+.gitignore
+*.md
+```
+
+- This prevents copying virtual environment, cache files, and other unnecessary files into the Docker image, making it smaller and more secure.
+
 #### Dockerfile:
 
 - The command that is used to build container images is `docker build` and we can give instructions to this build command using a file called "Dockerfile".
@@ -67,7 +85,7 @@ COPY . /app
 RUN pip install -r requirements.txt
 
 EXPOSE 5000
-CMD ["flask", "run", "--host", "0.0.0.0"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "application:app"]
 ```
 
 - "`FROM python:3.8-slim`" tells the Docker which base image to be used, in this case, a Python image.
@@ -75,7 +93,7 @@ CMD ["flask", "run", "--host", "0.0.0.0"]
 - `COPY . /app`, this command makes the Docker to copy all the files in our local root directory to container's '/app' folder.
 - `RUN pip install -r requirements.txt` will install each requirement written in the requirements.txt file.
 - `EXPOSE 5000`, the port that this container will use for web server can be configured by this command. (5000 is the standard Flask port)
-- `CMD ["flask", "run", "--host", "0.0.0.0"]`, this command starts the server. Here we are using `host = 0.0.0.0` which makes Flask to listen all IP addresses in that container so that the container can be accessible from outside.
+- `CMD ["gunicorn", "--bind", "0.0.0.0:5000", "application:app"]`, this command starts the server. Here we are using `host = 0.0.0.0` which makes Flask to listen all IP addresses in that container so that the container can be accessible from outside.
 
 #### Build a Docker Image: 
 
@@ -97,6 +115,14 @@ docker run --name flask-app -d -p 5000:5000 flask-demo-app:latest
 ![check_app]({static}images/docker_flask_1.png)
 
 - When we have locally tested docker containers, we can migrate them to cloud services that support Docker.
+n#### Production vs Development:
+
+**Important Note:** Flask's built-in development server (`flask run`) should never be used in production as it's not designed to be secure or efficient. For production deployments, always use a production WSGI server like:
+- **Gunicorn** (used in this tutorial) - Simple and widely used
+- **uWSGI** - More features and configuration options
+- **Waitress** - Pure Python, good for Windows
+
+The Dockerfile in this tutorial uses Gunicorn, making it production-ready.
 #### Other Info:
 - `docker ps` to see the list of containers running currently
 - `docker stop <docker-id>` to stop the container

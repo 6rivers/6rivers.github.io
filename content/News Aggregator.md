@@ -47,21 +47,57 @@ url = "https://www.yahoo.com/news/rss"
 source = 'Yahoo News'
 category = 'world'
 headers = {'User-Agent': 'Mozilla/5.0'}
-response = requests.get(url, headers=headers).content
-soup = BeautifulSoup(response, 'lxml-xml')
-items = soup.find_all('item')
-item = items[0]
-title = item.title.text
-link = item.link.text
-img = item.find('media:content')
-img_url = img['url']
-pub_date = item.pubDate.text
-s = Source.query.filter_by(name=source).first()
-news = News(title=title, url=link, image_url=img_url,
-            pub_date=pub_date, category=category, news_source=s)
-db.session.add(news)
-db.session.commit()
+
+try:
+    response = requests.get(url, headers=headers, timeout=10)
+    response.raise_for_status()  # Raise an error for bad status codes
+    soup = BeautifulSoup(response.content, 'lxml-xml')
+    items = soup.find_all('item')
+
+    if not items:
+        print(f"No items found in RSS feed for {source}")
+
+    for item in items:
+        try:
+            # Safely extract data with fallbacks
+            title = item.title.text if item.title else "No Title"
+            link = item.link.text if item.link else ""
+
+            # Handle optional image element
+            img = item.find('media:content')
+            img_url = img['url'] if img and img.has_attr('url') else ""
+
+            pub_date = item.pubDate.text if item.pubDate else ""
+
+            # Skip if essential fields are missing
+            if not link:
+                continue
+
+            s = Source.query.filter_by(name=source).first()
+            news = News(title=title, url=link, image_url=img_url,
+                        pub_date=pub_date, category=category, news_source=s)
+            db.session.add(news)
+
+        except AttributeError as e:
+            print(f"Error parsing item: {e}")
+            continue
+
+    db.session.commit()
+
+except requests.exceptions.RequestException as e:
+    print(f"Error fetching RSS feed: {e}")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+    db.session.rollback()
 ```
+
+**Note on Error Handling:** The updated code above includes error handling to make the scraper more robust:
+- Handles network failures and timeouts
+- Checks for missing HTML elements before accessing them
+- Validates that essential fields exist before creating database records
+- Uses database rollback on errors to maintain data integrity
+
+This is crucial for web scraping since website structures can change unexpectedly.
 
 # News from NewsAPI
 
