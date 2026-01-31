@@ -25,7 +25,7 @@ Now, you have a new bot, which Telegram users can find and use it.
 
 When a user sends `/start` to your bot, you will have new updates for this bot at `https://api.telegram.org/bot{your_bot_token}/getUpdates` (replace {your_bot_token} with the token you got in the above step). You can use any browser to see the results.
 
-To make the results look good, you can use[JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/mhimpmpmffogbmmkmajibklelopddmjf) extension if you are using a chrome browser. You will get information like the user's name, username, chat_id, and the text the user has sent to you.
+To make the results look good, you can use [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/mhimpmpmffogbmmkmajibklelopddmjf) extension if you are using a chrome browser. You will get information like the user's name, username, chat_id, and the text the user has sent to you.
 
 ![image3]({static}images/20220817140345.png)
 

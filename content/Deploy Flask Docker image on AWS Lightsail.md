@@ -71,7 +71,7 @@ docker run --name flask-service -d -p 5000:5000 flask-lightsail:latest
 
 Now, we need to deploy this image to AWS Lightsail. For that we need to create Lightsail container service using the AWS CLI and push our local container image to the new Lightsail container service.
 
-- To create the Lightsail container service use below command, where power and scale parameters represents the capacity of the container service. Here we are using "mirco" which provides **vCPU:** 0.25 and **RAM:** 1GB. This option is free of charge for first three months.
+- To create the Lightsail container service use below command, where power and scale parameters represents the capacity of the container service. Here we are using "micro" which provides **vCPU:** 0.25 and **RAM:** 1GB. This option is free of charge for first three months.
 ```cmd
 aws lightsail create-container-service --service-name flask-app --power micro --scale 1
 ```
@@ -99,7 +99,7 @@ Refer to this image as ":flask-app.flask-container-image.8" in deployments
 ```json
 {
     "flask": {
-        "image": ":flask-app.flask-container.7",
+        "image": ":flask-app.flask-container-image.8",
         "ports": {
             "5000": "HTTP"
         }

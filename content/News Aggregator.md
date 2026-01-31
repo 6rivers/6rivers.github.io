@@ -1,5 +1,5 @@
 Title: News aggregator web app
-Date: 2022 - 10 - 09
+Date: 2022-10-09
 Category: Python
 Summary: Building a News aggregator web app using Flask
 opengraph_image: newsaggregator.jpg
@@ -65,7 +65,7 @@ db.session.commit()
 
 # News from NewsAPI
 
-Another way to get news data is from [NewsAPI](https: // newsapi.org /), through its JSON API. It provides an APIKey if we register(free) with them, to send API requests
+Another way to get news data is from [NewsAPI](https://newsapi.org/), through its JSON API. It provides an APIKey if we register(free) with them, to send API requests
 
 ```python
 import requests
